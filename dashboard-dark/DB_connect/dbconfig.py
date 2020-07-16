@@ -10,7 +10,7 @@ class DbConfig:
     def __init__(self, db_info=None):
         if str(type(db_info)) == "<class 'str'>":
             sysNm = str(db_info)
-            if sysNm == 'zero':  # MDM 운영
+            if sysNm == 'zero':  # aws zero
                 self.db_config = {
                     'host': 'zerosum.cqjm9uq4vsof.ap-northeast-2.rds.amazonaws.com'
                     , 'user': 'zero'
