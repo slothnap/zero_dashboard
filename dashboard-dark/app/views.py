@@ -9,6 +9,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+from .models import AppBook
+
+class App_Book(generic.TemplateView):
+    def get(self, request, *args, **kwargs):
+        template_name = 'todo_board/todo_list.html'
+        todo_list = AppBook.objects.all()
+        return render(request, template_name), {"todo_list": todo_list}
 
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
