@@ -10,13 +10,17 @@ from django.template import loader
 from django.http import HttpResponse
 from django import template
 from .models import AppBook
+from django.views import generic
 
-class App_Book(generic.TemplateView):
-    def get(self, request, *args, **kwargs):
-        template_name = 'todo_board/todo_list.html'
-        todo_list = AppBook.objects.all()
-        return render(request, template_name), {"todo_list": todo_list}
+def AppBook(request):
+    app_book = AppBook.objects.all()
+    return render(request, "test1.html"), {"app_book": app_book}
 
+# class AppBook(generic.TemplateView):
+#     def get(self, request, *args, **kwargs):
+#         template_name = 'test1.html'
+#         app_book = AppBook.objects.all()
+#         return render(request, template_name), {"app_book": app_book}
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 첫번째 페이지 지정
