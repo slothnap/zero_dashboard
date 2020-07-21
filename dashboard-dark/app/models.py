@@ -12,8 +12,9 @@ from django.contrib.auth.models import User
 
 class Shop(models.Model):
     name = models.CharField(max_length=100)
-    tel = models.CharField(max_length=20)
-    addr = models.CharField(max_length=100)
+    day1 = models.IntegerField(default=0)
+    day2 = models.IntegerField(default=0)
+    day3 = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
