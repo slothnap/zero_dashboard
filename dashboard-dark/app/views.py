@@ -9,6 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+<<<<<<< HEAD
 from .models import Shop
 
 
@@ -16,6 +17,20 @@ from .models import Shop
 #     return render(request, "test1.html", {
 #         'shop_list': Shop.objects.all(),
 #     })
+=======
+from .models import AppBook
+from django.views import generic
+
+def AppBook(request):
+    app_book = AppBook.objects.all()
+    return render(request, "test1.html"), {"app_book": app_book}
+
+# class AppBook(generic.TemplateView):
+#     def get(self, request, *args, **kwargs):
+#         template_name = 'test1.html'
+#         app_book = AppBook.objects.all()
+#         return render(request, template_name), {"app_book": app_book}
+>>>>>>> d26c6b252f956a34c03b4352e42b3882814a37b0
 
 def index(request):
     return render(request, "charts.html")
