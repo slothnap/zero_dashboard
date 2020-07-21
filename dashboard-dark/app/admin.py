@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django.contrib import admin
-from app.models import *
+from .models import Shop
 
 # Register your models here.
-admin.site.register(Book)
+admin.site.register(Shop)

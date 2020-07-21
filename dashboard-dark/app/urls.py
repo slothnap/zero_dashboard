@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django.urls import path, re_path
-from app import views
+from . import views
 
 
 
@@ -17,4 +17,6 @@ urlpatterns = [
     # The home page
     # 첫번째 페이지 나오게
     path('', views.index, name='index'),
+
+    path('shop-test/',views.shop_test, name='shop-test'),
 ]

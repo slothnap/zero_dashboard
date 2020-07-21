@@ -9,19 +9,34 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-from .models import AppBook
+from .models import Shop
 
-class App_Book(generic.TemplateView):
-    def get(self, request, *args, **kwargs):
-        template_name = 'todo_board/todo_list.html'
-        todo_list = AppBook.objects.all()
-        return render(request, template_name), {"todo_list": todo_list}
+
+# def index(request):
+#     return render(request, "test1.html", {
+#         'shop_list': Shop.objects.all(),
+#     })
+
+def index(request):
+    return render(request, "charts.html")
+
+# def index(request):
+#     shop_list = Shop.objects.all()
+#     context = {'shop_list':shop_list}
+#     return render(request, "test1.html", context)
+
+
+def shop_test(request):
+    shop_list = Shop.objects.all()
+    context = {"shop_list": shop_list}
+    return render(request, "charts.html", context)
+
 
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 첫번째 페이지 지정
-def index(request):
-    return render(request, "charts.html")
+# def index(request):
+#     return render(request, "charts.html")
 
 # @login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 모든 html 파일 열게
