@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 # python manage.py makemigrations
 # python manage.py migrate
+# python manage.py inspectdb
 """
 License: MIT
 Copyright (c) 2019 - present AppSeed.us
