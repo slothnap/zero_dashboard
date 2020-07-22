@@ -128,10 +128,14 @@
                     <div class="card-body">
                         <div class="card-sub">
                             Sometimes you need a very complex legend. In these cases, it makes sense to generate an HTML legend. Charts provide a generateLegend() method on their prototype that returns an HTML string for the legend.
-                            {% for shop in shop_list %}
-                                {{ shop.name }}
-                                {{ shop.tel }}
-                            {% endfor %}
+<!--                    {% for shop in shop_list %}-->
+<!--                        <li>-->
+<!--                            {{shop.name}}-->
+<!--                            {{shop.day1}}-->
+<!--                            {{shop.day2}}-->
+<!--                            {{shop.day3}}-->
+<!--                        </li>-->
+<!--                    {% endfor %}-->
                         </div>
                         <div class="chart-container">
                             <canvas id="htmlLegendsChart"></canvas>
@@ -148,6 +152,16 @@
 {% block javascripts %}
 
 	<script>
+
+	    var temp = "{{shop_list}}";
+        var temp2 = temp.replace(/&#39;/g, "\"");
+
+        var data = JSON.parse(temp2);
+        var data2 = Object.values(data[0]).splice(2,3);
+
+        console.log(data);
+        console.log(data2);
+
 	    var lineChart2 = document.getElementById('lineChart2').getContext('2d'),
 		lineChart = document.getElementById('lineChart').getContext('2d'),
 		barChart = document.getElementById('barChart').getContext('2d'),
@@ -158,6 +172,8 @@
 		multipleLineChart = document.getElementById('multipleLineChart').getContext('2d'),
 		multipleBarChart = document.getElementById('multipleBarChart').getContext('2d'),
 		htmlLegendsChart = document.getElementById('htmlLegendsChart').getContext('2d');
+
+
 
         var myLineChart2 = new Chart(lineChart2, {
 			type: 'line',

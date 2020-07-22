@@ -18,15 +18,14 @@
             </div>
         </div>
     </div>
-    {% for shop in shop_list %}
+    {% for dashboard in dashboard_list %}
         <li>
-            {{shop.name}}
-            {{shop.day1}}
-            {{shop.day2}}
-            {{shop.day3}}
+            {{dashboard.dvsn}}
+            {{dashboard.no}}
+            {{dashboard.day1}}
+            {{dashboard.day2}}
         </li>
     {% endfor %}
-
 
 {% endblock content %}
 
@@ -34,6 +33,17 @@
 
 	<script>
 	    var lineChart2 = document.getElementById('lineChart2').getContext('2d');
+
+        var temp = "{{dashboard_list}}";
+        var temp2 = temp.replace(/&#39;/g, "\"");
+        var data = JSON.parse(temp2);
+        var data2 = Object.values(data[0]).splice(2,3);
+
+        console.log(temp2);
+        console.log(data2[0]);
+
+
+
 
         var myLineChart2 = new Chart(lineChart2, {
 			type: 'line',
@@ -51,7 +61,7 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [17204590,14989590,18637600,15118180,12237200,14975300,15654160,22641180,15242760,21567600]
+					data: [1,2,3]
 				}]
 			},
 			options : {
