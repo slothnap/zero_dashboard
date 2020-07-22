@@ -37,10 +37,10 @@
         var temp = "{{dashboard_list}}";
         var temp2 = temp.replace(/&#39;/g, "\"");
         var data = JSON.parse(temp2);
-        var data2 = Object.values(data[0]).splice(2,3);
+        var data2 = Object.values(data[0]).splice(2,10);
 
         console.log(temp2);
-        console.log(data2[0]);
+        console.log(data2);
 
 
 
@@ -61,7 +61,7 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [1,2,3]
+					data: [data2[0],data2[1],data2[2],data2[3],data2[4],data2[5],data2[6],data2[7],data2[8],data2[9]]
 				}]
 			},
 			options : {
