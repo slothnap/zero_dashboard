@@ -26,7 +26,7 @@ def dashboard(request):
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 첫번째 페이지 지정
 def index(request):
-    return render(request, "index.html")
+    return render(request, "charts_ex.html")
 
 # @login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 모든 html 파일 열게

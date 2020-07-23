@@ -1,144 +1,3 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} Chart JS {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
-
-    <div class="page-inner">
-        <h4 class="page-title">앱 대시보드</h4>
-<!--        <div class="page-category">Simple yet flexible JavaScript charting for designers & developers. Please checkout their <a href="https://www.chartjs.org/" target="_blank">full documentation</a>.</div>-->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">2종앱 주문금액</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="ord_amnt"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">회원 방문자 (심쿵할인)</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="mmbr_vigit_sim"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Line Chart</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="lineChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Pie Chart</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Doughnut Chart</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="doughnutChart" style="width: 50%; height: 50%"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Radar Chart</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="radarChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Bubble Chart</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="bubbleChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Multiple Bar Chart</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="multipleBarChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Chart with HTML Legends</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-sub">
-                            Sometimes you need a very complex legend. In these cases, it makes sense to generate an HTML legend. Charts provide a generateLegend() method on their prototype that returns an HTML string for the legend.
-<!--                    {% for dashboard in dashboard_list %}-->
-<!--                        <li>-->
-<!--                            {{dashboard.name}}-->
-<!--                            {{dashboard.day1}}-->
-<!--                            {{dashboard.day2}}-->
-<!--                            {{dashboard.day3}}-->
-<!--                        </li>-->
-<!--                    {% endfor %}-->
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="htmlLegendsChart"></canvas>
-                        </div>
-                        <div id="myChartLegend"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-{% endblock content %}
-
-{% block javascripts %}
-
-	<script>
 
         <!--데이터 받기 -->
 	    var temp = "{{dashboard_list}}";
@@ -152,92 +11,18 @@
         <!-- 회원방문자_심쿵 데이터만 필터링 -->
         var mmbr_vigit_sim_data = Object.values(data[0]).splice(1,11);
 
-        <!-- 주문건수_회원 및 비회원 -->
-        var sale_ord_amnt = Object.values(data[8]).splice(1,11);
-        var market_ord_amnt = Object.values(data[9]).splice(1,11);
+        console.log(data);
+        console.log(mmbr_vigit_sim_data);
 
-        console.log(sale_ord_amnt);
-        console.log(market_ord_amnt);
-
-		var ord_amnt = document.getElementById('ord_amnt').getContext('2d'),
-		lineChart = document.getElementById('lineChart').getContext('2d'),
+		var lineChart = document.getElementById('lineChart').getContext('2d'),
 		mmbr_vigit_sim = document.getElementById('mmbr_vigit_sim').getContext('2d'),
 		pieChart = document.getElementById('pieChart').getContext('2d'),
 		doughnutChart = document.getElementById('doughnutChart').getContext('2d'),
 		radarChart = document.getElementById('radarChart').getContext('2d'),
 		bubbleChart = document.getElementById('bubbleChart').getContext('2d'),
+		multipleLineChart = document.getElementById('multipleLineChart').getContext('2d'),
 		multipleBarChart = document.getElementById('multipleBarChart').getContext('2d'),
 		htmlLegendsChart = document.getElementById('htmlLegendsChart').getContext('2d');
-
-        var myOrd_amnt = new Chart(ord_amnt, {
-			type: 'line',
-			data: {
-				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
-				datasets: [{
-					label: "할인중독",
-					borderColor: "#59d05d",
-					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#59d05d",
-					pointBorderWidth: 2,
-					pointHoverRadius: 4,
-					pointHoverBorderWidth: 1,
-					pointRadius: 4,
-					backgroundColor: 'transparent',
-					fill: true,
-					borderWidth: 2,
-					data: [sale_ord_amnt[1],sale_ord_amnt[2],sale_ord_amnt[3],sale_ord_amnt[4],sale_ord_amnt[5]
-					      ,sale_ord_amnt[6],sale_ord_amnt[7],sale_ord_amnt[8],sale_ord_amnt[9],sale_ord_amnt[10]]
-				}, {
-					label: "공구마켓",
-					borderColor: "#f3545d",
-					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#f3545d",
-					pointBorderWidth: 2,
-					pointHoverRadius: 4,
-					pointHoverBorderWidth: 1,
-					pointRadius: 4,
-					backgroundColor: 'transparent',
-					fill: true,
-					borderWidth: 2,
-					data: [market_ord_amnt[1],market_ord_amnt[2],market_ord_amnt[3],market_ord_amnt[4],market_ord_amnt[5]
-					      ,market_ord_amnt[6],market_ord_amnt[7],market_ord_amnt[8],market_ord_amnt[9],market_ord_amnt[10]]
-				}]
-			},
-			options : {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					position: 'top',
-				},
-				tooltips: {
-					bodySpacing: 4,
-					mode:"nearest",
-					intersect: 0,
-					position:"nearest",
-					xPadding:10,
-					yPadding:10,
-					caretPadding:10
-				},
-				layout:{
-					padding:{left:15,right:15,top:15,bottom:15}
-				}
-			}
-		});
-
-		var Mymmbr_vigit_sim = new Chart(mmbr_vigit_sim, {
-			type: 'bar',
-			data: {
-				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
-				datasets : [{
-					label: "방문자수",
-					backgroundColor: 'rgb(23, 125, 255)',
-					borderColor: 'rgb(23, 125, 255)',
-					data: [mmbr_vigit_sim_data[1],mmbr_vigit_sim_data[2],mmbr_vigit_sim_data[3],mmbr_vigit_sim_data[4],mmbr_vigit_sim_data[5]
-					      ,mmbr_vigit_sim_data[6],mmbr_vigit_sim_data[7],mmbr_vigit_sim_data[8],mmbr_vigit_sim_data[9],mmbr_vigit_sim_data[10]],
-				}],
-			},
-			options: {responsive: true, maintainAspectRatio: false,scales: {yAxes: [{ticks: {beginAtZero:true}}]},}});
-
 
 
 		var myLineChart = new Chart(lineChart, {
@@ -265,6 +50,23 @@
 				layout:{padding:{left:15,right:15,top:15,bottom:15}}
 				}
 		});
+
+
+
+
+		var Mymmbr_vigit_sim = new Chart(mmbr_vigit_sim, {
+			type: 'bar',
+			data: {
+				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
+				datasets : [{
+					label: "Sales",
+					backgroundColor: 'rgb(23, 125, 255)',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [mmbr_vigit_sim_data[1],mmbr_vigit_sim_data[2],mmbr_vigit_sim_data[3],mmbr_vigit_sim_data[4],mmbr_vigit_sim_data[5]
+					      ,mmbr_vigit_sim_data[6],mmbr_vigit_sim_data[7],mmbr_vigit_sim_data[8],mmbr_vigit_sim_data[9],mmbr_vigit_sim_data[10],],
+				}],
+			},
+			options: {responsive: true, maintainAspectRatio: false,scales: {yAxes: [{ticks: {beginAtZero:true}}]},}});
 
 
 
@@ -406,7 +208,71 @@
 			}
 		});
 
-
+		var myMultipleLineChart = new Chart(multipleLineChart, {
+			type: 'line',
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets: [{
+					label: "Python",
+					borderColor: "#1d7af3",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256]
+				},{
+					label: "PHP",
+					borderColor: "#59d05d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#59d05d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
+				}, {
+					label: "Ruby",
+					borderColor: "#f3545d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#f3545d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
+				}]
+			},
+			options : {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'top',
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:10,
+					yPadding:10,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:15,right:15,top:15,bottom:15}
+				}
+			}
+		});
 
 		var myMultipleBarChart = new Chart(multipleBarChart, {
 			type: 'bar',
@@ -586,7 +452,3 @@
 		for (var i = 0; i < legendItems.length; i += 1) {
 			legendItems[i].addEventListener("click", legendClickCallback, false);
 		}
-
-	</script>
-
-{% endblock javascripts %}
