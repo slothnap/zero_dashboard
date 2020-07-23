@@ -10,18 +10,8 @@ Copyright (c) 2019 - present AppSeed.us
 from django.db import models
 from django.contrib.auth.models import User
 
-class Shop(models.Model):
-    name = models.CharField(max_length=100)
-    day1 = models.IntegerField(default=0)
-    day2 = models.IntegerField(default=0)
-    day3 = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name
-
-class AppDashboard(models.Model):
+class Dashboard(models.Model):
     dvsn = models.CharField(primary_key=True, max_length=50)
-    no   = models.IntegerField(blank=True, null=True)
     day1 = models.IntegerField(blank=True, null=True)
     day2 = models.IntegerField(blank=True, null=True)
     day3 = models.IntegerField(blank=True, null=True)

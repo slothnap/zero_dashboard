@@ -9,26 +9,18 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django import template
-from .models import Shop, AppDashboard
+from .models import Dashboard
 from django.views import generic
 
 # DB값 가져오기
-def shop_test(request):
-    list_result = Shop.objects.values()
 
-    # 쿼리셋 => list로
-    shop_list = [entry for entry in list_result]
-    context = {"shop_list": shop_list}
-    return render(request, "charts.html", context)
-
-
-def dashboard_app(request):
-    list_result2 = AppDashboard.objects.values()
+def dashboard(request):
+    list_result2 = Dashboard.objects.values()
 
     # 쿼리셋 => list로
     dashboard_list = [entry for entry in list_result2]
     context = {"dashboard_list": dashboard_list}
-    return render(request, "test2.html", context)
+    return render(request, "charts.html", context)
 
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요

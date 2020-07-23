@@ -19,7 +19,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     
     # shop-test 명령을 치면 view에서 shop_test 함수가 작동
-    path('shop-test',views.shop_test, name='shop-test'),
-
-    path('app-dashboard',views.dashboard_app, name='app-dashboard'),
+    path('app-dashboard',views.dashboard, name='app-dashboard'),
 ]
