@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+# python manage.py runserver 192.168.102.130:8000
+
 """
 License: MIT
 Copyright (c) 2019 - present AppSeed.us
@@ -21,11 +23,12 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 DEBUG = True
 
 # load production server from .env
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
+# 접속 허용자 지정
+#ALLOWED_HOSTS = ['192.168.102.130', '192.168.102.143', '192.168.102.170']
 ALLOWED_HOSTS = ['*']
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,8 +91,13 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'MDM',
+#         'USER': 'MDM_Admin',
+#         'PASSWORD':'wpdltms123!@#',
+#         'HOST':'192.168.0.63',
+#         'PORT':'3306',
+#
 #     }
 # }
 

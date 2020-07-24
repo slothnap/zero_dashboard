@@ -12,15 +12,33 @@ from django import template
 from .models import Dashboard
 from django.views import generic
 
-# DB값 가져오기
+# 매출값 가져오기
 
-def dashboard(request):
+def sales_simsale(request):
+    list_result = Dashboard.objects.values()
+
+    # 쿼리셋 => list로
+    dashboard_list = [entry for entry in list_result]
+    context = {"dashboard_list": dashboard_list}
+    return render(request, "sales/sales_simsale.html", context)
+
+
+def sales_sale09(request):
     list_result2 = Dashboard.objects.values()
 
     # 쿼리셋 => list로
     dashboard_list = [entry for entry in list_result2]
     context = {"dashboard_list": dashboard_list}
-    return render(request, "charts.html", context)
+    return render(request, "sales/sales_sale09.html", context)
+
+def sales_market09(request):
+    list_result3 = Dashboard.objects.values()
+
+    # 쿼리셋 => list로
+    dashboard_list = [entry for entry in list_result3]
+    context = {"dashboard_list": dashboard_list}
+    return render(request, "sales/sales_market09.html", context)
+
 
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요

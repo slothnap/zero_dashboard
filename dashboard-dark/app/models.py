@@ -2,6 +2,7 @@
 # python manage.py makemigrations
 # python manage.py migrate
 # python manage.py inspectdb
+# python manage.py runserver 192.168.102.130:8000
 """
 License: MIT
 Copyright (c) 2019 - present AppSeed.us

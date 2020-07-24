@@ -26,18 +26,6 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">회원 방문자</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="sim_vigit_mmbr"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
                         <div class="card-title">회원가입</div>
                     </div>
                     <div class="card-body">
@@ -164,7 +152,6 @@
 <!--        console.log(market_ord_amnt);-->
 
 		var sim_vigit = document.getElementById('sim_vigit').getContext('2d'),
-		sim_vigit_mmbr = document.getElementById('sim_vigit_mmbr').getContext('2d'),
 		mmbr_join_cnt = document.getElementById('mmbr_join_cnt').getContext('2d'),
 		lineChart = document.getElementById('lineChart').getContext('2d'),
 		pieChart = document.getElementById('pieChart').getContext('2d'),
@@ -227,22 +214,6 @@
 				}
 			}
 		});
-
-		var mySim_vigit_mmbr = new Chart(sim_vigit_mmbr, {
-			type: 'bar',
-			data: {
-				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
-				datasets : [{
-					label: "방문자수",
-					backgroundColor: '#d1217f',  <!--rgb(23, 125, 255) -->
-					borderColor: '#d1217f',
-					data: [sim_vigit_mmbr_data[1],sim_vigit_mmbr_data[2],sim_vigit_mmbr_data[3],sim_vigit_mmbr_data[4],sim_vigit_mmbr_data[5]
-					      ,sim_vigit_mmbr_data[6],sim_vigit_mmbr_data[7],sim_vigit_mmbr_data[8],sim_vigit_mmbr_data[9],sim_vigit_mmbr_data[10]],
-				}],
-			},
-			options: {responsive: true, maintainAspectRatio: false,scales: {yAxes: [{ticks: {beginAtZero:true}}]},}});
-
-
 
 
         var myMmbr_join_cnt = new Chart(mmbr_join_cnt, {

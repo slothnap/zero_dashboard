@@ -38,18 +38,6 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">회원가입</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="mmbr_join_cnt"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
                         <div class="card-title">Line Chart</div>
                     </div>
                     <div class="card-body">
@@ -154,18 +142,11 @@
         var sim_vigit_unmmbr_data = Object.values(data[2]).splice(1,11);
 
 
-        <!-- 일일가입자 카카오, 네이버, 일반가입-->
-        var day_join_kakao_data = Object.values(data[28]).splice(1,11);
-        var day_join_naver_data = Object.values(data[29]).splice(1,11);
-        var day_join_gnrl_data  = Object.values(data[30]).splice(1,11);
-
-
 <!--        console.log(sale_ord_amnt);-->
 <!--        console.log(market_ord_amnt);-->
 
 		var sim_vigit = document.getElementById('sim_vigit').getContext('2d'),
 		sim_vigit_mmbr = document.getElementById('sim_vigit_mmbr').getContext('2d'),
-		mmbr_join_cnt = document.getElementById('mmbr_join_cnt').getContext('2d'),
 		lineChart = document.getElementById('lineChart').getContext('2d'),
 		pieChart = document.getElementById('pieChart').getContext('2d'),
 		doughnutChart = document.getElementById('doughnutChart').getContext('2d'),
@@ -242,40 +223,6 @@
 			},
 			options: {responsive: true, maintainAspectRatio: false,scales: {yAxes: [{ticks: {beginAtZero:true}}]},}});
 
-
-
-
-        var myMmbr_join_cnt = new Chart(mmbr_join_cnt, {
-			type: 'bar',
-			data: {
-				labels: ["-1day", "-2day", "-3day", "-4day", "-5day", "-6day", "-7day", "-8day", "-9day", "-10day"],
-				datasets : [{
-					label: "카카오",
-					backgroundColor: '#fdaf4b',
-					borderColor: '#fdaf4b',
-					data: [day_join_kakao_data[1],day_join_kakao_data[2],day_join_kakao_data[3],day_join_kakao_data[4],day_join_kakao_data[5]
-					      ,day_join_kakao_data[6],day_join_kakao_data[7],day_join_kakao_data[8],day_join_kakao_data[9],day_join_kakao_data[10]],
-				},{
-					label: "네이버",
-					backgroundColor: '#59d05d',
-					borderColor: '#59d05d',
-					data: [day_join_naver_data[1],day_join_naver_data[2],day_join_naver_data[3],day_join_naver_data[4],day_join_naver_data[5]
-					      ,day_join_naver_data[6],day_join_naver_data[7],day_join_naver_data[8],day_join_naver_data[9],day_join_naver_data[10]],
-				}, {
-					label: "일반가입",
-					backgroundColor: '#8c9a9c',
-					borderColor: '#8c9a9c',
-					data: [day_join_gnrl_data[1],day_join_gnrl_data[2],day_join_gnrl_data[3],day_join_gnrl_data[4],day_join_gnrl_data[5]
-					      ,day_join_gnrl_data[6],day_join_gnrl_data[7],day_join_gnrl_data[8],day_join_gnrl_data[9],day_join_gnrl_data[10]],
-				}],
-			},
-			options: {
-				responsive: true, maintainAspectRatio: false, legend: {position : 'bottom'},
-				title: {display: true,text: '가입자수'},
-				tooltips: {mode: 'index',intersect: false},
-				responsive: true,
-				scales: {xAxes: [{stacked: true,}],yAxes: [{stacked: true}]}}
-		});
 
 		var myLineChart = new Chart(lineChart, {
 			type: 'line',

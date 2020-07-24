@@ -14,23 +14,11 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">심쿵할인 방문자</div>
+                        <div class="card-title">카테고리별 매출</div>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            <canvas id="sim_vigit"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">회원 방문자</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="sim_vigit_mmbr"></canvas>
+                            <canvas id="sim_cate_sales"></canvas>
                         </div>
                     </div>
                 </div>
@@ -150,7 +138,11 @@
         var data = JSON.parse(temp2);
 
         <!-- 회원방문자 데이터만 필터링 -->
-        var sim_vigit_mmbr_data = Object.values(data[0]).splice(1,11);
+        var sim_cate_sales_beauty   = Object.values(data[50]).splice(1,11)
+        sim_cate_sales_housekeeping = Object.values(data[51]).splice(1,11)
+        sim_cate_sales_fashion      = Object.values(data[52]).splice(1,11)
+        sim_cate_sales_food         = Object.values(data[53]).splice(1,11);
+
         var sim_vigit_unmmbr_data = Object.values(data[2]).splice(1,11);
 
 
@@ -163,8 +155,7 @@
 <!--        console.log(sale_ord_amnt);-->
 <!--        console.log(market_ord_amnt);-->
 
-		var sim_vigit = document.getElementById('sim_vigit').getContext('2d'),
-		sim_vigit_mmbr = document.getElementById('sim_vigit_mmbr').getContext('2d'),
+		var sim_cate_sales = document.getElementById('sim_cate_sales').getContext('2d'),
 		mmbr_join_cnt = document.getElementById('mmbr_join_cnt').getContext('2d'),
 		lineChart = document.getElementById('lineChart').getContext('2d'),
 		pieChart = document.getElementById('pieChart').getContext('2d'),
@@ -173,15 +164,15 @@
 		bubbleChart = document.getElementById('bubbleChart').getContext('2d'),
 		htmlLegendsChart = document.getElementById('htmlLegendsChart').getContext('2d');
 
-        var mySim_vigit = new Chart(sim_vigit, {
+        var mySim_cate_sales = new Chart(sim_cate_sales, {
 			type: 'line',
 			data: {
 				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
 				datasets: [{
-					label: "회원",
-					borderColor: "#59d05d",
+					label: "뷰티",
+					borderColor: "#bd24d1",
 					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#59d05d",
+					pointBackgroundColor: "#bd24d1",
 					pointBorderWidth: 2,
 					pointHoverRadius: 4,
 					pointHoverBorderWidth: 1,
@@ -189,13 +180,13 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [sim_vigit_mmbr_data[1],sim_vigit_mmbr_data[2],sim_vigit_mmbr_data[3],sim_vigit_mmbr_data[4],sim_vigit_mmbr_data[5]
-					      ,sim_vigit_mmbr_data[6],sim_vigit_mmbr_data[7],sim_vigit_mmbr_data[8],sim_vigit_mmbr_data[9],sim_vigit_mmbr_data[10]]
+					data: [sim_cate_sales_beauty[1],sim_cate_sales_beauty[2],sim_cate_sales_beauty[3],sim_cate_sales_beauty[4],sim_cate_sales_beauty[5]
+					      ,sim_cate_sales_beauty[6],sim_cate_sales_beauty[7],sim_cate_sales_beauty[8],sim_cate_sales_beauty[9],sim_cate_sales_beauty[10]]
 				}, {
-					label: "비회원",
-					borderColor: "#f3545d",
+					label: "살림",
+					borderColor: "#2486d1",
 					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#f3545d",
+					pointBackgroundColor: "#2486d1",
 					pointBorderWidth: 2,
 					pointHoverRadius: 4,
 					pointHoverBorderWidth: 1,
@@ -203,8 +194,36 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [sim_vigit_unmmbr_data[1],sim_vigit_unmmbr_data[2],sim_vigit_unmmbr_data[3],sim_vigit_unmmbr_data[4],sim_vigit_unmmbr_data[5]
-					      ,sim_vigit_unmmbr_data[6],sim_vigit_unmmbr_data[7],sim_vigit_unmmbr_data[8],sim_vigit_unmmbr_data[9],sim_vigit_unmmbr_data[10]]
+					data: [sim_cate_sales_housekeeping[1],sim_cate_sales_housekeeping[2],sim_cate_sales_housekeeping[3],sim_cate_sales_housekeeping[4],sim_cate_sales_housekeeping[5]
+					      ,sim_cate_sales_housekeeping[6],sim_cate_sales_housekeeping[7],sim_cate_sales_housekeeping[8],sim_cate_sales_housekeeping[9],sim_cate_sales_housekeeping[10]]
+				}, {
+					label: "패션",
+					borderColor: "#d12444",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#d12444",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [sim_cate_sales_fashion[1],sim_cate_sales_fashion[2],sim_cate_sales_fashion[3],sim_cate_sales_fashion[4],sim_cate_sales_fashion[5]
+					      ,sim_cate_sales_fashion[6],sim_cate_sales_fashion[7],sim_cate_sales_fashion[8],sim_cate_sales_fashion[9],sim_cate_sales_fashion[10]]
+				}, {
+					label: "푸드",
+					borderColor: "#3ed124",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#3ed124",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [sim_cate_sales_food[1],sim_cate_sales_food[2],sim_cate_sales_food[3],sim_cate_sales_food[4],sim_cate_sales_food[5]
+					      ,sim_cate_sales_food[6],sim_cate_sales_food[7],sim_cate_sales_food[8],sim_cate_sales_food[9],sim_cate_sales_food[10]]
 				}]
 			},
 			options : {
@@ -227,21 +246,6 @@
 				}
 			}
 		});
-
-		var mySim_vigit_mmbr = new Chart(sim_vigit_mmbr, {
-			type: 'bar',
-			data: {
-				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
-				datasets : [{
-					label: "방문자수",
-					backgroundColor: '#d1217f',  <!--rgb(23, 125, 255) -->
-					borderColor: '#d1217f',
-					data: [sim_vigit_mmbr_data[1],sim_vigit_mmbr_data[2],sim_vigit_mmbr_data[3],sim_vigit_mmbr_data[4],sim_vigit_mmbr_data[5]
-					      ,sim_vigit_mmbr_data[6],sim_vigit_mmbr_data[7],sim_vigit_mmbr_data[8],sim_vigit_mmbr_data[9],sim_vigit_mmbr_data[10]],
-				}],
-			},
-			options: {responsive: true, maintainAspectRatio: false,scales: {yAxes: [{ticks: {beginAtZero:true}}]},}});
-
 
 
 
