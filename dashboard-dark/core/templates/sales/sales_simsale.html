@@ -59,6 +59,19 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">방문자대비 구매인원비율</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="htmlLegendsChart"></canvas>
+                        </div>
+                        <div id="myChartLegend"></div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
@@ -95,30 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Chart with HTML Legends</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-sub">
-                            Sometimes you need a very complex legend. In these cases, it makes sense to generate an HTML legend. Charts provide a generateLegend() method on their prototype that returns an HTML string for the legend.
-<!--                    {% for dashboard in dashboard_list %}-->
-<!--                        <li>-->
-<!--                            {{dashboard.name}}-->
-<!--                            {{dashboard.day1}}-->
-<!--                            {{dashboard.day2}}-->
-<!--                            {{dashboard.day3}}-->
-<!--                        </li>-->
-<!--                    {% endfor %}-->
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="htmlLegendsChart"></canvas>
-                        </div>
-                        <div id="myChartLegend"></div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -137,23 +127,23 @@
         <!-- 수정된 데이터 배열에 담기 -->
         var data = JSON.parse(temp2);
 
+        console.log(typeof(data));
+
         <!-- 회원방문자 데이터만 필터링 -->
-        var sim_cate_sales_beauty   = Object.values(data[50]).splice(1,11)
-        sim_cate_sales_housekeeping = Object.values(data[51]).splice(1,11)
-        sim_cate_sales_fashion      = Object.values(data[52]).splice(1,11)
-        sim_cate_sales_food         = Object.values(data[53]).splice(1,11);
-
-        var sim_vigit_unmmbr_data = Object.values(data[2]).splice(1,11);
-
+        var sim_cate_sales_housekeeping = Object.values(data[0]).splice(2,11)
+        sim_cate_sales_fashion          = Object.values(data[1]).splice(2,11)
+        sim_cate_sales_beauty           = Object.values(data[2]).splice(2,11)
+        sim_cate_sales_food             = Object.values(data[3]).splice(2,11);
 
         <!-- 일일가입자 카카오, 네이버, 일반가입-->
-        var day_join_kakao_data = Object.values(data[28]).splice(1,11);
-        var day_join_naver_data = Object.values(data[29]).splice(1,11);
-        var day_join_gnrl_data  = Object.values(data[30]).splice(1,11);
+        var day_join_kakao_data = Object.values(data[4]).splice(2,11)
+        day_join_naver_data = Object.values(data[5]).splice(2,11)
+        day_join_gnrl_data  = Object.values(data[6]).splice(2,11);
+
+        <!-- 방문자대비 구매인원비율 -->
+        var buy_rate = Object.values(data[7]).splice(2,11)
 
 
-<!--        console.log(sale_ord_amnt);-->
-<!--        console.log(market_ord_amnt);-->
 
 		var sim_cate_sales = document.getElementById('sim_cate_sales').getContext('2d'),
 		mmbr_join_cnt = document.getElementById('mmbr_join_cnt').getContext('2d'),
@@ -167,7 +157,7 @@
         var mySim_cate_sales = new Chart(sim_cate_sales, {
 			type: 'line',
 			data: {
-				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
+				labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
 				datasets: [{
 					label: "뷰티",
 					borderColor: "#bd24d1",
@@ -180,8 +170,8 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [sim_cate_sales_beauty[1],sim_cate_sales_beauty[2],sim_cate_sales_beauty[3],sim_cate_sales_beauty[4],sim_cate_sales_beauty[5]
-					      ,sim_cate_sales_beauty[6],sim_cate_sales_beauty[7],sim_cate_sales_beauty[8],sim_cate_sales_beauty[9],sim_cate_sales_beauty[10]]
+					data: [sim_cate_sales_beauty[10],sim_cate_sales_beauty[9],sim_cate_sales_beauty[8],sim_cate_sales_beauty[7],sim_cate_sales_beauty[6]
+					      ,sim_cate_sales_beauty[5],sim_cate_sales_beauty[4],sim_cate_sales_beauty[3],sim_cate_sales_beauty[2],sim_cate_sales_beauty[1]]
 				}, {
 					label: "살림",
 					borderColor: "#2486d1",
@@ -194,8 +184,8 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [sim_cate_sales_housekeeping[1],sim_cate_sales_housekeeping[2],sim_cate_sales_housekeeping[3],sim_cate_sales_housekeeping[4],sim_cate_sales_housekeeping[5]
-					      ,sim_cate_sales_housekeeping[6],sim_cate_sales_housekeeping[7],sim_cate_sales_housekeeping[8],sim_cate_sales_housekeeping[9],sim_cate_sales_housekeeping[10]]
+					data: [sim_cate_sales_housekeeping[10],sim_cate_sales_housekeeping[9],sim_cate_sales_housekeeping[8],sim_cate_sales_housekeeping[7],sim_cate_sales_housekeeping[6]
+					      ,sim_cate_sales_housekeeping[5],sim_cate_sales_housekeeping[4],sim_cate_sales_housekeeping[3],sim_cate_sales_housekeeping[2],sim_cate_sales_housekeeping[1]]
 				}, {
 					label: "패션",
 					borderColor: "#d12444",
@@ -208,8 +198,8 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [sim_cate_sales_fashion[1],sim_cate_sales_fashion[2],sim_cate_sales_fashion[3],sim_cate_sales_fashion[4],sim_cate_sales_fashion[5]
-					      ,sim_cate_sales_fashion[6],sim_cate_sales_fashion[7],sim_cate_sales_fashion[8],sim_cate_sales_fashion[9],sim_cate_sales_fashion[10]]
+					data: [sim_cate_sales_fashion[10],sim_cate_sales_fashion[9],sim_cate_sales_fashion[8],sim_cate_sales_fashion[7],sim_cate_sales_fashion[6]
+					      ,sim_cate_sales_fashion[5],sim_cate_sales_fashion[4],sim_cate_sales_fashion[3],sim_cate_sales_fashion[2],sim_cate_sales_fashion[1]]
 				}, {
 					label: "푸드",
 					borderColor: "#3ed124",
@@ -222,8 +212,8 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: [sim_cate_sales_food[1],sim_cate_sales_food[2],sim_cate_sales_food[3],sim_cate_sales_food[4],sim_cate_sales_food[5]
-					      ,sim_cate_sales_food[6],sim_cate_sales_food[7],sim_cate_sales_food[8],sim_cate_sales_food[9],sim_cate_sales_food[10]]
+					data: [sim_cate_sales_food[10],sim_cate_sales_food[9],sim_cate_sales_food[8],sim_cate_sales_food[7],sim_cate_sales_food[6]
+					      ,sim_cate_sales_food[5],sim_cate_sales_food[4],sim_cate_sales_food[3],sim_cate_sales_food[2],sim_cate_sales_food[1]]
 				}]
 			},
 			options : {
@@ -232,6 +222,22 @@
 				legend: {
 					position: 'top',
 				},
+				scales: {
+				    yAxes: [
+				        {
+				            ticks: {
+				                callback: function(label, index, labels)
+				                {
+				                    return label/1000+'만';
+				                }
+				            },
+				            scaleLable: {
+				                display: true,
+				                labelString: '1k = 1000'
+				            }
+				        }
+				    ]
+				},
 				tooltips: {
 					bodySpacing: 4,
 					mode:"nearest",
@@ -239,11 +245,31 @@
 					position:"nearest",
 					xPadding:10,
 					yPadding:10,
-					caretPadding:10
+					caretPadding:10,
+                    callbacks: {
+                          label: function(tooltipItem, data)
+                          {
+                              var dataLabel = data.labels[tooltipItem.index];
+                              var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+
+                              if (Chart.helpers.isArray(dataLabel))
+                              {
+                                  dataLabel = dataLabel.slice();
+                                  dataLabel[0] += value;
+                              }
+                              else
+                              {
+                                  dataLabel += value;
+                              }
+
+                              return dataLabel;
+                          }
+                    }
 				},
 				layout:{
-					padding:{left:15,right:15,top:15,bottom:15}
+				    padding:{left:1,right:15,top:1,bottom:1}
 				}
+
 			}
 		});
 
@@ -252,39 +278,44 @@
         var myMmbr_join_cnt = new Chart(mmbr_join_cnt, {
 			type: 'bar',
 			data: {
-				labels: ["-1day", "-2day", "-3day", "-4day", "-5day", "-6day", "-7day", "-8day", "-9day", "-10day"],
+				labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
 				datasets : [{
 					label: "카카오",
 					backgroundColor: '#fdaf4b',
 					borderColor: '#fdaf4b',
-					data: [day_join_kakao_data[1],day_join_kakao_data[2],day_join_kakao_data[3],day_join_kakao_data[4],day_join_kakao_data[5]
-					      ,day_join_kakao_data[6],day_join_kakao_data[7],day_join_kakao_data[8],day_join_kakao_data[9],day_join_kakao_data[10]],
+					data: [day_join_kakao_data[10],day_join_kakao_data[9],day_join_kakao_data[8],day_join_kakao_data[7],day_join_kakao_data[6]
+					      ,day_join_kakao_data[6],day_join_kakao_data[5],day_join_kakao_data[4],day_join_kakao_data[3],day_join_kakao_data[2]],
 				},{
 					label: "네이버",
 					backgroundColor: '#59d05d',
 					borderColor: '#59d05d',
-					data: [day_join_naver_data[1],day_join_naver_data[2],day_join_naver_data[3],day_join_naver_data[4],day_join_naver_data[5]
-					      ,day_join_naver_data[6],day_join_naver_data[7],day_join_naver_data[8],day_join_naver_data[9],day_join_naver_data[10]],
+					data: [day_join_naver_data[10],day_join_naver_data[9],day_join_naver_data[8],day_join_naver_data[7],day_join_naver_data[6]
+					      ,day_join_naver_data[6],day_join_naver_data[5],day_join_naver_data[4],day_join_naver_data[3],day_join_naver_data[2]],
 				}, {
 					label: "일반가입",
 					backgroundColor: '#8c9a9c',
 					borderColor: '#8c9a9c',
-					data: [day_join_gnrl_data[1],day_join_gnrl_data[2],day_join_gnrl_data[3],day_join_gnrl_data[4],day_join_gnrl_data[5]
-					      ,day_join_gnrl_data[6],day_join_gnrl_data[7],day_join_gnrl_data[8],day_join_gnrl_data[9],day_join_gnrl_data[10]],
+					data: [day_join_gnrl_data[10],day_join_gnrl_data[9],day_join_gnrl_data[8],day_join_gnrl_data[7],day_join_gnrl_data[6]
+					      ,day_join_gnrl_data[6],day_join_gnrl_data[5],day_join_gnrl_data[4],day_join_gnrl_data[3],day_join_gnrl_data[2]],
 				}],
 			},
 			options: {
 				responsive: true, maintainAspectRatio: false, legend: {position : 'bottom'},
-				title: {display: true,text: '가입자수'},
+				legend: {
+					position: 'top',
+				},
+<!--				title: {display: true,text: '가입자수'},-->
 				tooltips: {mode: 'index',intersect: false},
 				responsive: true,
-				scales: {xAxes: [{stacked: true,}],yAxes: [{stacked: true}]}}
+				scales: {xAxes: [{stacked: true,}],
+				yAxes: [{stacked: true}]}
+			}
 		});
 
 		var myLineChart = new Chart(lineChart, {
 			type: 'line',
 			data: {
-				labels: ["1일전", "2일전", "3일전", "4일전", "5일전", "6일전", "7일전", "8일전", "9일전", "10일전"],
+				labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
 				datasets: [{
 					label: "Active Users",
 					borderColor: "#1d7af3",
@@ -298,13 +329,44 @@
 					fill: true,
 					borderWidth: 2,
 					data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 900]
+				    }, {
+				        type: 'line',
+				        data: [700, 800, 430, 550, 530, 453, 380, 434, 568, 610, 700, 900],
 				}]
 			},
 			options : {
-				responsive: true, maintainAspectRatio: false,legend: {position: 'bottom',labels : {padding: 10,fontColor: '#1d7af3',}},
-				tooltips: {bodySpacing: 4,mode:"nearest",intersect: 0,position:"nearest",xPadding:10,yPadding:10,caretPadding:10},
-				layout:{padding:{left:15,right:15,top:15,bottom:15}}
-				}
+				responsive: true,
+				maintainAspectRatio:false,
+                    legend:
+                    {
+                        position: 'top',
+                        labels :
+                        {
+                            padding: 10,
+                            fontColor: '#1d7af3',
+                        }
+                    },
+				tooltips:
+				{
+				    bodySpacing: 4,
+				    mode:"nearest",
+				    intersect: 0,
+				    position:"nearest",
+				    xPadding:10,
+				    yPadding:10,
+				    caretPadding:10,
+				},
+				layout:
+				{
+				    padding:
+				    {
+				        left:15,
+				        right:15,
+				        top:1,
+				        bottom:15
+				    }
+				},
+		    }
 		});
 
 
@@ -458,47 +520,12 @@
 		gradientFill.addColorStop(0, "rgba(23, 125, 255, 0.7)");
 		gradientFill.addColorStop(1, "rgba(128, 182, 244, 0.3)");
 
-		var gradientStroke2 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
-		gradientStroke2.addColorStop(0, '#f3545d');
-		gradientStroke2.addColorStop(1, '#ff8990');
-
-		var gradientFill2 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
-		gradientFill2.addColorStop(0, "rgba(243, 84, 93, 0.7)");
-		gradientFill2.addColorStop(1, "rgba(255, 137, 144, 0.3)");
-
-		var gradientStroke3 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
-		gradientStroke3.addColorStop(0, '#fdaf4b');
-		gradientStroke3.addColorStop(1, '#ffc478');
-
-		var gradientFill3 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
-		gradientFill3.addColorStop(0, "rgba(253, 175, 75, 0.7)");
-		gradientFill3.addColorStop(1, "rgba(255, 196, 120, 0.3)");
 
 		var myHtmlLegendsChart = new Chart(htmlLegendsChart, {
 			type: 'line',
 			data: {
-				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
 				datasets: [ {
-					label: "Subscribers",
-					borderColor: gradientStroke2,
-					pointBackgroundColor: gradientStroke2,
-					pointRadius: 0,
-					backgroundColor: gradientFill2,
-					legendColor: '#f3545d',
-					fill: true,
-					borderWidth: 1,
-					data: [154, 184, 175, 203, 210, 231, 240, 278, 252, 312, 320, 374]
-				}, {
-					label: "New Visitors",
-					borderColor: gradientStroke3,
-					pointBackgroundColor: gradientStroke3,
-					pointRadius: 0,
-					backgroundColor: gradientFill3,
-					legendColor: '#fdaf4b',
-					fill: true,
-					borderWidth: 1,
-					data: [256, 230, 245, 287, 240, 250, 230, 295, 331, 431, 456, 521]
-				}, {
 					label: "Active Users",
 					borderColor: gradientStroke,
 					pointBackgroundColor: gradientStroke,
@@ -507,7 +534,8 @@
 					legendColor: '#177dff',
 					fill: true,
 					borderWidth: 1,
-					data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 900]
+					data: [buy_rate[10],buy_rate[9],buy_rate[8],buy_rate[7],buy_rate[6]
+					      ,buy_rate[5],buy_rate[4],buy_rate[3],buy_rate[2],buy_rate[1]]
 				}]
 			},
 			options : {
@@ -531,7 +559,7 @@
 				scales: {
 					yAxes: [{
 						ticks: {
-							fontColor: "rgba(0,0,0,0.5)",
+<!--							fontColor: "rgba(0,0,0,0.5)",-->
 							fontStyle: "500",
 							beginAtZero: false,
 							maxTicksLimit: 5,
@@ -548,7 +576,7 @@
 						},
 						ticks: {
 							padding: 20,
-							fontColor: "rgba(0,0,0,0.5)",
+<!--							fontColor: "rgba(0,0,0,0.5)",-->
 							fontStyle: "500"
 						}
 					}]

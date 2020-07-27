@@ -13,7 +13,8 @@ from django.contrib.auth.models import User
 
 class Dashboard(models.Model):
     no = models.IntegerField(primary_key=True)
-    dvsn = models.CharField(max_length=50)
+    app = models.CharField(max_length=12)
+    cntn = models.CharField(max_length=50)
     day1 = models.IntegerField(blank=True, null=True)
     day2 = models.IntegerField(blank=True, null=True)
     day3 = models.IntegerField(blank=True, null=True)

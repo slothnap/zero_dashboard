@@ -77,29 +77,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sql_test',
-        'USER': 'zero',
-        'PASSWORD':'rladudgns!1',
-        'HOST':'zerosum.cqjm9uq4vsof.ap-northeast-2.rds.amazonaws.com',
-        'PORT':'3306',
-
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'MDM',
-#         'USER': 'MDM_Admin',
-#         'PASSWORD':'wpdltms123!@#',
-#         'HOST':'192.168.0.63',
+#         'NAME': 'sql_test',
+#         'USER': 'zero',
+#         'PASSWORD':'rladudgns!1',
+#         'HOST':'zerosum.cqjm9uq4vsof.ap-northeast-2.rds.amazonaws.com',
 #         'PORT':'3306',
 #
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MDM',
+        'USER': 'MDM_Admin',
+        'PASSWORD':'wpdltms123!@#',
+        'HOST':'10.20.10.45',
+        'PORT':'3306',
+
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -31,13 +31,13 @@ def sales_sale09(request):
     context = {"dashboard_list": dashboard_list}
     return render(request, "sales/sales_sale09.html", context)
 
-def sales_market09(request):
-    list_result3 = Dashboard.objects.values()
-
-    # 쿼리셋 => list로
-    dashboard_list = [entry for entry in list_result3]
-    context = {"dashboard_list": dashboard_list}
-    return render(request, "sales/sales_market09.html", context)
+# def sales_market09(request):
+#     list_result3 = Dashboard.objects.values()
+#
+#     # 쿼리셋 => list로
+#     dashboard_list = [entry for entry in list_result3]
+#     context = {"dashboard_list": dashboard_list}
+#     return render(request, "sales/sales_market09.html", context)
 
 
 
