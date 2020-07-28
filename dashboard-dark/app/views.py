@@ -9,13 +9,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django import template
-from .models import Dashboard
+from .models import DaDashboardSimsale
 from django.views import generic
 
 # 매출값 가져오기
 
 def sales_simsale(request):
-    list_result = Dashboard.objects.values()
+    list_result = DaDashboardSimsale.objects.values()
 
     # 쿼리셋 => list로
     dashboard_list = [entry for entry in list_result]
@@ -24,7 +24,7 @@ def sales_simsale(request):
 
 
 def sales_sale09(request):
-    list_result2 = Dashboard.objects.values()
+    list_result2 = DaDashboardSimsale.objects.values()
 
     # 쿼리셋 => list로
     dashboard_list = [entry for entry in list_result2]

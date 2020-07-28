@@ -11,9 +11,8 @@ Copyright (c) 2019 - present AppSeed.us
 from django.db import models
 from django.contrib.auth.models import User
 
-class Dashboard(models.Model):
-    no = models.IntegerField(primary_key=True)
-    app = models.CharField(max_length=12)
+class DaDashboardSimsale(models.Model):
+    sno = models.IntegerField(primary_key=True)
     cntn = models.CharField(max_length=50)
     day1 = models.IntegerField(blank=True, null=True)
     day2 = models.IntegerField(blank=True, null=True)
@@ -26,6 +25,8 @@ class Dashboard(models.Model):
     day9 = models.IntegerField(blank=True, null=True)
     day10 = models.IntegerField(blank=True, null=True)
 
-    def __str__(self):
-        return self.no
+    class Meta:
+        managed = False
+        db_table = 'da_dashboard_simsale'
+        unique_together = (('sno', 'cntn'),)
 
