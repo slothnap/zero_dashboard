@@ -26,11 +26,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">주문금액</div>
+                    <div class="card-title">수익 및 결제수수료</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
-                        <canvas id="sim_user_sales"></canvas>
+                        <canvas id="sim_income"></canvas>
                     </div>
                 </div>
             </div>
@@ -38,11 +38,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">수익 및 결제수수료</div>
+                    <div class="card-title">주문금액</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
-                        <canvas id="sim_income"></canvas>
+                        <canvas id="sim_user_sales"></canvas>
                     </div>
                 </div>
             </div>
@@ -83,6 +83,19 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">첫구매 비율</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="frst_buy_rate"></canvas>
+                        </div>
+                        <div id="myChartLegend"></div>
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
 
@@ -98,9 +111,9 @@
 ///////////////////////////////////////////////// 색깔 //////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 색깔 모음집
-    var mmbr_color   = '#e3e312'; // 노란색
-    var unmmbr_color = '#e31285'; // 연한핑크
-    var use_ammnt    = '#fd5f5b'; // 살구색
+    var mmbr_color   = '#438fe0';
+    var unmmbr_color = '#a67b05';
+    var use_ammnt    = '#fd5f5b';
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// 편리 //////////////////////////////////////////////////////
@@ -114,6 +127,7 @@
             {
                 ticks:
                 {
+                    beginAtZero: true, // y축 값 0부터 시작
                     callback:
                     function(label, index, labels)
                     {
@@ -177,7 +191,7 @@
     console.log(data);
 
 
-    <!-- 카테고리 매출 -->
+    // 카테고리 매출 //
     var sim_cate_sales = document.getElementById('sim_cate_sales').getContext('2d');
     var sim_cate_sales_beauty       = Object.values(data[1]).splice(1,11);
     var sim_cate_sales_housekeeping = Object.values(data[2]).splice(1,11);
@@ -185,34 +199,41 @@
     var sim_cate_sales_food         = Object.values(data[4]).splice(1,11);
 
 
-    <!-- 주문금액 -->
+    // 주문금액 //
     var sim_user_sales    = document.getElementById('sim_user_sales').getContext('2d');
     var unmmbr_ordr_ammnt = Object.values(data[5]).splice(1,11);
     var mmbr_ordr_ammnt   = Object.values(data[6]).splice(1,11);
 
 
-    <!-- 수익 및 결제수수료 -->
+    // 수익 및 결제수수료 //
     var sim_income  = document.getElementById('sim_income').getContext('2d');
     var net_profit  = Object.values(data[8]).splice(1,11);
     var payment_fee = Object.values(data[7]).splice(1,11);
 
 
-    <!-- 주문건수 -->
+    // 주문건수 //
     var order_cnt  = document.getElementById('order_cnt').getContext('2d');
     var unmmbr_cnt = Object.values(data[9]).splice(1,11);
     var mmbr_cnt   = Object.values(data[10]).splice(1,11);
 
 
-    <!-- 쿠폰 사용금액 -->
+    // 쿠폰 사용금액 //
     var copn_use_amnt = document.getElementById('copn_use_amnt').getContext('2d');
     var copn_amnt     = Object.values(data[11]).splice(1,11);
 
-    <!-- 쿠폰 사용비율 -->
+    // 쿠폰 사용비율 //
     var copn_use_rate = document.getElementById('copn_use_rate').getContext('2d');
     var copn_whol_cnt     = Object.values(data[12]).splice(1,11);
     var copn_use_psbl_cnt = Object.values(data[13]).splice(1,11);
     var copn_use_cnt      = Object.values(data[14]).splice(1,11);
 
+    // 첫구매 비율 및 지표 없애기 모드
+    var frst_buy_rate  = document.getElementById('frst_buy_rate').getContext('2d');
+	var myLegendContainer = document.getElementById("myChartLegend");
+
+	var join_tday_buy_mmbr_cnt = Object.values(data[15]).splice(1,11); // 가입당일구매회원수
+    var buy_mmbr_cnt           = Object.values(data[16]).splice(1,11); // 구매회원수
+    var frst_buy_mmbr_cnt      = Object.values(data[17]).splice(1,11); // 첫구매회원수
 
 
 
@@ -330,9 +351,9 @@
                       ,mmbr_ordr_ammnt[5],mmbr_ordr_ammnt[4],mmbr_ordr_ammnt[3],mmbr_ordr_ammnt[2],mmbr_ordr_ammnt[1]]
             }, {
                 label: "비회원",
-                borderColor: "#e31285",
+                borderColor: unmmbr_color,
                 pointBorderColor: "#FFF",
-                pointBackgroundColor: "#e31285",
+                pointBackgroundColor: unmmbr_color,
                 pointBorderWidth: 2,
                 pointHoverRadius: 4,
                 pointHoverBorderWidth: 1,
@@ -439,13 +460,13 @@
                 backgroundColor: mmbr_color,
                 borderColor: mmbr_color,
                 data: [mmbr_cnt[10],mmbr_cnt[9],mmbr_cnt[8],mmbr_cnt[7],mmbr_cnt[6]
-                      ,mmbr_cnt[6],mmbr_cnt[5],mmbr_cnt[4],mmbr_cnt[3],mmbr_cnt[2]],
+                      ,mmbr_cnt[5],mmbr_cnt[4],mmbr_cnt[3],mmbr_cnt[2],mmbr_cnt[1]],
             }, {
                 label: "비회원",
                 backgroundColor: unmmbr_color,
                 borderColor: unmmbr_color,
                 data: [unmmbr_cnt[10],unmmbr_cnt[9],unmmbr_cnt[8],unmmbr_cnt[7],unmmbr_cnt[6]
-                      ,unmmbr_cnt[6],unmmbr_cnt[5],unmmbr_cnt[4],unmmbr_cnt[3],unmmbr_cnt[2]],
+                      ,unmmbr_cnt[5],unmmbr_cnt[4],unmmbr_cnt[3],unmmbr_cnt[2],unmmbr_cnt[1]],
             }],
         },
         options: {
@@ -471,7 +492,8 @@
                 backgroundColor: use_ammnt,
                 borderColor: use_ammnt,
                 data: [copn_amnt[10],copn_amnt[9],copn_amnt[8],copn_amnt[7],copn_amnt[6]
-                      ,copn_amnt[6],copn_amnt[5],copn_amnt[4],copn_amnt[3],copn_amnt[2]],
+                      ,copn_amnt[5],copn_amnt[4],copn_amnt[3],copn_amnt[2],copn_amnt[1]
+                      ],
             }],
         },
         options: {
@@ -488,6 +510,7 @@
             },
             responsive: true,
             scales: ygraph_func
+
 
         }
     });
@@ -532,6 +555,138 @@
 			}
 		})
 
+    // 첫구매 비율
+    // Chart with HTML Legends
+
+    var gradientStroke = frst_buy_rate.createLinearGradient(500, 0, 100, 0);
+    gradientStroke.addColorStop(0, '#177dff');
+    gradientStroke.addColorStop(1, '#80b6f4');
+
+    var gradientFill = frst_buy_rate.createLinearGradient(500, 0, 100, 0);
+    gradientFill.addColorStop(0, "rgba(23, 125, 255, 0.7)");
+    gradientFill.addColorStop(1, "rgba(128, 182, 244, 0.3)");
+
+    var gradientStroke2 = frst_buy_rate.createLinearGradient(500, 0, 100, 0);
+    gradientStroke2.addColorStop(0, '#f3545d');
+    gradientStroke2.addColorStop(1, '#ff8990');
+
+    var gradientFill2 = frst_buy_rate.createLinearGradient(500, 0, 100, 0);
+    gradientFill2.addColorStop(0, "rgba(243, 84, 93, 0.7)");
+    gradientFill2.addColorStop(1, "rgba(255, 137, 144, 0.3)");
+
+    var myFrst_buy_rate = new Chart(frst_buy_rate, {
+        type: 'line',
+        data: {
+            labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+            datasets: [ {
+                label: "가입일 구매 인원 비율",
+                borderColor: gradientStroke,
+                pointBackgroundColor: gradientStroke,
+                pointRadius: 0,
+                backgroundColor: gradientFill,
+                legendColor: '#f3545d',
+                fill: true,
+                borderWidth: 1,
+                data: [join_tday_buy_mmbr_cnt[10] / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[9]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[8]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[7]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[6]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[5]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[4]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[3]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[2]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[1]  / 8612 * 100
+                      ]
+            }, {
+                label: "회원 중 첫 구매 비율",
+                borderColor: gradientStroke2,
+                pointBackgroundColor: gradientStroke2,
+                pointRadius: 0,
+                backgroundColor: gradientFill2,
+                legendColor: '#177dff',
+                fill: true,
+                borderWidth: 1,
+                data: [frst_buy_mmbr_cnt[10] / buy_mmbr_cnt[10] * 100
+                      ,frst_buy_mmbr_cnt[9] / buy_mmbr_cnt[9] * 100
+                      ,frst_buy_mmbr_cnt[8] / buy_mmbr_cnt[8] * 100
+                      ,frst_buy_mmbr_cnt[7] / buy_mmbr_cnt[7] * 100
+                      ,frst_buy_mmbr_cnt[6] / buy_mmbr_cnt[6] * 100
+                      ,frst_buy_mmbr_cnt[5] / buy_mmbr_cnt[5] * 100
+                      ,frst_buy_mmbr_cnt[4] / buy_mmbr_cnt[4] * 100
+                      ,frst_buy_mmbr_cnt[3] / buy_mmbr_cnt[3] * 100
+                      ,frst_buy_mmbr_cnt[2] / buy_mmbr_cnt[2] * 100
+                      ,frst_buy_mmbr_cnt[1] / buy_mmbr_cnt[1] * 100
+                      ]
+            }]
+        },
+        options : {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                bodySpacing: 4,
+                mode:"nearest",
+                intersect: 0,
+                position:"nearest",
+                xPadding:10,
+                yPadding:10,
+                caretPadding:10
+            },
+            layout:{
+                padding:{left:15,right:15,top:15,bottom:15}
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontStyle: "500",
+                        beginAtZero: false,
+                        maxTicksLimit: 5,
+                        padding: 20
+                    },
+                    gridLines: {
+                        drawTicks: false,
+                        display: false
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        zeroLineColor: "transparent"
+                    },
+                    ticks: {
+                        padding: 20,
+                        fontStyle: "500"
+                    }
+                }]
+            },
+            legendCallback: function(chart) {
+                var text = [];
+                text.push('<ul class="' + chart.id + '-legend html-legend">');
+                for (var i = 0; i < chart.data.datasets.length; i++) {
+                    text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>');
+                    if (chart.data.datasets[i].label) {
+                        text.push(chart.data.datasets[i].label);
+                    }
+                    text.push('</li>');
+                }
+                text.push('</ul>');
+                return text.join('');
+            }
+        }
+    });
+
+
+
+    // generate HTML legend
+    myLegendContainer.innerHTML = myFrst_buy_rate.generateLegend();
+
+    // bind onClick event to all LI-tags of the legend
+    var legendItems = myLegendContainer.getElementsByTagName('li');
+    for (var i = 0; i < legendItems.length; i += 1) {
+        legendItems[i].addEventListener("click", legendClickCallback, false);
+    }
 </script>
 
 {% endblock javascripts %}

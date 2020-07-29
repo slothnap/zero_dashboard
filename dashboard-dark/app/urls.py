@@ -21,5 +21,5 @@ urlpatterns = [
     # shop-test 명령을 치면 view에서 shop_test 함수가 작동
     path('sales-simsale',views.sales_simsale, name='sales-simsale'),
     path('sales-sale09',views.sales_sale09, name='sales-sale09'),
-    # path('sales-market09',views.sales_market09, name='sales-market09'),
+    path('sales-market09',views.sales_market09, name='sales-market09'),
 ]
