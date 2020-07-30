@@ -1,117 +1,71 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} Chart JS {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
-
-<div class="page-inner">
-    <h4 class="page-title">매출</h4>
-<!--        <div class="page-category">Simple yet flexible JavaScript charting for designers & developers. Please checkout their <a href="https://www.chartjs.org/" target="_blank">full documentation</a>.</div>-->
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">카테고리 매출</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="sim_cate_sales"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">수익 및 결제수수료</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="sim_income"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">주문금액</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="sim_user_sales"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">주문건수</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="order_cnt"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">쿠폰 사용금액</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="copn_use_amnt"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">쿠폰 사용비율</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="copn_use_rate"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">첫구매 비율</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="frst_buy_rate"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-</div>
 
 
-{% endblock content %}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////// 색깔 //////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // 색깔 모음집
+    var mmbr_color   = '#438fe0';
+    var unmmbr_color = '#a67b05';
+    var use_ammnt    = '#fd5f5b';
 
-{% block javascripts %}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////// 편리 //////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-<!--<script src="/static/assets/js/test2.js"></script>-->
-<script src="/static/assets/js/colors.js"></script>     // 색깔
-<script src="/static/assets/js/charts_setting.js"></script>  // charts js 설정
-<script>
+    // y축 단위값 나타내기
+    var ygraph_func =
+    {
+        yAxes:
+        [
+            {
+                ticks:
+                {
+                    beginAtZero: true, // y축 값 0부터 시작
+                    callback:
+                    function(label, index, labels)
+                    {
+                        if(label > 100000000)
+                        {
+                            return label/100000000+',000만';
+                        }
+                        else if(label > 10000)
+                        {
+                            return label/10000+'만';
+                        }
+                        else
+                            return label
+                    }
+                },
+                scaleLable:
+                {
+                    display: true,
+                    labelString: '1k = 1000'
+                }
+            }
+        ]
+    };
 
+    // x축 단위값 나타내기
+    var xgraph_func =
+    {
+          label: function(tooltipItem, data)
+          {
+              var dataLabel = data.labels[tooltipItem.index];
+              var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
 
+              if (Chart.helpers.isArray(dataLabel))
+              {
+                  dataLabel = dataLabel.slice();
+                  dataLabel[0] += value;
+              }
+              else
+              {
+                  dataLabel += value;
+              }
 
-
-
+              return dataLabel;
+          }
+    };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// 데이터 /////////////////////////////////////////////////////
@@ -119,7 +73,7 @@
 
 
     <!--데이터 받기 -->
-    var temp = "{{sales_list}}";
+    var temp = "{{dashboard_list}}";
 
     <!--데이터 수정 -->
     var temp2 = temp.replace(/&#39;/g, "\"");
@@ -127,7 +81,7 @@
     <!-- 수정된 데이터 배열에 담기 -->
     var data = JSON.parse(temp2);
 
-    //console.log(data);
+    console.log(data);
 
 
     // 카테고리 매출 //
@@ -170,10 +124,9 @@
     var frst_buy_rate  = document.getElementById('frst_buy_rate').getContext('2d');
 	var myLegendContainer = document.getElementById("myChartLegend");
 
-	var tday_join_buy_cnt = Object.values(data[15]).splice(1,11); // 당일가입구매자수
-	var tday_join_cnt          = Object.values(data[16]).splice(1,11); // 당일가입자수
-    var tday_buy_mmbr_cnt      = Object.values(data[17]).splice(1,11); // 당일구매회원수
-    var frst_buy_mmbr_cnt      = Object.values(data[18]).splice(1,11); // 첫구매회원수
+	var join_tday_buy_mmbr_cnt = Object.values(data[15]).splice(1,11); // 가입당일구매회원수
+    var buy_mmbr_cnt           = Object.values(data[16]).splice(1,11); // 구매회원수
+    var frst_buy_mmbr_cnt      = Object.values(data[17]).splice(1,11); // 첫구매회원수
 
 
 
@@ -270,66 +223,6 @@
     });
 
 
-    // 수익 및 결제 수수료 //
-    var mySim_income = new Chart(sim_income, {
-        type: 'line',
-        data: {
-            labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
-            datasets: [{
-                label: "순수익",
-                borderColor: prft_amnt,
-                pointBorderColor: "#FFF",
-                pointBackgroundColor: prft_amnt,
-                pointBorderWidth: 2,
-                pointHoverRadius: 4,
-                pointHoverBorderWidth: 1,
-                pointRadius: 4,
-                backgroundColor: 'transparent',
-                fill: true,
-                borderWidth: 2,
-                data: [net_profit[10],net_profit[9],net_profit[8],net_profit[7],net_profit[6]
-                      ,net_profit[5],net_profit[4],net_profit[3],net_profit[2],net_profit[1]]
-            }, {
-                label: "결제수수료",
-                borderColor: use_ammnt,
-                pointBorderColor: "#FFF",
-                pointBackgroundColor: use_ammnt,
-                pointBorderWidth: 2,
-                pointHoverRadius: 4,
-                pointHoverBorderWidth: 1,
-                pointRadius: 4,
-                backgroundColor: 'transparent',
-                fill: true,
-                borderWidth: 2,
-                data: [payment_fee[10],payment_fee[9],payment_fee[8],payment_fee[7],payment_fee[6]
-                      ,payment_fee[5],payment_fee[4],payment_fee[3],payment_fee[2],payment_fee[1]]
-            }]
-        },
-        options : {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'top',
-            },
-            scales: ygraph_func,
-            tooltips: {
-                bodySpacing: 4,
-                mode:"nearest",
-                intersect: 0,
-                position:"nearest",
-                xPadding:10,
-                yPadding:10,
-                caretPadding:10,
-                callbacks: xgraph_func
-            },
-            layout:{
-                padding:{left:1,right:15,top:1,bottom:1}
-            }
-
-        }
-    });
-
-
     // 주문금액 //
     var mySim_user_sales = new Chart(sim_user_sales, {
         type: 'line',
@@ -390,6 +283,66 @@
     });
 
 
+    // 수익 및 결제 수수료 //
+    var mySim_income = new Chart(sim_income, {
+        type: 'line',
+        data: {
+            labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+            datasets: [{
+                label: "순수익",
+                borderColor: "#12e331",
+                pointBorderColor: "#FFF",
+                pointBackgroundColor: "#12e331",
+                pointBorderWidth: 2,
+                pointHoverRadius: 4,
+                pointHoverBorderWidth: 1,
+                pointRadius: 4,
+                backgroundColor: 'transparent',
+                fill: true,
+                borderWidth: 2,
+                data: [net_profit[10],net_profit[9],net_profit[8],net_profit[7],net_profit[6]
+                      ,net_profit[5],net_profit[4],net_profit[3],net_profit[2],net_profit[1]]
+            }, {
+                label: "결제수수료",
+                borderColor: use_ammnt,
+                pointBorderColor: "#FFF",
+                pointBackgroundColor: use_ammnt,
+                pointBorderWidth: 2,
+                pointHoverRadius: 4,
+                pointHoverBorderWidth: 1,
+                pointRadius: 4,
+                backgroundColor: 'transparent',
+                fill: true,
+                borderWidth: 2,
+                data: [payment_fee[10],payment_fee[9],payment_fee[8],payment_fee[7],payment_fee[6]
+                      ,payment_fee[5],payment_fee[4],payment_fee[3],payment_fee[2],payment_fee[1]]
+            }]
+        },
+        options : {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'top',
+            },
+            scales: ygraph_func,
+            tooltips: {
+                bodySpacing: 4,
+                mode:"nearest",
+                intersect: 0,
+                position:"nearest",
+                xPadding:10,
+                yPadding:10,
+                caretPadding:10,
+                callbacks: xgraph_func
+            },
+            layout:{
+                padding:{left:1,right:15,top:1,bottom:1}
+            }
+
+        }
+    });
+
+
     // 주문건수 //
     var myOrder_cnt = new Chart(order_cnt, {
         type: 'bar',
@@ -410,11 +363,13 @@
             }],
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {position : 'top'},
+            responsive: true, maintainAspectRatio: false, legend: {position : 'bottom'},
+            legend: {
+                position: 'top',
+            },
             <!--title: {display: true,text: '가입자수'},-->
-            tooltips: {mode: 'index',intersect: true},
+            tooltips: {mode: 'index',intersect: false},
+            responsive: true,
             scales: ygraph_func
         }
     });
@@ -459,7 +414,7 @@
 			data: {
 				datasets: [{
 					data: [copn_use_cnt[1], copn_use_psbl_cnt[1]],
-					backgroundColor :[use_ammnt,prft_amnt],
+					backgroundColor :["#1d7af3","#f3545d"],
 					borderWidth: 0
 				}],
 				labels: ['사용', '미사용']
@@ -517,53 +472,53 @@
         data: {
             labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
             datasets: [ {
-                label: "회원 중 첫 구매 비율",
-                borderColor: gradientStroke2,
-                pointBackgroundColor: gradientStroke2,
-                pointRadius: 1,
-                backgroundColor: gradientFill2,
-                fill: true,
-                borderWidth: 1,
-                data: [Math.round((frst_buy_mmbr_cnt[10] / tday_buy_mmbr_cnt[10] * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[9]  / tday_buy_mmbr_cnt[9]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[8]  / tday_buy_mmbr_cnt[8]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[7]  / tday_buy_mmbr_cnt[7]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[6]  / tday_buy_mmbr_cnt[6]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[5]  / tday_buy_mmbr_cnt[5]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[4]  / tday_buy_mmbr_cnt[4]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[3]  / tday_buy_mmbr_cnt[3]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[2]  / tday_buy_mmbr_cnt[2]  * 100) * 100) / 100
-                      ,Math.round((frst_buy_mmbr_cnt[1]  / tday_buy_mmbr_cnt[1]  * 100) * 100) / 100
-                      ]
-
-            }, {
                 label: "가입일 구매 인원 비율",
                 borderColor: gradientStroke,
                 pointBackgroundColor: gradientStroke,
-                pointRadius: 1,
+                pointRadius: 0,
                 backgroundColor: gradientFill,
+                legendColor: '#f3545d',
                 fill: true,
                 borderWidth: 1,
-                data: [Math.round((tday_join_buy_cnt[10] / tday_join_cnt[10] * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[9]  / tday_join_cnt[9]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[8]  / tday_join_cnt[8]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[7]  / tday_join_cnt[7]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[6]  / tday_join_cnt[6]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[5]  / tday_join_cnt[5]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[4]  / tday_join_cnt[4]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[3]  / tday_join_cnt[3]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[2]  / tday_join_cnt[2]  * 100) * 100) / 100
-                      ,Math.round((tday_join_buy_cnt[1]  / tday_join_cnt[1]  * 100) * 100) / 100
+                data: [join_tday_buy_mmbr_cnt[10] / 949 * 100 // 일일가입자 넣기
+                      ,join_tday_buy_mmbr_cnt[9]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[8]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[7]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[6]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[5]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[4]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[3]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[2]  / 949 * 100
+                      ,join_tday_buy_mmbr_cnt[1]  / 8612 * 100
+                      ]
+            }, {
+                label: "회원 중 첫 구매 비율",
+                borderColor: gradientStroke2,
+                pointBackgroundColor: gradientStroke2,
+                pointRadius: 0,
+                backgroundColor: gradientFill2,
+                legendColor: '#177dff',
+                fill: true,
+                borderWidth: 1,
+                data: [frst_buy_mmbr_cnt[10] / buy_mmbr_cnt[10] * 100
+                      ,frst_buy_mmbr_cnt[9] / buy_mmbr_cnt[9] * 100
+                      ,frst_buy_mmbr_cnt[8] / buy_mmbr_cnt[8] * 100
+                      ,frst_buy_mmbr_cnt[7] / buy_mmbr_cnt[7] * 100
+                      ,frst_buy_mmbr_cnt[6] / buy_mmbr_cnt[6] * 100
+                      ,frst_buy_mmbr_cnt[5] / buy_mmbr_cnt[5] * 100
+                      ,frst_buy_mmbr_cnt[4] / buy_mmbr_cnt[4] * 100
+                      ,frst_buy_mmbr_cnt[3] / buy_mmbr_cnt[3] * 100
+                      ,frst_buy_mmbr_cnt[2] / buy_mmbr_cnt[2] * 100
+                      ,frst_buy_mmbr_cnt[1] / buy_mmbr_cnt[1] * 100
                       ]
             }]
         },
         options : {
             responsive: true,
-            maintainAspectRatio: false, // 비율 유지
+            maintainAspectRatio: false,
             legend: {
-                position: 'top'
+                display: false
             },
-            scales: ygraph_func,
             tooltips: {
                 bodySpacing: 4,
                 mode:"nearest",
@@ -571,19 +526,57 @@
                 position:"nearest",
                 xPadding:10,
                 yPadding:10,
-                caretPadding:10,
-                callbacks: xgraph_func
+                caretPadding:10
             },
             layout:{
-                padding:{left:15,right:15,top:1,bottom:1}
+                padding:{left:15,right:15,top:15,bottom:15}
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontStyle: "500",
+                        beginAtZero: false,
+                        maxTicksLimit: 5,
+                        padding: 20
+                    },
+                    gridLines: {
+                        drawTicks: false,
+                        display: false
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        zeroLineColor: "transparent"
+                    },
+                    ticks: {
+                        padding: 20,
+                        fontStyle: "500"
+                    }
+                }]
+            },
+            legendCallback: function(chart) {
+                var text = [];
+                text.push('<ul class="' + chart.id + '-legend html-legend">');
+                for (var i = 0; i < chart.data.datasets.length; i++) {
+                    text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>');
+                    if (chart.data.datasets[i].label) {
+                        text.push(chart.data.datasets[i].label);
+                    }
+                    text.push('</li>');
+                }
+                text.push('</ul>');
+                return text.join('');
             }
-
-
         }
     });
 
 
 
-</script>
+    // generate HTML legend
+    myLegendContainer.innerHTML = myFrst_buy_rate.generateLegend();
 
-{% endblock javascripts %}
+    // bind onClick event to all LI-tags of the legend
+    var legendItems = myLegendContainer.getElementsByTagName('li');
+    for (var i = 0; i < legendItems.length; i += 1) {
+        legendItems[i].addEventListener("click", legendClickCallback, false);
+    }
