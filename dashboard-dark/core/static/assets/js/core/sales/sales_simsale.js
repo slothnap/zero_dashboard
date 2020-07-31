@@ -5,47 +5,50 @@ var list = salesList.replace(/&#39;/g, "\"");
 <!-- 수정된 데이터 배열에 담기 -->
 var data = JSON.parse(list);
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 // 카테고리 매출 //
 var sim_cate_sales = document.getElementById('sim_cate_sales').getContext('2d');
-var sim_cate_sales_beauty       = Object.values(data[1]).splice(1,11);
-var sim_cate_sales_housekeeping = Object.values(data[2]).splice(1,11);
-var sim_cate_sales_fashion      = Object.values(data[3]).splice(1,11);
-var sim_cate_sales_food         = Object.values(data[4]).splice(1,11);
+var sim_cate_sales_beauty       = Object.values(data[1]).splice(2,11);
+var sim_cate_sales_housekeeping = Object.values(data[2]).splice(2,11);
+var sim_cate_sales_fashion      = Object.values(data[3]).splice(2,11);
+var sim_cate_sales_food         = Object.values(data[4]).splice(2,11);
 
+//console.log(data_list(sim_cate_sales_beauty));
+//console.log(typeof(data_list(sim_cate_sales_beauty)));
 
 // 주문금액 //
 var sim_user_sales    = document.getElementById('sim_user_sales').getContext('2d');
-var unmmbr_ordr_ammnt = Object.values(data[5]).splice(1,11);
-var mmbr_ordr_ammnt   = Object.values(data[6]).splice(1,11);
+var unmmbr_ordr_ammnt = Object.values(data[5]).splice(2,11);
+var mmbr_ordr_ammnt   = Object.values(data[6]).splice(2,11);
 
 
 // 수익 및 결제수수료 //
 var sim_income  = document.getElementById('sim_income').getContext('2d');
-var net_profit  = Object.values(data[8]).splice(1,11);
-var payment_fee = Object.values(data[7]).splice(1,11);
+var net_profit  = Object.values(data[8]).splice(2,11);
+var payment_fee = Object.values(data[7]).splice(2,11);
 
 
 // 주문건수 //
 var order_cnt  = document.getElementById('order_cnt').getContext('2d');
-var unmmbr_cnt = Object.values(data[9]).splice(1,11);
-var mmbr_cnt   = Object.values(data[10]).splice(1,11);
+var unmmbr_cnt = Object.values(data[9]).splice(2,11);
+var mmbr_cnt   = Object.values(data[10]).splice(2,11);
 
 
 // 쿠폰 사용금액 //
 var copn_use_amnt = document.getElementById('copn_use_amnt').getContext('2d');
-var copn_amnt     = Object.values(data[11]).splice(1,11);
+var copn_amnt     = Object.values(data[11]).splice(2,11);
 
 // 쿠폰 사용비율 //
-var copn_use_rate = document.getElementById('copn_use_rate').getContext('2d');
-var copn_whol_cnt     = Object.values(data[12]).splice(1,11);
-var copn_use_psbl_cnt = Object.values(data[13]).splice(1,11);
-var copn_use_cnt      = Object.values(data[14]).splice(1,11);
+var copn_use_rate     = document.getElementById('copn_use_rate').getContext('2d');
+var copn_whol_cnt     = Object.values(data[12]).splice(2,11);
+var copn_use_psbl_cnt = Object.values(data[13]).splice(2,11);
+var copn_use_cnt      = Object.values(data[14]).splice(2,11);
 
 // 첫구매 비율 및 지표 없애기 모드
-var frst_buy_rate  = document.getElementById('frst_buy_rate').getContext('2d');
-var myLegendContainer = document.getElementById("myChartLegend");
-
-var tday_join_buy_cnt = Object.values(data[15]).splice(1,11); // 당일가입구매자수
+var frst_buy_rate     = document.getElementById('frst_buy_rate').getContext('2d');
+var tday_join_buy_cnt      = Object.values(data[15]).splice(1,11); // 당일가입구매자수
 var tday_join_cnt          = Object.values(data[16]).splice(1,11); // 당일가입자수
 var tday_buy_mmbr_cnt      = Object.values(data[17]).splice(1,11); // 당일구매회원수
 var frst_buy_mmbr_cnt      = Object.values(data[18]).splice(1,11); // 첫구매회원수
@@ -70,6 +73,37 @@ $.ajax({
         labels[i] = response.label[i];
       }
 
+// 재호씨가 준거
+function callAjax(url,data,callbackFunc){
+	$.extend(data,data,{path : window.location.pathname});
+	$.ajax({
+		type : "POST",
+		url : window.location.origin + "/JasonDA" + url,
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType : "application/json",
+		beforeSend : function(){
+			$(".wrap_loading").show();
+		},
+		error : function(err){
+			console.log(err);
+		},
+		success : function(result){
+			if(result.status){
+				if(callbackFunc){
+					callbackFunc(result);
+					$(".wrap_loading").hide();
+				}
+			}else{
+				alert("오류가 발생하였습니다.\n오류코드 : "+result.errCode+"\n");
+				$(".wrap_loading").hide();
+			}
+		}
+	});
+}
+
+
+
 */
 
 
@@ -77,12 +111,13 @@ $.ajax({
 var mySim_cate_sales = new Chart(sim_cate_sales, {
     type: 'line',
     data: {
-        labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
-        datasets: [{
+        labels: labels_10,
+        datasets: [
+        {
             label: "뷰티",
             borderColor: "#bd24d1",
-            pointBorderColor: "#FFF",
             pointBackgroundColor: "#bd24d1",
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -90,13 +125,12 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [sim_cate_sales_beauty[10],sim_cate_sales_beauty[9],sim_cate_sales_beauty[8],sim_cate_sales_beauty[7],sim_cate_sales_beauty[6]
-                  ,sim_cate_sales_beauty[5],sim_cate_sales_beauty[4],sim_cate_sales_beauty[3],sim_cate_sales_beauty[2],sim_cate_sales_beauty[1]]
+            data: sim_cate_sales_beauty.reverse()
         }, {
             label: "살림",
             borderColor: "#2486d1",
-            pointBorderColor: "#FFF",
             pointBackgroundColor: "#2486d1",
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -104,13 +138,12 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [sim_cate_sales_housekeeping[10],sim_cate_sales_housekeeping[9],sim_cate_sales_housekeeping[8],sim_cate_sales_housekeeping[7],sim_cate_sales_housekeeping[6]
-                  ,sim_cate_sales_housekeeping[5],sim_cate_sales_housekeeping[4],sim_cate_sales_housekeeping[3],sim_cate_sales_housekeeping[2],sim_cate_sales_housekeeping[1]]
+            data: sim_cate_sales_housekeeping.reverse()
         }, {
             label: "패션",
             borderColor: "#d12444",
-            pointBorderColor: "#FFF",
             pointBackgroundColor: "#d12444",
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -118,13 +151,12 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [sim_cate_sales_fashion[10],sim_cate_sales_fashion[9],sim_cate_sales_fashion[8],sim_cate_sales_fashion[7],sim_cate_sales_fashion[6]
-                  ,sim_cate_sales_fashion[5],sim_cate_sales_fashion[4],sim_cate_sales_fashion[3],sim_cate_sales_fashion[2],sim_cate_sales_fashion[1]]
+            data: sim_cate_sales_fashion.reverse()
         }, {
             label: "푸드",
             borderColor: "#3ed124",
-            pointBorderColor: "#FFF",
             pointBackgroundColor: "#3ed124",
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -132,91 +164,59 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [sim_cate_sales_food[10],sim_cate_sales_food[9],sim_cate_sales_food[8],sim_cate_sales_food[7],sim_cate_sales_food[6]
-                  ,sim_cate_sales_food[5],sim_cate_sales_food[4],sim_cate_sales_food[3],sim_cate_sales_food[2],sim_cate_sales_food[1]]
+            data: sim_cate_sales_food.reverse()
         }]
     },
     options : {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-            position: 'top',
-        },
+        legend: legend_top,
         scales: ygraph_func,
-        tooltips: {
-            bodySpacing: 4,
-            mode:"nearest",
-            intersect: 0,
-            position:"nearest",
-            xPadding:10,
-            yPadding:10,
-            caretPadding:10,
-            callbacks: xgraph_func
-        },
-        layout:{
-            padding:{left:1,right:15,top:1,bottom:1}
-        }
-
+        tooltips: tooltips_line,
+        layout: layout_all
     }
 });
 
 
 // 수익 및 결제 수수료 //
 var mySim_income = new Chart(sim_income, {
-    type: 'line',
+    type: "bar", // 'bar'
     data: {
-        labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+        labels: labels_10,
         datasets: [{
             label: "순수익",
+            backgroundColor: prft_amnt,// "transparent" = 투명하게
             borderColor: prft_amnt,
-            pointBorderColor: "#FFF",
             pointBackgroundColor: prft_amnt,
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
             pointRadius: 4,
-            backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [net_profit[10],net_profit[9],net_profit[8],net_profit[7],net_profit[6]
-                  ,net_profit[5],net_profit[4],net_profit[3],net_profit[2],net_profit[1]]
+            data: net_profit.reverse()
         }, {
             label: "결제수수료",
+            backgroundColor: use_ammnt,
             borderColor: use_ammnt,
-            pointBorderColor: "#FFF",
             pointBackgroundColor: use_ammnt,
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
             pointRadius: 4,
-            backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [payment_fee[10],payment_fee[9],payment_fee[8],payment_fee[7],payment_fee[6]
-                  ,payment_fee[5],payment_fee[4],payment_fee[3],payment_fee[2],payment_fee[1]]
+            data: payment_fee.reverse()
         }]
     },
     options : {
-        responsive: true,
         maintainAspectRatio: false,
-        legend: {
-            position: 'top',
-        },
+        legend: legend_top,
         scales: ygraph_func,
-        tooltips: {
-            bodySpacing: 4,
-            mode:"nearest",
-            intersect: 0,
-            position:"nearest",
-            xPadding:10,
-            yPadding:10,
-            caretPadding:10,
-            callbacks: xgraph_func
-        },
-        layout:{
-            padding:{left:1,right:15,top:1,bottom:1}
-        }
-
+        tooltips: tooltips_line,
+        layout: layout_all
     }
 });
 
@@ -225,12 +225,12 @@ var mySim_income = new Chart(sim_income, {
 var mySim_user_sales = new Chart(sim_user_sales, {
     type: 'line',
     data: {
-        labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+        labels: labels_10,
         datasets: [{
             label: "회원",
             borderColor: mmbr_color,
-            pointBorderColor: "#FFF",
             pointBackgroundColor: mmbr_color,
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -238,13 +238,12 @@ var mySim_user_sales = new Chart(sim_user_sales, {
             backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [mmbr_ordr_ammnt[10],mmbr_ordr_ammnt[9],mmbr_ordr_ammnt[8],mmbr_ordr_ammnt[7],mmbr_ordr_ammnt[6]
-                  ,mmbr_ordr_ammnt[5],mmbr_ordr_ammnt[4],mmbr_ordr_ammnt[3],mmbr_ordr_ammnt[2],mmbr_ordr_ammnt[1]]
+            data: mmbr_ordr_ammnt.reverse()
         }, {
             label: "비회원",
             borderColor: unmmbr_color,
-            pointBorderColor: "#FFF",
             pointBackgroundColor: unmmbr_color,
+            pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -252,31 +251,15 @@ var mySim_user_sales = new Chart(sim_user_sales, {
             backgroundColor: 'transparent',
             fill: true,
             borderWidth: 2,
-            data: [unmmbr_ordr_ammnt[10],unmmbr_ordr_ammnt[9],unmmbr_ordr_ammnt[8],unmmbr_ordr_ammnt[7],unmmbr_ordr_ammnt[6]
-                  ,unmmbr_ordr_ammnt[5],unmmbr_ordr_ammnt[4],unmmbr_ordr_ammnt[3],unmmbr_ordr_ammnt[2],unmmbr_ordr_ammnt[1]]
+            data: unmmbr_ordr_ammnt.reverse()
         }]
     },
     options : {
-        responsive: true,
         maintainAspectRatio: false,
-        legend: {
-            position: 'top',
-        },
+        legend: legend_top,
         scales: ygraph_func,
-        tooltips: {
-            bodySpacing: 4,
-            mode:"nearest",
-            intersect: 0,
-            position:"nearest",
-            xPadding:10,
-            yPadding:10,
-            caretPadding:10,
-            callbacks: xgraph_func
-        },
-        layout:{
-            padding:{left:1,right:15,top:1,bottom:1}
-        }
-
+        tooltips: tooltips_line,
+        layout: layout_all
     }
 });
 
@@ -285,62 +268,71 @@ var mySim_user_sales = new Chart(sim_user_sales, {
 var myOrder_cnt = new Chart(order_cnt, {
     type: 'bar',
     data: {
-        labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+        labels: labels_10,
         datasets : [{
             label: "회원",
-            backgroundColor: mmbr_color,
+            backgroundColor: mmbr_color, // transparent
             borderColor: mmbr_color,
-            data: [mmbr_cnt[10],mmbr_cnt[9],mmbr_cnt[8],mmbr_cnt[7],mmbr_cnt[6]
-                  ,mmbr_cnt[5],mmbr_cnt[4],mmbr_cnt[3],mmbr_cnt[2],mmbr_cnt[1]],
+            pointBackgroundColor: prft_amnt,
+            pointBorderColor: "#FFF",
+            pointBorderWidth: 2,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 1,
+            pointRadius: 4,
+            fill: true,
+            borderWidth: 2,
+            data: mmbr_cnt.reverse()
         }, {
             label: "비회원",
             backgroundColor: unmmbr_color,
             borderColor: unmmbr_color,
-            data: [unmmbr_cnt[10],unmmbr_cnt[9],unmmbr_cnt[8],unmmbr_cnt[7],unmmbr_cnt[6]
-                  ,unmmbr_cnt[5],unmmbr_cnt[4],unmmbr_cnt[3],unmmbr_cnt[2],unmmbr_cnt[1]],
+            pointBackgroundColor: unmmbr_color,
+            pointBorderColor: "#FFF",
+            pointBorderWidth: 2,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 1,
+            pointRadius: 4,
+            fill: true,
+            borderWidth: 2,
+            data: unmmbr_cnt.reverse()
         }],
     },
     options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {position : 'top'},
-        <!--title: {display: true,text: '가입자수'},-->
-        tooltips: {mode: 'index',intersect: true},
-        scales: ygraph_func
+        maintainAspectRatio: false, // 크기가 커져도 크기 맞추기
+        legend: legend_top,
+        scales: ygraph_func,
+        tooltips: tooltips_line,
+        layout: layout_all
     }
 });
 
 
 // 쿠폰 사용금액 //
 var myCopn_use_amnt = new Chart(copn_use_amnt, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
-        labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+        labels: labels_10,
         datasets : [{
             label: "쿠폰사용금액",
-            backgroundColor: use_ammnt,
+            backgroundColor: use_ammnt, // transparent
             borderColor: use_ammnt,
-            data: [copn_amnt[10],copn_amnt[9],copn_amnt[8],copn_amnt[7],copn_amnt[6]
-                  ,copn_amnt[5],copn_amnt[4],copn_amnt[3],copn_amnt[2],copn_amnt[1]
-                  ],
+            pointBackgroundColor: use_ammnt,
+            pointBorderColor: "#FFF",
+            pointBorderWidth: 2,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 1,
+            pointRadius: 4,
+            fill: true,
+            borderWidth: 2,
+            data: copn_amnt.reverse()
         }],
     },
     options: {
-        <!-- title: {display: true,text: '가입자수'},-->
-        responsive: true, maintainAspectRatio: false, legend: {position : 'bottom'},
-        legend: {
-            position: 'top',
-        },
-        tooltips:
-        {
-            mode: 'index',
-            intersect: false,
-            callbacks: xgraph_func
-        },
-        responsive: true,
-        scales: ygraph_func
-
-
+        maintainAspectRatio: false,
+        legend: legend_top,
+        scales: ygraph_func,
+        tooltips: tooltips_line,
+        layout: layout_all
     }
 });
 
@@ -372,15 +364,8 @@ var myCopn_use_rate = new Chart(copn_use_rate, {
                 fontColor: 'white',
                 fontSize: 14,
             },
-            tooltips: false,
-            layout: {
-                padding: {
-                    left: 20,
-                    right: 20,
-                    top: 20,
-                    bottom: 20
-                }
-            }
+            tooltips: {callbacks: xgraph_func},
+            layout: layout_all
         }
     })
 
@@ -406,13 +391,13 @@ gradientFill2.addColorStop(1, "rgba(255, 137, 144, 0.3)");
 var myFrst_buy_rate = new Chart(frst_buy_rate, {
     type: 'line',
     data: {
-        labels: ["10일전", "9일전", "8일전", "7일전", "6일전", "5일전", "4일전", "3일전", "2일전", "1일전"],
+        labels: labels_10,
         datasets: [ {
             label: "회원 중 첫 구매 비율",
             borderColor: gradientStroke2,
             pointBackgroundColor: gradientStroke2,
-            pointRadius: 1,
             backgroundColor: gradientFill2,
+            pointRadius: 1,
             fill: true,
             borderWidth: 1,
             data: [Math.round((frst_buy_mmbr_cnt[10] / tday_buy_mmbr_cnt[10] * 100) * 100) / 100
@@ -426,13 +411,12 @@ var myFrst_buy_rate = new Chart(frst_buy_rate, {
                   ,Math.round((frst_buy_mmbr_cnt[2]  / tday_buy_mmbr_cnt[2]  * 100) * 100) / 100
                   ,Math.round((frst_buy_mmbr_cnt[1]  / tday_buy_mmbr_cnt[1]  * 100) * 100) / 100
                   ]
-
         }, {
             label: "가입일 구매 인원 비율",
             borderColor: gradientStroke,
             pointBackgroundColor: gradientStroke,
-            pointRadius: 1,
             backgroundColor: gradientFill,
+            pointRadius: 1,
             fill: true,
             borderWidth: 1,
             data: [Math.round((tday_join_buy_cnt[10] / tday_join_cnt[10] * 100) * 100) / 100
@@ -449,27 +433,11 @@ var myFrst_buy_rate = new Chart(frst_buy_rate, {
         }]
     },
     options : {
-        responsive: true,
         maintainAspectRatio: false, // 비율 유지
-        legend: {
-            position: 'top'
-        },
+        legend: legend_top,
         scales: ygraph_func,
-        tooltips: {
-            bodySpacing: 4,
-            mode:"nearest",
-            intersect: 0,
-            position:"nearest",
-            xPadding:10,
-            yPadding:10,
-            caretPadding:10,
-            callbacks: xgraph_func
-        },
-        layout:{
-            padding:{left:15,right:15,top:1,bottom:1}
-        }
-
-
+        tooltips: tooltips_line,
+        layout: layout_all
     }
 });
 

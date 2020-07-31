@@ -38,6 +38,30 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
+                        <div class="card-title">Horizontal Bar</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="horizontalBar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Mixed</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="mixed"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
                         <div class="card-title">Pie Chart</div>
                     </div>
                     <div class="card-body">
@@ -135,6 +159,8 @@
 
 		var lineChart = document.getElementById('lineChart').getContext('2d'),
 		barChart = document.getElementById('barChart').getContext('2d'),
+		horizontalBar = document.getElementById('horizontalBar').getContext('2d'),
+		mixed = document.getElementById('mixed').getContext('2d'),
 		pieChart = document.getElementById('pieChart').getContext('2d'),
 		doughnutChart = document.getElementById('doughnutChart').getContext('2d'),
 		radarChart = document.getElementById('radarChart').getContext('2d'),
@@ -211,6 +237,69 @@
 				},
 			}
 		});
+
+		var myHorizontalBar = new Chart(horizontalBar, {
+			type: 'horizontalBar',
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets : [{
+					label: "Sales",
+					backgroundColor: 'rgb(23, 125, 255)',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+			}
+		});
+
+		var myMixed = new Chart(mixed, {
+			type: 'bar',
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets : [{
+					label: "Sales",
+					backgroundColor: "#25b3a2",
+					borderColor: "#25b3a2",
+					data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+				}, {
+				    label: "Sales",
+				    type: 'line',
+					backgroundColor: "transparent",
+					borderColor: 'rgb(23, 125, 255)',
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					fill: true,
+					borderWidth: 2,
+					data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+			}
+		});
+
 
 		var myPieChart = new Chart(pieChart, {
 			type: 'pie',
