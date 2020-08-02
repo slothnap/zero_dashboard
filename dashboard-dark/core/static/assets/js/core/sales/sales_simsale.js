@@ -115,8 +115,8 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
         datasets: [
         {
             label: "뷰티",
-            borderColor: "#bd24d1",
-            pointBackgroundColor: "#bd24d1",
+            borderColor: first_color,
+            pointBackgroundColor: first_color,
             pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
@@ -128,8 +128,8 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             data: sim_cate_sales_beauty.reverse()
         }, {
             label: "살림",
-            borderColor: "#2486d1",
-            pointBackgroundColor: "#2486d1",
+            borderColor: second_color,
+            pointBackgroundColor: second_color,
             pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
@@ -141,8 +141,8 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             data: sim_cate_sales_housekeeping.reverse()
         }, {
             label: "패션",
-            borderColor: "#d12444",
-            pointBackgroundColor: "#d12444",
+            borderColor: third_color,
+            pointBackgroundColor: third_color,
             pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
@@ -154,8 +154,8 @@ var mySim_cate_sales = new Chart(sim_cate_sales, {
             data: sim_cate_sales_fashion.reverse()
         }, {
             label: "푸드",
-            borderColor: "#3ed124",
-            pointBackgroundColor: "#3ed124",
+            borderColor: fourth_color,
+            pointBackgroundColor: fourth_color,
             pointBorderColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
