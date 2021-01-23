@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sql_test',
+        'NAME': 'innodb',
         'USER': 'zero',
-        'PASSWORD':'rladudgns!1',
-        'HOST':'zerosum.cqjm9uq4vsof.ap-northeast-2.rds.amazonaws.com',
+        'PASSWORD':'tkrkwl1564!',
+        'HOST':'lotto.cpfmnga4bqgy.ap-northeast-2.rds.amazonaws.com',
         'PORT':'3306',
 
     }
