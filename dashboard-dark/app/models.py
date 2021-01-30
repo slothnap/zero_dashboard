@@ -32,22 +32,4 @@ class DaDashboardSimsale(models.Model):
         unique_together = (('sno', 'cntn'),)
 
 
-class DaUserSimsale(models.Model):
-    sno = models.IntegerField(primary_key=True)
-    cntn = models.CharField(max_length=50)
-    day1 = models.IntegerField(blank=True, null=True)
-    day2 = models.IntegerField(blank=True, null=True)
-    day3 = models.IntegerField(blank=True, null=True)
-    day4 = models.IntegerField(blank=True, null=True)
-    day5 = models.IntegerField(blank=True, null=True)
-    day6 = models.IntegerField(blank=True, null=True)
-    day7 = models.IntegerField(blank=True, null=True)
-    day8 = models.IntegerField(blank=True, null=True)
-    day9 = models.IntegerField(blank=True, null=True)
-    day10 = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'da_user_simsale'
-        unique_together = (('sno', 'cntn'),)
 
