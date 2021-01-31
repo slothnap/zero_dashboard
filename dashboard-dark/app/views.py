@@ -9,29 +9,24 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django import template
-from .models import DaDashboardSimsale, DaUserSimsale
+from .models import DaDashboardSimsale
 from django.views import generic
 
 # 매출값 가져오기
 
 def sales_simsale(request):
-    sales_result = DaDashboardSimsale.objects.values()
+    # 테이블 값 가져오기
+    #sales_result = DaDashboardSimsale.objects.values()
 
     # 쿼리셋 => list로
-    sales_list = [entry for entry in sales_result]
-    context = {"sales_list": sales_list}
-    return render(request, "sales/sales_simsale.html", context)
+    #sales_list = [entry for entry in sales_result]
+    #context = {"sales_list": sales_list}
+    #return render(request, "sales/sales_simsale.html", context)
 
-def users_simsale(request):
-    users_result = DaUserSimsale.objects.values()
-
-    # 쿼리셋 => list로
-    users_list = [entry for entry in users_result]
-    context = {"users_list": users_list}
-    return render(request, "users/users_simsale.html", context)
+    return render(request, "sales/sales_simsale.html")
 
 
-# def sales_sale09(request):
+def lotto_cnt(request):
 #     list_result2 = DaDashboardSimsale.objects.values()
 #
 #     # 쿼리셋 => list로
@@ -39,14 +34,7 @@ def users_simsale(request):
 #     context = {"dashboard_list": dashboard_list}
 #     return render(request, "sales/sales_sale09.html", context)
 
-# def sales_market09(request):
-#     list_result3 = DaDashboardSimsale.objects.values()
-#
-#     # 쿼리셋 => list로
-#     dashboard_list = [entry for entry in list_result3]
-#     context = {"dashboard_list": dashboard_list}
-#     return render(request, "sales/sales_market09.html", context)
-
+    return render(request, "sales/lotto_number_cnt.html")
 
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요

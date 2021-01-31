@@ -20,5 +20,6 @@ urlpatterns = [
     
     # shop-test 명령을 치면 view에서 shop_test 함수가 작동
     path('sales-simsale',views.sales_simsale, name='sales-simsale'),
+    path('lotto-cnt',views.lotto_cnt, name='lotto-cnt'),
 
 ]
