@@ -16,7 +16,7 @@ from django.urls import path, include  # add this
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("app.urls")),  # 기능
+    path("", include("app.urls")),            # 기능
     path("", include("authentication.urls"))  # 계정
 
 ]

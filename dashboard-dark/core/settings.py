@@ -89,18 +89,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'MDM',
-#         'USER': 'MDM_Admin',
-#         'PASSWORD':'wpdltms123!@#',
-#         'HOST':'10.20.10.45',
-#         'PORT':'3306',
-#
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
