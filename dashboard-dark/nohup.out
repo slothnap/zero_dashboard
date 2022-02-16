@@ -1,0 +1,471 @@
+Watching for file changes with StatReloader
+Performing system checks...
+
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/management/commands/runserver.py", line 118, in inner_run
+    self.check(display_num_errors=True)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/management/base.py", line 423, in check
+    databases=databases,
+  File "/usr/local/lib/python3.6/dist-packages/django/core/checks/registry.py", line 76, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/checks/urls.py", line 13, in check_url_config
+    return check_resolver(resolver)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/checks/urls.py", line 23, in check_resolver
+    return check_method()
+  File "/usr/local/lib/python3.6/dist-packages/django/urls/resolvers.py", line 416, in check
+    for pattern in self.url_patterns:
+  File "/usr/local/lib/python3.6/dist-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/usr/local/lib/python3.6/dist-packages/django/urls/resolvers.py", line 602, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/usr/local/lib/python3.6/dist-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/usr/local/lib/python3.6/dist-packages/django/urls/resolvers.py", line 595, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/ubuntu/zero_dashboard/dashboard-dark/core/urls.py", line 28, in <module>
+    path("", include("app.urls")),            # 기능
+  File "/usr/local/lib/python3.6/dist-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/ubuntu/zero_dashboard/dashboard-dark/app/urls.py", line 8, in <module>
+    from . import views
+  File "/home/ubuntu/zero_dashboard/dashboard-dark/app/views.py", line 12, in <module>
+    from .models import DaDashboardSimsale
+  File "/home/ubuntu/zero_dashboard/dashboard-dark/app/models.py", line 15, in <module>
+    class DaDashboardSimsale(models.Model):
+  File "/usr/local/lib/python3.6/dist-packages/django/db/models/base.py", line 116, in __new__
+    "INSTALLED_APPS." % (module, name)
+RuntimeError: Model class app.models.DaDashboardSimsale doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
+
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+February 15, 2022 - 06:42:50
+Django version 3.2.11, using settings 'core.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+[15/Feb/2022 06:42:52] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 06:42:52] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/img/flags/au.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/img/flags/id.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/img/flags/us.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/js/demo.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/fonts/fontawesome/fa-regular-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0 HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/fonts/fontawesome/fa-solid-900.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/fonts/flaticon/Flaticon.woff HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/img/flags/ru.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:52] "GET /static/assets/fonts/fontawesome/fa-brands-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/flags/cn.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/logoproduct.svg HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/flags/br.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/logoproduct3.svg HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/chadengle.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/jm_denis.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/talha.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:42:53] "GET /static/assets/img/mlane.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:42:54] "GET /sales-simsale HTTP/1.1" 200 15601
+[15/Feb/2022 06:42:55] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 06:42:55] "GET /static/assets/js/core/charts/colors.js HTTP/1.1" 200 386
+[15/Feb/2022 06:42:55] "GET /static/assets/js/core/sales/sales_simsale.js HTTP/1.1" 200 15076
+[15/Feb/2022 06:42:55] "GET /static/assets/js/core/charts/charts_setting.js HTTP/1.1" 200 2311
+[15/Feb/2022 06:43:02] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 06:43:02] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:02] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/flags/au.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/flags/id.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/flags/us.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/fonts/fontawesome/fa-solid-900.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/fonts/fontawesome/fa-regular-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0 HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/fonts/flaticon/Flaticon.woff HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/fonts/fontawesome/fa-brands-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/demo.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/flags/ru.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/flags/br.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/flags/cn.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/logoproduct3.svg HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/logoproduct.svg HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/jm_denis.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/chadengle.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/talha.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:43:03] "GET /static/assets/img/mlane.jpg HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /charts_ex.html HTTP/1.1" 200 31110
+[15/Feb/2022 06:43:04] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:04] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:05] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /sparkline.html HTTP/1.1" 200 15746
+[15/Feb/2022 06:43:07] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 06:43:07] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 09:22:18] "GET / HTTP/1.0" 200 36825
+[15/Feb/2022 09:22:23] code 400, message Bad HTTP/0.9 request type ('l\x00')
+[15/Feb/2022 09:22:23] "l          " 400 -
+Not Found: /nice ports,/Trinity.txt.bak
+[15/Feb/2022 09:22:24] "GET /nice%20ports%2C/Tri%6Eity.txt%2ebak HTTP/1.0" 404 3393
+[15/Feb/2022 09:22:24] code 400, message Bad request syntax ('\x05\x04\x00\x01\x02\x80\x05\x01\x00\x03')
+[15/Feb/2022 09:22:24] "  " 400 -
+[15/Feb/2022 09:22:30] code 400, message Bad request syntax ('\x04\x01\x00\x16\x7f\x00\x00\x01root\x00')
+[15/Feb/2022 09:22:30] "   root " 400 -
+[15/Feb/2022 09:22:30] "OPTIONS / HTTP/1.0" 200 36825
+[15/Feb/2022 09:22:31] code 400, message Bad request version ('RTSP/1.0')
+[15/Feb/2022 09:22:31] "OPTIONS / RTSP/1.0" 400 -
+[15/Feb/2022 09:22:36] code 400, message Bad request version ('\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+[15/Feb/2022 09:22:36] "  (rþ          |                    " 400 -
+[15/Feb/2022 09:22:41] code 400, message Bad HTTP/0.9 request type ('\x00')
+[15/Feb/2022 09:22:41] "          versionbind   " 400 -
+[15/Feb/2022 09:22:47] code 400, message Bad HTTP/0.9 request type ('\x00')
+[15/Feb/2022 09:22:47] "            " 400 -
+[15/Feb/2022 09:22:47] code 400, message Bad request syntax ('HELP')
+[15/Feb/2022 09:22:47] "HELP" 400 -
+[15/Feb/2022 09:22:48] code 400, message Bad request syntax ('\x16\x03\x00\x00S\x01\x00\x00O\x03\x00?G×÷º,îê²`~ó\x00ý\x82{¹Õ\x96Èw\x9bæÄÛ<=Ûoï\x10n\x00\x00(\x00\x16\x00\x13\x00')
+[15/Feb/2022 09:22:48] You're accessing the development server over HTTPS, but it only supports HTTP.
+
+[15/Feb/2022 09:22:48] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00*%à\x00\x00\x00\x00\x00Cookie:')
+[15/Feb/2022 09:22:48] "  *%à     Cookie: mstshash=nmap" 400 -
+[15/Feb/2022 09:22:49] code 400, message Bad request version ('\x00/\x00')
+[15/Feb/2022 09:22:49] You're accessing the development server over HTTPS, but it only supports HTTP.
+
+[15/Feb/2022 09:22:49] code 400, message Bad request syntax ('\x00\x00\x00qj\x81n0\x81k¡\x03\x02\x01\x05¢\x03\x02\x01')
+[15/Feb/2022 09:22:49] "   qjn0k¡¢" 400 -
+[15/Feb/2022 09:22:55] code 400, message Bad request syntax ('\x00\x00\x00¤ÿSMBr\x00\x00\x00\x00\x08\x01@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00@\x06\x00\x00\x01\x00\x00\x81\x00\x02PC NETWORK PROGRAM 1.0\x00\x02MICROSOFT NETWORKS 1.03\x00\x02MICROSOFT NETWORKS 3.0\x00\x02LANMAN1.0\x00\x02LM1.2X002\x00\x02Samba\x00\x02NT LANMAN 1.0\x00\x02NT LM 0.12\x00')
+[15/Feb/2022 09:22:55] "   ¤ÿSMBr    @              @     PC NETWORK PROGRAM 1.0 MICROSOFT NETWORKS 1.03 MICROSOFT NETWORKS 3.0 LANMAN1.0 LM1.2X002 Samba NT LANMAN 1.0 NT LM 0.12 " 400 -
+[15/Feb/2022 09:22:55] code 400, message Bad request syntax ('\x01default')
+[15/Feb/2022 09:22:55] "default" 400 -
+[15/Feb/2022 09:22:56] code 400, message Bad request syntax ('0\x84\x00\x00\x00-\x02\x01\x07c\x84\x00\x00\x00$\x04\x00')
+[15/Feb/2022 09:22:56] "0   -c   $ " 400 -
+[15/Feb/2022 09:23:01] code 400, message Bad HTTP/0.9 request type ('0')
+[15/Feb/2022 09:23:01] "0`  " 400 -
+[15/Feb/2022 09:23:01] code 400, message Bad request version ('SIP/2.0')
+[15/Feb/2022 09:23:01] "OPTIONS sip:nm SIP/2.0" 400 -
+[15/Feb/2022 09:23:07] code 400, message Bad request syntax ('TNMP\x04\x00\x00\x00TNME\x00\x00\x04\x00')
+[15/Feb/2022 09:23:07] "TNMP   TNME   " 400 -
+[15/Feb/2022 09:23:12] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00')
+[15/Feb/2022 09:23:12] "  à     " 400 -
+[15/Feb/2022 09:23:18] code 400, message Bad request syntax ('DmdT\x00\x00\x00\x17\x00\x00\x00\x01\x00\x00\x00\x00\x11\x11\x00ÿ\x01ÿ\x13')
+[15/Feb/2022 09:23:18] "DmdT           ÿÿ" 400 -
+[15/Feb/2022 09:23:23] code 400, message Bad HTTP/0.9 request type (':\x00\x00\x00/\x00\x00\x00\x02\x00\x00@\x02\x0f\x00\x01\x00=\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00/\x00\x00\x00\x00\x00\x00\x00\x00\x00@')
+[15/Feb/2022 09:23:23] ":   /     @  =            /         @                 " 400 -
+[15/Feb/2022 09:23:28] code 400, message Bad request syntax ('JRMI\x00\x02K')
+[15/Feb/2022 09:23:28] "JRMI K" 400 -
+[15/Feb/2022 09:23:33] code 400, message Bad request syntax ('\x01\x00\x00ýÎú\x0b°\xa0\x00\x00\x00MMS\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x03\x00ðððð\x0b\x00\x04\x00\x1c\x00\x03\x00N\x00S\x00P\x00l\x00a\x00y\x00e\x00r\x00/\x009\x00.\x000\x00.\x000\x00.\x002\x009\x008\x000\x00;\x00 \x00{\x000\x000\x000\x000\x00A\x00A\x000\x000\x00-\x000\x00A\x000\x000\x00-\x000\x000\x00a\x000\x00-\x00A\x00A\x000\x00A\x00-\x000\x000\x000\x000\x00A\x000\x00A\x00A\x000\x00A\x00A\x000\x00}\x00\x00\x00àmß_')
+[15/Feb/2022 09:23:33] "  ýÎú°    MMS                    ðððð    N S P l a y e r / 9 . 0 . 0 . 2 9 8 0 ;   { 0 0 0 0 A A 0 0 - 0 A 0 0 - 0 0 a 0 - A A 0 A - 0 0 0 0 A 0 A A 0 A A 0 }   àmß_" 400 -
+[15/Feb/2022 09:23:39] code 400, message Bad HTTP/0.9 request type ('\x00Z\x00\x00\x01\x00\x00\x00\x016\x01,\x00\x00\x08\x00\x7fÿ\x7f\x08\x00\x00\x00\x01\x00')
+[15/Feb/2022 09:23:39] " Z     6,   ÿ      :                4æ           (CONNECT_DATA=(COMMAND=version))" 400 -
+[15/Feb/2022 09:23:44] code 400, message Bad request version ('\x03\x00(\x00\x04ÿ\x08\x00\x01U\x00\x00\x00MSSQLServer\x00H\x0f\x00\x00')
+[15/Feb/2022 09:23:44] " 4            ( ÿ U   MSSQLServer H  " 400 -
+[15/Feb/2022 09:23:49] code 400, message Bad request syntax ('\x00\x03\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x0f\x00')
+[15/Feb/2022 09:23:49] "              " 400 -
+[15/Feb/2022 09:23:54] code 400, message Bad request syntax ('GIOP\x01\x00\x01\x00$\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x06\x00\x00\x00abcdef\x00\x00\x04\x00\x00\x00get\x00\x00\x00\x00\x00')
+[15/Feb/2022 09:23:54] "GIOP  $                abcdef     get     " 400 -
+Not Found: /sdk
+[15/Feb/2022 09:23:55] "POST /sdk HTTP/1.1" 404 3326
+Not Found: /nmaplowercheck1644917034
+[15/Feb/2022 09:23:55] "GET /nmaplowercheck1644917034 HTTP/1.1" 404 3388
+Not Found: /HNAP1
+[15/Feb/2022 09:23:55] "GET /HNAP1 HTTP/1.1" 404 3331
+Not Found: /evox/about
+[15/Feb/2022 09:23:55] "GET /evox/about HTTP/1.1" 404 3346
+[15/Feb/2022 09:23:56] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 09:23:56,760] - Broken pipe from ('193.86.95.34', 44076)
+
+[15/Feb/2022 09:23:57] code 400, message Bad HTTP/0.9 request type ('\x80\x00\x00(\x06Ù=\x0e\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86')
+[15/Feb/2022 09:23:57] "  (Ù=                                " 400 -
+[15/Feb/2022 09:23:57] code 400, message Bad request syntax ('{"id":1,"jsonrpc":"2.0","method":"login","params":{"login":"49CYQrmrqP2LyHQdMY26JGiq3M9cxFkiSU9PyfSEiXAPVR3kSWwj8Jdh2pJRPHV1ZTCQGwivo1a6494wNk7iasLpD2VrGrx","pass":"x","agent":"XMRig/2.4.2 (Windows NT 6.1; Win64; x64) libuv/1.14.1 gcc/7.2.0"}}')
+[15/Feb/2022 09:23:57] "{"id":1,"jsonrpc":"2.0","method":"login","params":{"login":"49CYQrmrqP2LyHQdMY26JGiq3M9cxFkiSU9PyfSEiXAPVR3kSWwj8Jdh2pJRPHV1ZTCQGwivo1a6494wNk7iasLpD2VrGrx","pass":"x","agent":"XMRig/2.4.2 (Windows NT 6.1; Win64; x64) libuv/1.14.1 gcc/7.2.0"}}" 400 -
+[15/Feb/2022 09:23:58] code 400, message Bad request syntax ('{"id":1,"jsonrpc":"2.0","method":"login","params":{"login":"4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQr2cM6dRYBvTiv1U3V","pass":"x","agent":"XMRig/2.5.0 (Windows NT 6.1; Win64; x64) libuv/1.19.2 gcc/7.3.0"}}')
+[15/Feb/2022 09:23:58] "{"id":1,"jsonrpc":"2.0","method":"login","params":{"login":"4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQr2cM6dRYBvTiv1U3V","pass":"x","agent":"XMRig/2.5.0 (Windows NT 6.1; Win64; x64) libuv/1.19.2 gcc/7.3.0"}}" 400 -
+[15/Feb/2022 09:23:58] code 400, message Bad request syntax ('{"params": ["ethminer-0.16.0.dev2-10+commit.50e91602", "EthereumStratum/1.0.0"], "id": 1, "method": "mining.subscribe"}')
+[15/Feb/2022 09:23:58] "{"params": ["ethminer-0.16.0.dev2-10+commit.50e91602", "EthereumStratum/1.0.0"], "id": 1, "method": "mining.subscribe"}" 400 -
+[15/Feb/2022 15:07:54,078] - Broken pipe from ('167.248.133.47', 60276)
+
+[15/Feb/2022 15:07:55] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 15:07:55,406] - Broken pipe from ('167.248.133.47', 43588)
+
+[15/Feb/2022 15:07:55] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 15:07:56] code 505, message Invalid HTTP version (2.0)
+[15/Feb/2022 15:07:56] "PRI * HTTP/2.0" 505 -
+[15/Feb/2022 17:30:10] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 20:35:59] code 400, message Bad request syntax ('\x16\x03\x01\x00\x8b\x01\x00\x00\x87\x03\x03\x1bï\x19Wªh¥<gX]|¾\x92\x1f+Ø"3\x0b\x8ePÊ\x12\xad6\x10^>Èh7\x00\x00\x1aÀ/À+À\x11À\x07À\x13À\tÀ\x14À')
+[15/Feb/2022 20:35:59] You're accessing the development server over HTTPS, but it only supports HTTP.
+
+[15/Feb/2022 21:33:18] "GET /admin/ HTTP/1.1" 302 0
+[15/Feb/2022 22:40:16] "GET / HTTP/1.1" 200 36825
+Not Found: /favicon.ico
+[15/Feb/2022 22:40:24] "GET /favicon.ico HTTP/1.1" 404 3308
+[15/Feb/2022 23:56:21] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/flags/us.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/flags/au.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/flags/id.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/fonts/fontawesome/fa-brands-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/fonts/flaticon/Flaticon.woff HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/fonts/fontawesome/fa-regular-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/fonts/fontawesome/fa-solid-900.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/logoproduct3.svg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/logoproduct.svg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/flags/cn.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/flags/br.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/js/demo.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/flags/ru.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/mlane.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/talha.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/jm_denis.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:21] "GET /static/assets/img/chadengle.jpg HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[15/Feb/2022 23:56:22] "GET /favicon.ico HTTP/1.1" 404 3349
+[15/Feb/2022 23:56:30] "GET / HTTP/1.1" 200 36825
+[15/Feb/2022 23:56:30] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/img/flags/id.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/img/flags/us.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/img/flags/au.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/fonts/fontawesome/fa-regular-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/fonts/flaticon/Flaticon.woff HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/fonts/fontawesome/fa-solid-900.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/fonts/fontawesome/fa-brands-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/img/flags/ru.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:30] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/flags/cn.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/flags/br.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/js/demo.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/logoproduct3.svg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/logoproduct.svg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/jm_denis.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/talha.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/chadengle.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:31] "GET /static/assets/img/mlane.jpg HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /sales-simsale HTTP/1.1" 200 15601
+[15/Feb/2022 23:56:45] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/fonts/fontawesome/fa-solid-900.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:45] "GET /static/assets/fonts/flaticon/Flaticon.woff HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/fonts/fontawesome/fa-regular-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/fonts/fontawesome/fa-brands-400.woff2 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0 HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/core/charts/colors.js HTTP/1.1" 200 386
+[15/Feb/2022 23:56:46] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:46] "GET /static/assets/js/core/charts/charts_setting.js HTTP/1.1" 200 2311
+[15/Feb/2022 23:56:46] "GET /static/assets/js/core/sales/sales_simsale.js HTTP/1.1" 200 15076
+[15/Feb/2022 23:56:47] "GET /jqvmap.html HTTP/1.1" 200 13436
+[15/Feb/2022 23:56:47] "GET /static/assets/css/atlantis.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/css/demo.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/js/plugin/webfont/webfont.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/js/core/bootstrap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/js/core/jquery.3.2.1.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/js/core/popper.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/css/fonts.min.css HTTP/1.1" 304 0
+[15/Feb/2022 23:56:47] "GET /static/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/img/zero_dash.png HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/chart.js/chart.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/datatables/datatables.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/chart-circle/circles.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/jqvmap/jquery.vmap.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/plugin/sweetalert/sweetalert.min.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/setting-demo.js HTTP/1.1" 304 0
+[15/Feb/2022 23:56:48] "GET /static/assets/js/atlantis.min.js HTTP/1.1" 304 0
+[16/Feb/2022 02:31:04] "GET / HTTP/1.1" 200 36825
+[16/Feb/2022 04:28:47] "HEAD / HTTP/1.0" 200 36825
+[16/Feb/2022 05:02:32] code 400, message Bad request syntax ('\x03\x00\x00\x13\x0eà\x00\x00\x00\x00\x00\x01\x00\x08\x00\x02\x00\x00\x00')
+[16/Feb/2022 05:02:32] "  à          " 400 -
+[16/Feb/2022 05:28:06] "GET / HTTP/1.1" 200 36825
+Not Found: /favicon.ico
+[16/Feb/2022 05:28:07] "GET /favicon.ico HTTP/1.1" 404 3308
+[16/Feb/2022 05:28:13] code 400, message Bad HTTP/0.9 request type ('\x03g\x8b')
+[16/Feb/2022 05:28:13] "gb                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " 400 -
+[16/Feb/2022 05:28:17] "GET / HTTP/1.1" 200 36825
+[16/Feb/2022 05:28:17,526] - Broken pipe from ('130.211.54.158', 42690)
+
+[16/Feb/2022 05:54:02] "GET / HTTP/1.1" 200 36825
+[16/Feb/2022 06:00:40] "HEAD /static/assets/img/jm_denis.jpg HTTP/1.1" 200 0
+[16/Feb/2022 06:00:40] "GET /static/assets/img/jm_denis.jpg HTTP/1.1" 200 3072

@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 
 class DaDashboardSimsale(models.Model):
     sno = models.IntegerField(primary_key=True)
+    cntn = models.CharField(max_length=50)
     day1 = models.IntegerField(blank=True, null=True)
 
     class Meta:
