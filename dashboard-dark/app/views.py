@@ -9,38 +9,49 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django import template
-from .models import DaDashboardSimsale
+from .models import Dazero
 from django.views import generic
 
+
+
+# DB값 가져오는 샘플
+def zero_view(request):
+    zeros = Dazero.objects.all() # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
+    return render(request, 'index2.html', {"zeros": zeros})
+
+
 # 매출값 가져오기
-
-def sales_simsale(request):
-    # 테이블 값 가져오기
-    #sales_result = DaDashboardSimsale.objects.values()
-
-    # 쿼리셋 => list로
-    #sales_list = [entry for entry in sales_result]
-    #context = {"sales_list": sales_list}
-    #return render(request, "sales/sales_simsale.html", context)
-
-    return render(request, "sales/sales_simsale.html")
+# def sales_simsale(request):
+#     # 테이블 값 가져오기
+#     sales_result = DaDashboardSimsale.objects.values()
+#     # 쿼리셋 => list로
+#     sales_list = [entry for entry in sales_result]
+#     context = {"sales_list": sales_list}
+#     #return render(request, "sales/sales_simsale.html", context)
+#     return render(request, "sales/sales_simsale.html")
 
 
-def lotto_cnt(request):
+#def lotto_cnt(request):
 #     list_result2 = DaDashboardSimsale.objects.values()
-#
 #     # 쿼리셋 => list로
 #     dashboard_list = [entry for entry in list_result2]
 #     context = {"dashboard_list": dashboard_list}
 #     return render(request, "sales/sales_sale09.html", context)
+#    return render(request, "sales/lotto_number_cnt.html")
 
-    return render(request, "sales/lotto_number_cnt.html")
 
+
+
+
+##############################################################################
+############################# 기본 설정 #######################################
+##############################################################################
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 첫번째 페이지 지정
 def index(request):
     return render(request, "index.html")
+
 
 # @login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 모든 html 파일 열게
