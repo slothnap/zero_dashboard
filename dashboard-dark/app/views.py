@@ -11,14 +11,42 @@ from django.http import HttpResponse, JsonResponse
 from django import template
 from .models import Dazero
 from django.views import generic
+from django.db import connection
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-
-# DB값 가져오는 샘플
+# MODEL 데이터값 가져오기
 def zero_view(request):
     zeros = Dazero.objects.all() # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
     return render(request, 'index2.html', {"zeros": zeros})
 
+
+# SQL 데이터 가져오기
+# 명령어: bookstore
+def BookListView(request):
+    # books = Dazero.objects.all() 
+
+    try:
+        curosr = connection.cursor()
+
+        strSql = "select id, title from da_zero where id = 3"
+        result = cursor.execute(strSql)
+        books = cursor.fetchall()
+
+        connection.commit()
+        connection.close()
+
+    except:
+        connection.rollback()
+        print("Failed selecting in BooklistView")
+
+    return render(request, 'index2.html', {"zeros": books})
+
+##############################################################################
+################################## 샘플 ######################################
+##############################################################################
 
 # 매출값 가져오기
 # def sales_simsale(request):
@@ -44,7 +72,7 @@ def zero_view(request):
 
 
 ##############################################################################
-############################# 기본 설정 #######################################
+############################### 기본 설정 #####################################
 ##############################################################################
 
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
