@@ -23,6 +23,6 @@ urlpatterns = [
     #path('lotto-cnt',views.lotto_cnt, name='lotto-cnt'),
     path('zero/', views.zero_view),
 
-    re_path(r'^bookstore/$', views.BookListView, name='list'),
+    re_path(r'^bookstore/$', views.BookListView),
 
 ]

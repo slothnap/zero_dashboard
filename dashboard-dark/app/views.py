@@ -12,37 +12,47 @@ from django import template
 from .models import Dazero
 from django.views import generic
 from django.db import connection
-import logging
 
-logger = logging.getLogger(__name__)
-
+# 로그 찍고 싶을 때 
+#import logging
+#logger = logging.getLogger(__name__)
+#logger.error("에러다")
 
 # MODEL 데이터값 가져오기
 def zero_view(request):
     zeros = Dazero.objects.all() # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
+    print(type(zeros))
     return render(request, 'index2.html', {"zeros": zeros})
 
 
 # SQL 데이터 가져오기
 # 명령어: bookstore
 def BookListView(request):
-    # books = Dazero.objects.all() 
 
     try:
-        curosr = connection.cursor()
-
-        strSql = "select id, title from da_zero where id = 3"
-        result = cursor.execute(strSql)
-        books = cursor.fetchall()
-
+        cursor = connection.cursor()
+        
+        sql = "select id, title from djangoo.da_zero where id in (1,3)"
+        result = cursor.execute(sql)
+        datas = cursor.fetchall()
+    
         connection.commit()
         connection.close()
 
+        books = []
+        for data in datas:
+            row = {'id': data[0],
+                   'title': data[1]}
+
+            books.append(row)
+
+        print(books)
+        print(type(books))
     except:
         connection.rollback()
-        print("Failed selecting in BooklistView")
+        print("Failed selecting in BookListView")
 
-    return render(request, 'index2.html', {"zeros": books})
+    return render(request, 'index3.html', {"books": books})
 
 ##############################################################################
 ################################## 샘플 ######################################
