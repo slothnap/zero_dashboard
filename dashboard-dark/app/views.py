@@ -13,16 +13,15 @@ from .models import Dazero
 from django.views import generic
 from django.db import connection
 
-# 로그 찍고 싶을 때 
-#import logging
-#logger = logging.getLogger(__name__)
-#logger.error("에러다")
+##############################################################################
+################################## 핵심 ######################################
+##############################################################################
 
 # MODEL 데이터값 가져오기
 def zero_view(request):
     zeros = Dazero.objects.all() # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
     print(type(zeros))
-    return render(request, 'index2.html', {"zeros": zeros})
+    return render(request, 'sales/index2.html', {"zeros": zeros})
 
 
 # SQL 데이터 가져오기
@@ -32,27 +31,37 @@ def BookListView(request):
     try:
         cursor = connection.cursor()
         
-        sql = "select id, title from djangoo.da_zero where id in (1,3)"
+        sql = """
+              select seq, n1, n2, n3, n4, n5, n6
+                from innodb.lotto
+               where seq = (select max(seq) from innodb.lotto)
+              """
         result = cursor.execute(sql)
         datas = cursor.fetchall()
     
         connection.commit()
         connection.close()
 
-        books = []
+        lottos = []
         for data in datas:
-            row = {'id': data[0],
-                   'title': data[1]}
+            row = {'seq': data[0],
+                   'n1': data[1],
+                   'n2': data[2],
+                   'n3': data[3],
+                   'n4': data[4],
+                   'n5': data[5],
+                   'n6': data[6]}
 
-            books.append(row)
-
-        print(books)
-        print(type(books))
+            lottos.append(row)
+        
     except:
         connection.rollback()
         print("Failed selecting in BookListView")
 
-    return render(request, 'index3.html', {"books": books})
+    return render(request, 'sales/lotto_number_cnt.html', {"lottos": lottos})
+    #return render(request, 'sales/index3.html', {"lottos": lottos})
+    
+
 
 ##############################################################################
 ################################## 샘플 ######################################
@@ -67,18 +76,6 @@ def BookListView(request):
 #     context = {"sales_list": sales_list}
 #     #return render(request, "sales/sales_simsale.html", context)
 #     return render(request, "sales/sales_simsale.html")
-
-
-#def lotto_cnt(request):
-#     list_result2 = DaDashboardSimsale.objects.values()
-#     # 쿼리셋 => list로
-#     dashboard_list = [entry for entry in list_result2]
-#     context = {"dashboard_list": dashboard_list}
-#     return render(request, "sales/sales_sale09.html", context)
-#    return render(request, "sales/lotto_number_cnt.html")
-
-
-
 
 
 ##############################################################################

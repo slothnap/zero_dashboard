@@ -6,15 +6,15 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
+{% for lotto in lottos %}
 <div class="page-inner">
     <h4 class="page-title"></h4>
-<!--        <div class="page-category">Simple yet flexible JavaScript charting for designers & developers. Please checkout their <a href="https://www.chartjs.org/" target="_blank">full documentation</a>.</div>-->
+    <div class="page-category">Simple yet flexible JavaScript charting for designers & developers. Please checkout their <a href="https://www.chartjs.org/" target="_blank">full documentation</a>.</div>
     <div class="row">
         <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Bar Chart</div>
+                        <div class="card-title">{{lotto.seq}} 회차</div>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
@@ -26,7 +26,30 @@
     </div>
 </div>
 
+<table class="table-contents" style="padding:10px">
+	<tr>
+		<th>회차</th>
+		<th>첫번째</th>
+		<th>두번째</th>
+		<th>세번째</th>
+		<th>네번째</th>
+		<th>다섯번째</th>
+		<th>여섯번째</th>
+	</tr>
+	
+	<tr>
+		<td>{{lotto.seq}}</td>
+		<td>{{lotto.n1}}</td>
+		<td>{{lotto.n2}}</td>
+		<td>{{lotto.n3}}</td>
+		<td>{{lotto.n4}}</td>
+		<td>{{lotto.n5}}</td>
+		<td>{{lotto.n6}}</td>
+	</tr>
+	
+</table>
 
+{%endfor%}
 {% endblock content %}
 
 
@@ -34,17 +57,29 @@
 {% block javascripts %}
 
 <script>
+
+<!--데이터 받기 -->
+var temp = "{{lottos}}"
+alert(temp)
+
+<!--데이터 수정 -->
+var temp2 = temp.replace(/&#x27;/g, "\"");
+
+<!-- 수정된 데이터 배열에 담기 -->
+var data_lotto = JSON.parse(temp2);
+
+
 var barChart = document.getElementById('barChart').getContext('2d');
 
 var myBarChart = new Chart(barChart, {
 			type: 'bar',
 			data: {
-				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				labels: ["Num1", "Num2", "Num3", "Num4", "Num5", "Num6"],
 				datasets : [{
-					label: "Sales",
+					label: "Number",
 					backgroundColor: 'rgb(23, 125, 255)',
 					borderColor: 'rgb(23, 125, 255)',
-					data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+					data: [data_lotto[0],2,3,4,5,6],
 				}],
 			},
 			options: {
@@ -60,4 +95,5 @@ var myBarChart = new Chart(barChart, {
 			}
 		});
 </script>
+
 {% endblock javascripts %}
