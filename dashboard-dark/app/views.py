@@ -27,10 +27,8 @@ def zero_view(request):
 # SQL 데이터 가져오기
 # 명령어: bookstore
 def BookListView(request):
-
     try:
         cursor = connection.cursor()
-        
         sql = """
               select seq, n1, n2, n3, n4, n5, n6
                 from innodb.lotto
@@ -51,15 +49,14 @@ def BookListView(request):
                    'n4': data[4],
                    'n5': data[5],
                    'n6': data[6]}
-
             lottos.append(row)
         
+        print(type(lottos))
     except:
         connection.rollback()
         print("Failed selecting in BookListView")
 
     return render(request, 'sales/lotto_number_cnt.html', {"lottos": lottos})
-    #return render(request, 'sales/index3.html', {"lottos": lottos})
     
 
 

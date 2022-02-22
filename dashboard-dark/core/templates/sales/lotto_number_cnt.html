@@ -58,15 +58,14 @@
 
 <script>
 
-<!--데이터 받기 -->
-var temp = "{{lottos}}"
-alert(temp)
+var temp = "{{lottos}}";
 
-<!--데이터 수정 -->
-var temp2 = temp.replace(/&#x27;/g, "\"");
+var temp2 = temp.replace(/&#x27/g, "\"");
 
-<!-- 수정된 데이터 배열에 담기 -->
-var data_lotto = JSON.parse(temp2);
+alert(temp2);
+
+// var data_lotto = JSON.parse(temp2);
+alert(typeof(temp2));
 
 
 var barChart = document.getElementById('barChart').getContext('2d');
@@ -79,7 +78,7 @@ var myBarChart = new Chart(barChart, {
 					label: "Number",
 					backgroundColor: 'rgb(23, 125, 255)',
 					borderColor: 'rgb(23, 125, 255)',
-					data: [data_lotto[0],2,3,4,5,6],
+					data: [1,2,3,4,5,6],
 				}],
 			},
 			options: {

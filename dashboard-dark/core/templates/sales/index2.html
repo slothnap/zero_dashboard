@@ -1,4 +1,30 @@
-# index2.html
+{% extends "layouts/base.html" %}
+
+{% block title %} Chart JS {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="page-inner">
+    <h4 class="page-title"></h4>
+    <div class="page-category">Simple yet flexible JavaScript charting for designers & developers. Please checkout their <a href="https://www.chartjs.org/" target="_blank">full documentation</a>.</div>
+    <div class="row">
+        <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">회차</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
 <table class="table-contents" style="padding:10px">
 	<tr>
 		<th>제목</th>
@@ -11,3 +37,18 @@
 	</tr>
 	{%endfor%}
 </table>
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+
+<script>
+	var temp = "{{zeros}}"
+	alert(temp)
+
+</script>
+
+
+{% endblock javascripts %}
