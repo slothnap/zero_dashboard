@@ -60,12 +60,19 @@
 
 var temp = "{{lottos}}";
 
+alert(temp);
+
 var temp2 = temp.replace(/&#x27/g, "\"");
 
 alert(temp2);
 
-// var data_lotto = JSON.parse(temp2);
-alert(typeof(temp2));
+try{
+	var data = JSON.parse(temp2);	
+}
+catch (e){
+	alert("Error: " + e.description);
+}
+
 
 
 var barChart = document.getElementById('barChart').getContext('2d');

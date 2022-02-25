@@ -21,7 +21,7 @@ from django.db import connection
 def zero_view(request):
     zeros = Dazero.objects.all() # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
     print(type(zeros))
-    return render(request, 'sales/index2.html', {"zeros": zeros})
+    return render(request, 'sales/zero_model.html', {"zeros": zeros})
 
 
 # SQL 데이터 가져오기

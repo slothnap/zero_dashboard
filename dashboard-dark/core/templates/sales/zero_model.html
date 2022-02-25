@@ -13,7 +13,7 @@
         <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">회차</div>
+                        <div class="card-title">zero 회차</div>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
@@ -46,7 +46,13 @@
 
 <script>
 	var temp = "{{zeros}}"
-	alert(temp)
+
+	//alert(temp);
+	var temp2 = temp.replace(/&#x27/g, "\"");
+	
+	//alert(temp2);
+	
+	//alert(typeof(temp));
 
 </script>
 
