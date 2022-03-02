@@ -19,8 +19,9 @@ from django.db import connection
 
 # MODEL 데이터값 가져오기
 def zero_view(request):
-    zeros = Dazero.objects.all() # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
-    print(type(zeros))
+    # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
+    zeros = Dazero.objects.all() 
+    
     return render(request, 'sales/zero_model.html', {"zeros": zeros})
 
 

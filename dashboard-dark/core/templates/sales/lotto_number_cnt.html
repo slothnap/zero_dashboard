@@ -58,48 +58,44 @@
 
 <script>
 
-var temp = "{{lottos}}";
+	// 데이터 받기
+	var temp = "{{lottos}}";
 
-alert(temp);
+	// 데이터 정제
+	var temp2 = temp.replace(/&#x27;/g, "\"");
 
-var temp2 = temp.replace(/&#x27/g, "\"");
-
-alert(temp2);
-
-try{
+	// Object로 변환 
 	var data = JSON.parse(temp2);	
-}
-catch (e){
-	alert("Error: " + e.description);
-}
 
+	// 데이터 뽑기
+	var lotto_data = Object.values(data[0]).splice(0,11);
 
+	var barChart = document.getElementById('barChart').getContext('2d');
 
-var barChart = document.getElementById('barChart').getContext('2d');
-
-var myBarChart = new Chart(barChart, {
-			type: 'bar',
-			data: {
-				labels: ["Num1", "Num2", "Num3", "Num4", "Num5", "Num6"],
-				datasets : [{
-					label: "Number",
-					backgroundColor: 'rgb(23, 125, 255)',
-					borderColor: 'rgb(23, 125, 255)',
-					data: [1,2,3,4,5,6],
-				}],
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero:true
-						}
-					}]
+	var myBarChart = new Chart(barChart, {
+				type: 'bar',
+				data: {
+					labels: ["Num1", "Num2", "Num3", "Num4", "Num5", "Num6"],
+					datasets : [{
+						label: "Number",
+						backgroundColor: 'rgb(23, 125, 255)',
+						borderColor: 'rgb(23, 125, 255)',
+						data: [lotto_data[1],lotto_data[2],lotto_data[3],lotto_data[4]
+						      ,lotto_data[5],lotto_data[6]],
+					}],
 				},
-			}
-		});
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero:true
+							}
+						}]
+					},
+				}
+			});
 </script>
 
 {% endblock javascripts %}
