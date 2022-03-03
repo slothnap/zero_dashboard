@@ -21,8 +21,8 @@ from django.db import connection
 def zero_view(request):
     # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
     zeros = Dazero.objects.all() 
-    
-    return render(request, 'sales/zero_model.html', {"zeros": zeros})
+
+    return render(request, 'dashboard_list/zero_model.html', {"zeros": zeros})
 
 
 # SQL 데이터 가져오기
@@ -57,7 +57,7 @@ def BookListView(request):
         connection.rollback()
         print("Failed selecting in BookListView")
 
-    return render(request, 'sales/lotto_number_cnt.html', {"lottos": lottos})
+    return render(request, 'dashboard_list/lotto_number_cnt.html', {"lottos": lottos})
     
 
 
@@ -73,7 +73,7 @@ def BookListView(request):
 #     sales_list = [entry for entry in sales_result]
 #     context = {"sales_list": sales_list}
 #     #return render(request, "sales/sales_simsale.html", context)
-#     return render(request, "sales/sales_simsale.html")
+#     return render(request, "dashboard_list/sales_simsale.html")
 
 
 ##############################################################################

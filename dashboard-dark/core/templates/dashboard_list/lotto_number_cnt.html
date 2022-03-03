@@ -1,0 +1,247 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Chart JS {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% for lotto in lottos %}
+<div class="page-inner">
+    <h4 class="page-title"></h4>
+    <div class="page-category">Simple yet flexible JavaScript charting for designers & developers. Please checkout their <a href="https://www.chartjs.org/" target="_blank">full documentation</a>.</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">{{lotto.seq}} Tap</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Rate of numbers </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Radar Chart</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Bubble Chart</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="bubbleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <table class="table-contents" style="padding:10px">
+	<tr>
+		<th>회차</th>
+		<th>첫번째</th>
+		<th>두번째</th>
+		<th>세번째</th>
+		<th>네번째</th>
+		<th>다섯번째</th>
+		<th>여섯번째</th>
+	</tr>
+	
+	<tr>
+		<td>{{lotto.seq}}</td>
+		<td>{{lotto.n1}}</td>
+		<td>{{lotto.n2}}</td>
+		<td>{{lotto.n3}}</td>
+		<td>{{lotto.n4}}</td>
+		<td>{{lotto.n5}}</td>
+		<td>{{lotto.n6}}</td>
+	</tr>
+</table> -->
+
+{%endfor%}
+{% endblock content %}
+
+
+
+{% block javascripts %}
+
+<script>
+
+	// 데이터 받기
+	var temp = "{{lottos}}";
+
+	// 데이터 정제
+	var temp2 = temp.replace(/&#x27;/g, "\"");
+
+	// Object로 변환 
+	var data = JSON.parse(temp2);	
+
+	// 데이터 뽑기
+	var lotto_data = Object.values(data[0]).splice(0,11);
+
+	//alter(typeof(lotto_data));
+
+	var barChart = document.getElementById('barChart').getContext('2d');
+	var pieChart = document.getElementById('pieChart').getContext('2d');
+	var radarChart = document.getElementById('radarChart').getContext('2d');
+	var bubbleChart = document.getElementById('bubbleChart').getContext('2d');
+
+	var myBarChart = new Chart(barChart, {
+				type: 'bar',
+				data: {
+					labels: ["Num1", "Num2", "Num3", "Num4", "Num5", "Num6"],
+					datasets : [{
+						label: "Number",
+						backgroundColor: 'rgb(23, 125, 255)',
+						borderColor: 'rgb(23, 125, 255)',
+						data: [lotto_data[1],lotto_data[2],lotto_data[3],lotto_data[4]
+						      ,lotto_data[5],lotto_data[6]],
+					}],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero:true
+							}
+						}]
+					},
+				}
+			});
+
+	var myPieChart = new Chart(pieChart, {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: [50, 35, 15],
+					backgroundColor :["#1d7af3","#f3545d","#fdaf4b"],
+					borderWidth: 0
+				}],
+				labels: ['New Visitors', 'Subscribers', 'Active Users'] 
+			},
+			options : {
+				responsive: true, 
+				maintainAspectRatio: false,
+				legend: {
+					position : 'bottom',
+					labels : {
+						fontColor: 'rgb(154, 154, 154)',
+						fontSize: 11,
+						usePointStyle : true,
+						padding: 20
+					}
+				},
+				pieceLabel: {
+					render: 'percentage',
+					fontColor: 'white',
+					fontSize: 14,
+				},
+				tooltips: false,
+				layout: {
+					padding: {
+						left: 20,
+						right: 20,
+						top: 20,
+						bottom: 20
+					}
+				}
+			}
+		});
+
+	var myRadarChart = new Chart(radarChart, {
+			type: 'radar',
+			data: {
+				labels: ['Running', 'Swimming', 'Eating', 'Cycling', 'Jumping'],
+				datasets: [{
+					data: [20, 10, 30, 2, 30],
+					borderColor: '#1d7af3',
+					backgroundColor : 'rgba(29, 122, 243, 0.25)',
+					pointBackgroundColor: "#1d7af3",
+					pointHoverRadius: 4,
+					pointRadius: 3,
+					label: 'Team 1'
+				}, {
+					data: [10, 20, 15, 30, 22],
+					borderColor: '#716aca',
+					backgroundColor: 'rgba(113, 106, 202, 0.25)',
+					pointBackgroundColor: "#716aca",
+					pointHoverRadius: 4,
+					pointRadius: 3,
+					label: 'Team 2'
+				},
+				]
+			},
+			options : {
+				responsive: true, 
+				maintainAspectRatio: false,
+				legend : {
+					position: 'bottom'
+				}
+			}
+		});
+
+	var myBubbleChart = new Chart(bubbleChart,{
+		type: 'bubble',
+		data: {
+			datasets:[{
+				label: "Car", 
+				data:[{x:25,y:17,r:25},{x:30,y:25,r:28}, {x:35,y:30,r:8}], 
+				backgroundColor:"#716aca"
+			},
+			{
+				label: "Motorcycles", 
+				data:[{x:10,y:17,r:20},{x:30,y:10,r:7}, {x:35,y:20,r:10}], 
+				backgroundColor:"#1d7af3"
+			}],
+		},
+		options: {
+			responsive: true, 
+			maintainAspectRatio: false,
+			legend: {
+				position: 'bottom'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						beginAtZero:true
+					}
+				}]
+			},
+		}
+	});
+</script>
+
+{% endblock javascripts %}
