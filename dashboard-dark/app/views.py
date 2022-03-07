@@ -83,7 +83,7 @@ def BookListView(request):
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 첫번째 페이지 지정
 def index(request):
-    return render(request, "index.html")
+    return render(request, "example/index.html")
 
 
 # @login_required(login_url="/login/") = 로그인 시스템 있으면 필요
@@ -101,10 +101,10 @@ def pages(request):
         return HttpResponse(html_template.render(context, request))
         
     except template.TemplateDoesNotExist:
-        html_template = loader.get_template( 'error-404.html' )
+        html_template = loader.get_template( 'example/error-404.html' )
         return HttpResponse(html_template.render(context, request))
         
 
     except:
-        html_template = loader.get_template( 'error-500.html' )
+        html_template = loader.get_template( 'example/error-500.html' )
         return HttpResponse(html_template.render(context, request))
