@@ -1,110 +1,225 @@
-<!--https://www.w3schools.com/icons/fontawesome5_icons_design.asp-->
-		<!-- Sidebar -->
-		<div class="sidebar sidebar-style-2" data-background-color="dark2">
-					
-			<div class="sidebar-wrapper scrollbar scrollbar-inner">
-				<div class="sidebar-content">
-						<ul class="nav nav-primary">
-							<li class="nav-item active">
-								<div class="collapse" id="dashboard">
-									<ul class="nav nav-collapse">
-										<li>
-											<a href="/">
-												<span class="sub-item">Dashboard 1</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="nav-section">
-								<span class="sidebar-mini-icon">
-									<i class="fa fa-ellipsis-h"></i>
-								</span>
-								<h4 class="text-section">Components</h4>
-							</li>
-							<li class="nav-item">
-								<a data-toggle="collapse" href="#sales">
-									<i class="fas fa-chart-line"></i>
-									<p>Random</p>
-									<span class="caret"></span>
+https://www.w3schools.com/icons/fontawesome5_icons_design.asp-->
+<!-- Sidebar -->
+<div class="sidebar sidebar-style-2" data-background-color="dark2">	
+	<div class="sidebar-wrapper scrollbar scrollbar-inner">
+		<div class="sidebar-content">
+			<ul class="nav nav-primary">
+				<li class="nav-item active">
+					<div class="collapse" id="dashboard">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/">
+									<span class="sub-item">Dashboard 1</span>
 								</a>
-								<div class="collapse" id="sales">
-									<ul class="nav nav-collapse">
-										<li>
-											<!-- 명령어 입력 -->
-											<a href="/lotto">
-												<span class="sub-item">num_cnt</span>
-											</a>
-											<!-- 명령어 입력 -->
-											<a href="/zero">
-												<span class="sub-item">zero</span>
-											</a>
-											<a href="/includes/footer.html">
-												<span class="sub-item">찾기</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="nav-item">
-								<a data-toggle="collapse" href="#charts">
-									<i class="far fa-chart-bar"></i>
-									<p>Charts</p>
-									<span class="caret"></span>
-								</a>
-								<div class="collapse" id="charts">
-									<ul class="nav nav-collapse">
-										<li>
-											<a href="/example/charts_ex.html">	
-												<span class="sub-item">Chart Ex</span>
-											</a>
-										</li>
-										<li>
-											<a href="/example/sparkline.html">
-												<span class="sub-item">Sparkline EX</span>
-											</a>
-										</li>
-										<li>
-											<a href="/example/icon-menu.html">
-												<span class="sub-item">icon-menu</span>
-											</a>
-										</li>
-										<li>
-											<a href="/example/datatables.html">
-												<span class="sub-item">datatables</span>
-											</a>
-										</li>
-										<li>
-											<a href="/example/flaticons.html">
-												<span class="sub-item">flaticons</span>
-											</a>
-										</li>
-										<li>
-											<a href="/example/font-awesome-icons.html">
-												<span class="sub-item">font-awesome-icons</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="nav-item">
-								<a data-toggle="collapse" href="#maps">
-									<i class="fas fa-map-marker-alt"></i>
-									<p>Maps</p>
-									<span class="caret"></span>
-								</a>
-								<div class="collapse" id="maps">
-									<ul class="nav nav-collapse">
-										<li>
-											<a href="example/jqvmap.html">
-												<span class="sub-item">JQVMap</span>
-											</a>
-										</li>
-									</ul>
-								</div>
 							</li>
 						</ul>
-				</div>
-			</div>
+					</div>
+				</li>
+				<li class="nav-section">
+					<span class="sidebar-mini-icon">
+						<i class="fa fa-ellipsis-h"></i>
+					</span>
+					<h4 class="text-section">Components</h4>
+				</li>
+				<!-- Random 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#sales">
+						<i class="fas fa-chart-line"></i>
+						<p>Random</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="sales">
+						<ul class="nav nav-collapse">
+							<li>
+								<!-- 명령어 입력 -->
+								<a href="/lotto">
+									<span class="sub-item">num_cnt</span>
+								</a>
+							</li>
+							<li>
+								<!-- 명령어 입력 -->
+								<a href="/zero">
+									<span class="sub-item">zero</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Charts 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#charts">
+						<i class="far fa-chart-bar"></i>
+						<p>Charts</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="charts">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/example/charts/charts_ex.html">	
+									<span class="sub-item">Chart Ex</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/charts/sparkline.html">
+									<span class="sub-item">Sparkline EX</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Maps 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#maps">
+						<i class="fas fa-map-marker-alt"></i>
+						<p>Maps</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="maps">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/example/map/jqvmap.html">
+									<span class="sub-item">JQVMap</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Icons 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#icons">
+						<i class="fas fa-archive"></i>
+						<p>Icons</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="icons">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/example/icons/flaticons.html">
+									<span class="sub-item">flaticons</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/icons/font-awesome-icons.html">
+									<span class="sub-item">font-awesome-icons</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/icons/simple-line-icons.html">
+									<span class="sub-item">simple-line-icons</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Tables 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#tables">
+						<i class="fas fa-archive"></i>
+						<p>Tables</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="tables">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/example/tables/tables.html">
+									<span class="sub-item">tables</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/tables/datatables.html">
+									<span class="sub-item">datatables</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Dashboards 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#dashboards">
+						<i class="fas fa-th"></i>
+						<p>Dashboards</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="dashboards">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/example/dashboards/sidebar-style-1.html">
+									<span class="sub-item">sidebar-style-1</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/dashboards/compact-sidebar.html">
+									<span class="sub-item">compact-sidebar</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/dashboards/icon-menu.html">
+									<span class="sub-item">icon-menu</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- etc 목록 -->
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#etc">
+						<i class="fas fa-dolly-flatbed"></i>
+						<p>etc</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="etc">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/example/etc/forms.html">
+									<span class="sub-item">forms</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/gridsystem.html">
+									<span class="sub-item">gridsystem</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/notifications.html">
+									<span class="sub-item">notifications</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/panels.html">
+									<span class="sub-item">panels</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/sweetalert.html">
+									<span class="sub-item">sweetalert</span>
+								</a>
+							</li>
+							
+							<li>
+								<a href="/example/etc/typography.html">
+									<span class="sub-item">typography</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/widgets.html">
+									<span class="sub-item">widgets</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/avatars.html">
+									<span class="sub-item">avatars</span>
+								</a>
+							</li>
+							<li>
+								<a href="/example/etc/buttons.html">
+									<span class="sub-item">buttons</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
 		</div>
-		<!-- End Sidebar -->
+	</div>
+</div>
+<!-- End Sidebar -->

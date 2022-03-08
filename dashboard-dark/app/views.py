@@ -97,14 +97,15 @@ def pages(request):
         
         # 처음 "/"만 없애기
         load_template = request.path[1:] 
+        print(load_template)
         html_template = loader.get_template( load_template )
         return HttpResponse(html_template.render(context, request))
         
     except template.TemplateDoesNotExist:
-        html_template = loader.get_template( 'example/error-404.html' )
+        html_template = loader.get_template( 'example/error/error-404.html' )
         return HttpResponse(html_template.render(context, request))
         
 
     except:
-        html_template = loader.get_template( 'example/error-500.html' )
+        html_template = loader.get_template( 'example/error/error-500.html' )
         return HttpResponse(html_template.render(context, request))
