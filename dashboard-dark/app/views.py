@@ -26,8 +26,20 @@ def zero_view(request):
 
 
 # SQL 데이터 가져오기
-# 명령어: bookstore
-def BookListView(request):
+# 명령어: lotto
+def LottoView(request):
+    turn = request.GET.get('turn')  
+    print(111)
+    print(turn)
+    print(222)
+
+    if turn != None: 
+        turn2 = turn    
+    else:
+        turn2 = "(select max(seq) from innodb.lotto)"
+    
+    print(turn2)
+
     try:
         cursor = connection.cursor()
         sql = """
@@ -35,7 +47,13 @@ def BookListView(request):
                 from innodb.lotto
                where seq = (select max(seq) from innodb.lotto)
               """
-        result = cursor.execute(sql)
+        sql2 = f"""
+                select seq, n1, n2, n3, n4, n5, n6
+                from innodb.lotto
+               where seq = {turn2}
+               """
+        print(sql2)
+        result = cursor.execute(sql2)
         datas = cursor.fetchall()
     
         connection.commit()
@@ -52,10 +70,10 @@ def BookListView(request):
                    'n6': data[6]}
             lottos.append(row)
         
-        print(type(lottos))
+        #print(type(lottos))
     except:
         connection.rollback()
-        print("Failed selecting in BookListView")
+        print("Failed selecting in LottoView")
 
     return render(request, 'dashboard_list/lotto_number_cnt.html', {"lottos": lottos})
     

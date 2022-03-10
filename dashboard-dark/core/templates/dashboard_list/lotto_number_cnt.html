@@ -20,40 +20,59 @@
                 <div class="card-header">
                 	<div class="card-title">
                 		<div style ="float:left">
-                			<h2> Button Original </h2>	
+                			<h2> 
+                				Button Original 
+                			</h2>	
                 		</div>
-                		<div style ="float:right">
-                			<button href="#" class="btn btn-default">Default</button>
-               			</div>
+                		<form action ="/lotto" method = "GET">
+	                		<div style ="float:right">
+	                			<input class="btn btn-dark"
+	                			       type="submit" 
+	                			       id="TestBtn"
+	                			       disabled="true"
+	                			       value="제출">
+	               			</div>
+	               			<div style ="float:right; margin-right:20px;">
+		                		<input id="turn" 
+		                		       name="turn"
+		                		       type="text"
+		                		       class="form-control"
+		                		       placeholder="Fill Namdde">
+	                		</div>
+                		</form>
                 	</div>
                 </div>
                 <div class="card-body">
                     <p class="demo">
                         <ul class="pagination pg-primary">
-		                    <li class="page-item">
-		                        <a class="page-link" href="#" aria-label="Previous">
-		                            <span aria-hidden="true">&laquo;</span>
-		                            <span class="sr-only">Previous</span>
-		                        </a>
+		                    <li class="page-item active">
+		                    	<a class="page-link">{{lotto.seq}}</a>
 		                    </li>
-		                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-		                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		                    <li class="page-item">
-		                        <a class="page-link" href="#" aria-label="Next">
-		                            <span aria-hidden="true">&raquo;</span>
-		                            <span class="sr-only">Next</span>
-		                        </a>
+		                    <li class="page-item text-dark">
+		                    	<a class="page-link">{{lotto.n1}}</a>
 		                    </li>
-		                    
-                        	<button class="btn btn-primary">Primary</button>
+		                    <li class="page-item text-dark">
+		                    	<a class="page-link">{{lotto.n2}}</a>
+		                    </li>
+		                    <li class="page-item text-dark">
+		                    	<a class="page-link">{{lotto.n3}}</a>
+		                    </li>
+		                    <li class="page-item text-dark">
+		                    	<a class="page-link">{{lotto.n4}}</a>
+		                    </li>
+		                    <li class="page-item text-dark">
+		                    	<a class="page-link">{{lotto.n5}}</a>
+		                    </li>
+		                    <li class="page-item text-dark">
+		                    	<a class="page-link text-dark">{{lotto.n6}}</a>
+		                    </li>
                 		</ul>
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">{{lotto.seq}} Tap</div>
@@ -100,7 +119,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 
@@ -135,6 +154,21 @@
 
 <script>
 
+	////////////////////////////////////////////
+	/////////////// 버튼 활성화 /////////////////
+	////////////////////////////////////////////
+	$(function(){
+		$("#turn").on('input', function(){
+			if($("#turn").val()=='')
+				$("#TestBtn").attr("disabled",true);
+			else
+				$("#TestBtn").attr("disabled",false);
+			});
+	})
+	////////////////////////////////////////////
+	////////////////////////////////////////////
+
+	
 	// 데이터 받기
 	var temp = "{{lottos}}";
 

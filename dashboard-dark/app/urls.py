@@ -23,6 +23,6 @@ urlpatterns = [
     #path('lotto-cnt',views.lotto_cnt, name='lotto-cnt'),
     path('zero/', views.zero_view, name='zero_view'),
 
-    path('lotto/', views.BookListView, name='BookListView'),
+    path('lotto/', views.LottoView, name='LottoView'),
 
 ]
