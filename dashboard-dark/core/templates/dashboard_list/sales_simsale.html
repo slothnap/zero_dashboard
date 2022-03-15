@@ -110,6 +110,29 @@
 
 <script>
 
+    <!--데이터 받기 -->
+    var temp = "{{dashboard_list}}";
+
+    <!--데이터 수정 -->
+    var temp2 = temp.replace(/&#39;/g, "\"");
+
+    <!-- 수정된 데이터 배열에 담기 -->
+    var data = JSON.parse(temp2);
+
+    <!-- 회원방문자 데이터만 필터링 -->
+    var sim_vigit_mmbr_data = Object.values(data[0]).splice(1,11);
+    var sim_vigit_unmmbr_data = Object.values(data[2]).splice(1,11);
+
+
+    <!-- 일일가입자 카카오, 네이버, 일반가입-->
+    var day_join_kakao_data = Object.values(data[28]).splice(1,11);
+    var day_join_naver_data = Object.values(data[29]).splice(1,11);
+    var day_join_gnrl_data  = Object.values(data[30]).splice(1,11);
+
+
+    console.log(sale_ord_amnt);
+    console.log(market_ord_amnt);
+
     // 데이터 받기 //
     var salesList = "{{sales_list}}";
 
