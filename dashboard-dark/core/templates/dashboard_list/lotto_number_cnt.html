@@ -9,7 +9,7 @@
 <!-- static/assets/css/atlantis.css 파일 class 색깔 정하기 -->
 <!-- #################################################### -->
 {% block content %}
-{% for lotto in lottos %}
+{% for lotto in lottos %} 
 <div class="page-inner">
 	<div class="page-header">
             <h4 class="page-title">Forms</h4>
@@ -114,10 +114,22 @@
                                     <th>n3</th>
                                     <th>n4</th>
                                     <th>n5</th>
+                                    <th>n6</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                            	{% for lotto in lottos %} 
+                            	<tr>
+		                            <td>{{lotto.seq}}</td>
+			                        <td>{{lotto.n1}}</td>
+			                        <td>{{lotto.n2}}</td>
+			                        <td>{{lotto.n3}}</td>
+			                        <td>{{lotto.n4}}</td>
+			                        <td>{{lotto.n5}}</td>
+			                        <td>{{lotto.n6}}</td>
+			                    </tr>
+			                    {% endfor %}
+                                <!-- <tr>
                                     <td>Tiger Nixon</td>
                                     <td>System Architect</td>
                                     <td>Edinburgh</td>
@@ -236,7 +248,7 @@
                                     <td>19</td>
                                     <td>2010/03/17</td>
                                     <td>$385,750</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -316,8 +328,7 @@
 		<td>{{lotto.n6}}</td>
 	</tr>
 </table> -->
-
-{%endfor%}
+{% endfor %}
 {% endblock content %}
 
 

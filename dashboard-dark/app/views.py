@@ -29,31 +29,30 @@ def zero_view(request):
 # 명령어: lotto
 def LottoView(request):
     turn = request.GET.get('turn')  
-    print(111)
-    print(turn)
-    print(222)
 
     if turn != None: 
-        turn2 = turn    
+        turn2 = f"""
+                and seq between 980 and {turn}
+                order by 1 desc
+                """    
     else:
-        turn2 = "(select max(seq) from innodb.lotto)"
-    
-    print(turn2)
+        turn2 = """
+                and seq between 980 and (select max(seq) from innodb.lotto)
+                order by 1 desc
+                """
 
     try:
         cursor = connection.cursor()
-        sql = """
-              select seq, n1, n2, n3, n4, n5, n6
-                from innodb.lotto
-               where seq = (select max(seq) from innodb.lotto)
-              """
-        sql2 = f"""
+
+        sql = f"""
                 select seq, n1, n2, n3, n4, n5, n6
                 from innodb.lotto
-               where seq = {turn2}
+               where 1=1
+                    {turn2}
                """
-        print(sql2)
-        result = cursor.execute(sql2)
+        print(sql)
+
+        result = cursor.execute(sql)
         datas = cursor.fetchall()
     
         connection.commit()
