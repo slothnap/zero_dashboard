@@ -9,7 +9,7 @@
 <!-- static/assets/css/atlantis.css 파일 class 색깔 정하기 -->
 <!-- #################################################### -->
 {% block content %}
-{% for lotto in lottos %} 
+
 <div class="page-inner">
 	<div class="page-header">
             <h4 class="page-title">Forms</h4>
@@ -33,20 +33,20 @@
                 </li>
             </ul>
         </div>
-    <div class="page-category">
+    <!-- <div class="page-category">
     	<a href="https://www.chartjs.org/" target="_blank">
     		full documentation
     	</a>
-    </div>
+    </div> -->
     <div class="row">
     	<div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                 	<div class="card-title">
                 		<div style ="float:left">
-                			<h2> 
-                				Please write down the episode you want.
-                			</h2>	
+                			<h2>
+                                Please pattern input
+                            </h2>
                 		</div>
                 		<form action ="/lotto" method = "GET">
 	                		<div style ="float:right">
@@ -56,16 +56,69 @@
 	                			       disabled="true"
 	                			       value="제출">
 	               			</div>
-	               			<div style ="float:right; margin-right:20px;">
-		                		<input id="turn" 
-		                		       name="turn"
+	               			<div style ="float:right; margin-right:5px;
+                                         height:40px; width:50px;">
+		                		<input id="pt30"
+                                       name="pt30" 
 		                		       type="text"
 		                		       class="form-control"
-		                		       placeholder="only number">
+		                		       placeholder="30">
 	                		</div>
+                            <div style ="float:right; margin-right:5px;
+                                         height:40px; width:50px;">
+                                <input id="pt10" 
+                                       name="pt10" 
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="10">
+                            </div>
+                            <div style ="float:right; margin-right:5px;
+                                         height:40px; width:50px;">
+                                <input id="pt5" 
+                                       name="pt5" 
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="5">
+                            </div>
+                            <div style ="float:right; margin-right:5px;
+                                         height:40px; width:50px;">
+                                <input id="pt3" 
+                                       name="pt3" 
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="3">
+                            </div>
                 		</form>
                 	</div>
                 </div>
+                <div class="card-body">
+                    <p class="demo">
+                        <ul class="pagination pg-primary">
+                            <li class="page-item active">
+                                <a class="page-link">1006</a>
+                            </li>
+                            <li class="page-item text-dark">
+                                <a class="page-link">8</a>
+                            </li>
+                            <li class="page-item text-dark">
+                                <a class="page-link">11</a>
+                            </li>
+                            <li class="page-item text-dark">
+                                <a class="page-link">15</a>
+                            </li>
+                            <li class="page-item text-dark">
+                                <a class="page-link">16</a>
+                            </li>
+                            <li class="page-item text-dark">
+                                <a class="page-link">17</a>
+                            </li>
+                            <li class="page-item text-dark">
+                                <a class="page-link">37</a>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+                <!-- {% for lotto in lottos %}
                 <div class="card-body">
                     <p class="demo">
                         <ul class="pagination pg-primary">
@@ -93,6 +146,7 @@
                 		</ul>
                     </p>
                 </div>
+                {% endfor %} -->
             </div>
         </div>
         <div class="col-md-12">
@@ -129,137 +183,16 @@
 			                        <td>{{lotto.n6}}</td>
 			                    </tr>
 			                    {% endfor %}
-                                <!-- <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>$170,750</td>
-                                </tr>
-                                <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>66</td>
-                                    <td>2009/01/12</td>
-                                    <td>$86,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td>$433,060</td>
-                                </tr>
-                                <tr>
-                                    <td>Airi Satou</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>33</td>
-                                    <td>2008/11/28</td>
-                                    <td>$162,700</td>
-                                </tr>
-                                <tr>
-                                    <td>Brielle Williamson</td>
-                                    <td>Integration Specialist</td>
-                                    <td>New York</td>
-                                    <td>61</td>
-                                    <td>2012/12/02</td>
-                                    <td>$372,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Herrod Chandler</td>
-                                    <td>Sales Assistant</td>
-                                    <td>San Francisco</td>
-                                    <td>59</td>
-                                    <td>2012/08/06</td>
-                                    <td>$137,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Rhona Davidson</td>
-                                    <td>Integration Specialist</td>
-                                    <td>Tokyo</td>
-                                    <td>55</td>
-                                    <td>2010/10/14</td>
-                                    <td>$327,900</td>
-                                </tr>
-                                <tr>
-                                    <td>Colleen Hurst</td>
-                                    <td>Javascript Developer</td>
-                                    <td>San Francisco</td>
-                                    <td>39</td>
-                                    <td>2009/09/15</td>
-                                    <td>$205,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Sonya Frost</td>
-                                    <td>Software Engineer</td>
-                                    <td>Edinburgh</td>
-                                    <td>23</td>
-                                    <td>2008/12/13</td>
-                                    <td>$103,600</td>
-                                </tr>
-                                <tr>
-                                    <td>Jena Gaines</td>
-                                    <td>Office Manager</td>
-                                    <td>London</td>
-                                    <td>30</td>
-                                    <td>2008/12/19</td>
-                                    <td>$90,560</td>
-                                </tr>
-                                <tr>
-                                    <td>Quinn Flynn</td>
-                                    <td>Support Lead</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2013/03/03</td>
-                                    <td>$342,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Charde Marshall</td>
-                                    <td>Regional Director</td>
-                                    <td>San Francisco</td>
-                                    <td>36</td>
-                                    <td>2008/10/16</td>
-                                    <td>$470,600</td>
-                                </tr>
-                                <tr>
-                                    <td>Haley Kennedy</td>
-                                    <td>Senior Marketing Designer</td>
-                                    <td>London</td>
-                                    <td>43</td>
-                                    <td>2012/12/18</td>
-                                    <td>$313,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Tatyana Fitzpatrick</td>
-                                    <td>Regional Director</td>
-                                    <td>London</td>
-                                    <td>19</td>
-                                    <td>2010/03/17</td>
-                                    <td>$385,750</td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="col-md-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">{{lotto.seq}} Tap</div>
+                    <div class="card-title">tap</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
@@ -303,74 +236,50 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
-
-<!-- <table class="table-contents" style="padding:10px">
-	<tr>
-		<th>회차</th>
-		<th>첫번째</th>
-		<th>두번째</th>
-		<th>세번째</th>
-		<th>네번째</th>
-		<th>다섯번째</th>
-		<th>여섯번째</th>
-	</tr>
-	
-	<tr>
-		<td>{{lotto.seq}}</td>
-		<td>{{lotto.n1}}</td>
-		<td>{{lotto.n2}}</td>
-		<td>{{lotto.n3}}</td>
-		<td>{{lotto.n4}}</td>
-		<td>{{lotto.n5}}</td>
-		<td>{{lotto.n6}}</td>
-	</tr>
-</table> -->
-{% endfor %}
 {% endblock content %}
-
-
 
 {% block javascripts %}
 
 <script>
 
+    ////////////////////////////////////////////
+    /////////////// 버튼 활성화 /////////////////
+    ////////////////////////////////////////////
+    
+    $(function(){
+        $("#pt30").on('input', function(){
+            if($("#pt30").val()=='')
+                $("#TestBtn").attr("disabled",true);
+            else
+                $("#TestBtn").attr("disabled",false);
+            });
+    });
+
+    /////////////////////////////////////////////
+    /////////////// 테이블 형식 //////////////////
+    ////////////////////////////////////////////
+    
+    $(document).ready(function(){
+            $('#basic-datatables').DataTable({
+                // 표시 건수기능 숨기기
+                lengthChange: true,
+                // 검색 기능 숨기기
+                searching: true,
+                // 정렬 기능 숨기기
+                ordering: true,
+                // 정보 표시 숨기기
+                info: true,
+                // 페이징 기능 숨기기
+                paging: true
+            });
+        });
+
 	////////////////////////////////////////////
-	/////////////// 버튼 활성화 /////////////////
-	////////////////////////////////////////////
-	$(function(){
-		$("#turn").on('input', function(){
-			if($("#turn").val()=='')
-				$("#TestBtn").attr("disabled",true);
-			else
-				$("#TestBtn").attr("disabled",false);
-			});
-	})
-	/////////////////////////////////////////////
-	/////////////// 테이블 형식 //////////////////
 	////////////////////////////////////////////
 
-	$(document).ready(function() {
-			$('#basic-datatables').DataTable({
-				// 표시 건수기능 숨기기
-				lengthChange: true,
-				// 검색 기능 숨기기
-				searching: true,
-				// 정렬 기능 숨기기
-				ordering: true,
-				// 정보 표시 숨기기
-				info: true,
-				// 페이징 기능 숨기기
-				paging: true
-			});
-		});
-
-	////////////////////////////////////////////
-	////////////////////////////////////////////
-
-	
 	// 데이터 받기
 	var temp = "{{lottos}}";
 
@@ -382,8 +291,6 @@
 
 	// 데이터 뽑기
 	var lotto_data = Object.values(data[0]).splice(0,11);
-
-	//alter(typeof(lotto_data));
 
 	var barChart = document.getElementById('barChart').getContext('2d');
 	var pieChart = document.getElementById('pieChart').getContext('2d');
@@ -399,7 +306,7 @@
 						backgroundColor: 'rgb(23, 125, 255)',
 						borderColor: 'rgb(23, 125, 255)',
 						data: [lotto_data[1],lotto_data[2],lotto_data[3],lotto_data[4]
-						      ,lotto_data[5],lotto_data[6]],
+						       ,lotto_data[5],lotto_data[6]],
 					}],
 				},
 				options: {
@@ -520,6 +427,8 @@
 			},
 		}
 	});
+
+
 </script>
 
 {% endblock javascripts %}

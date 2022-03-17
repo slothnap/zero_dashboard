@@ -17,18 +17,55 @@ from django.db import connection
 ################################## 핵심 ######################################
 ##############################################################################
 
-# MODEL 데이터값 가져오기
-def zero_view(request):
-    # Dazero 테이블의 모든 객체 불어와서 zeros 변수에 저장
-    zeros = Dazero.objects.all() 
-
-    return render(request, 'dashboard_list/zero_model.html', {"zeros": zeros})
-
-
 # SQL 데이터 가져오기
-# 명령어: lotto
-def LottoView(request):
-    turn = request.GET.get('turn')  
+# 명령어: winlotto
+def WinLottoView(request):
+
+    try:
+        cursor = connection.cursor()
+
+        sql = """
+                select seq, n1, n2, n3, n4, n5, n6
+                from innodb.lotto
+               where 1=1
+                 and seq between 1000 and (select max(seq) from innodb.lotto)
+               order by 1 desc
+               """
+        #print(sql)
+
+        result = cursor.execute(sql)
+        datas = cursor.fetchall()
+    
+        connection.commit()
+        connection.close()
+
+        winlottos = []
+        for data in datas:
+            row = {'seq': data[0],
+                   'n1': data[1],
+                   'n2': data[2],
+                   'n3': data[3],
+                   'n4': data[4],
+                   'n5': data[5],
+                   'n6': data[6]}
+            winlottos.append(row)
+
+    except:
+        connection.rollback()
+        print("Failed selecting in WinLottoView")
+
+    return render(request, 'dashboard_list/win_number.html', {"winlottos": winlottos})
+    
+########################################################
+def PtnLottoView(request):
+    turn = request.GET.get('turn')
+    
+    pt30 = request.GET.get('pt30')
+    pt10 = request.GET.get('pt10')
+    pt5  = request.GET.get('pt5')
+    pt3  = request.GET.get('pt3')  
+
+    print(f"{pt30}, {pt10}, {pt5}, {pt3}")
 
     if turn != None: 
         turn2 = f"""
@@ -37,10 +74,9 @@ def LottoView(request):
                 """    
     else:
         turn2 = """
-                and seq between 980 and (select max(seq) from innodb.lotto)
+                and seq between 1000 and (select max(seq) from innodb.lotto)
                 order by 1 desc
                 """
-
     try:
         cursor = connection.cursor()
 
@@ -72,10 +108,10 @@ def LottoView(request):
         #print(type(lottos))
     except:
         connection.rollback()
-        print("Failed selecting in LottoView")
+        print("Failed selecting in WinLottoView")
 
-    return render(request, 'dashboard_list/lotto_number_cnt.html', {"lottos": lottos})
-    
+    return render(request, 'dashboard_list/ptn_number.html', {"lottos": lottos})
+
 
 
 ##############################################################################
@@ -89,9 +125,7 @@ def LottoView(request):
 #     # 쿼리셋 => list로
 #     sales_list = [entry for entry in sales_result]
 #     context = {"sales_list": sales_list}
-#     #return render(request, "sales/sales_simsale.html", context)
-#     return render(request, "dashboard_list/sales_simsale.html")
-
+#     return render(request, "sales/sales_simsale.html", context)
 
 ##############################################################################
 ############################### 기본 설정 #####################################
@@ -126,3 +160,7 @@ def pages(request):
     except:
         html_template = loader.get_template( 'example/error/error-500.html' )
         return HttpResponse(html_template.render(context, request))
+
+##############################################################################
+##############################################################################
+##############################################################################
