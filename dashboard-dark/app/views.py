@@ -16,7 +16,6 @@ from django.db import connection
 ##############################################################################
 ################################## 핵심 ######################################
 ##############################################################################
-
 # SQL 데이터 가져오기
 # 명령어: winlotto
 def WinLottoView(request):
@@ -28,7 +27,7 @@ def WinLottoView(request):
                 select seq, n1, n2, n3, n4, n5, n6
                 from innodb.lotto
                where 1=1
-                 and seq between 1000 and (select max(seq) from innodb.lotto)
+                 and seq between 990 and (select max(seq) from innodb.lotto)
                order by 1 desc
                """
         #print(sql)
@@ -56,35 +55,100 @@ def WinLottoView(request):
 
     return render(request, 'dashboard_list/win_number.html', {"winlottos": winlottos})
     
-########################################################
+################################################################################################################
+################################################################################################################
+################################################################################################################
+# 패턴별 sql 가져오기
+# 명령어: ptnlotto
 def PtnLottoView(request):
-    turn = request.GET.get('turn')
     
-    pt30 = request.GET.get('pt30')
-    pt10 = request.GET.get('pt10')
-    pt5  = request.GET.get('pt5')
-    pt3  = request.GET.get('pt3')  
+    g_seq  = request.GET.get('seq')
+    g_pt30 = request.GET.get('pt30')
+    g_pt10 = request.GET.get('pt10')
+    g_pt5  = request.GET.get('pt5')
+    g_pt3  = request.GET.get('pt3')  
 
-    print(f"{pt30}, {pt10}, {pt5}, {pt3}")
+    print(f"{g_pt3},{g_pt5},{g_pt10},{g_pt30},")
 
-    if turn != None: 
-        turn2 = f"""
-                and seq between 980 and {turn}
-                order by 1 desc
-                """    
+    seq = pt30 = pt10 = pt5 = pt3 = 1
+    
+    ptnlottos = []
+
+
+    if g_seq != None: 
+        seq  = 1006
+        pt30 = g_pt30
+        pt10 = g_pt10
+        pt5  = g_pt5
+        pt3  = g_pt3 
     else:
-        turn2 = """
-                and seq between 1000 and (select max(seq) from innodb.lotto)
-                order by 1 desc
-                """
+        seq  = 1006
+        pt3  = 3
+        pt5  = 2
+        pt10 = 1 
+        pt30 = 0 
     try:
         cursor = connection.cursor()
 
         sql = f"""
-                select seq, n1, n2, n3, n4, n5, n6
-                from innodb.lotto
-               where 1=1
-                    {turn2}
+                 select sum(case when row_num = 1 then num end) as n1
+                      , sum(case when row_num = 2 then num end) as n2
+                      , sum(case when row_num = 3 then num end) as n3
+                      , sum(case when row_num = 4 then num end) as n4
+                      , sum(case when row_num = 5 then num end) as n5
+                      , sum(case when row_num = 6 then num end) as n6
+                      , '' as bin
+                      , sum(case when row_num = 1 then seq end) as n1_seq
+                      , sum(case when row_num = 2 then seq end) as n2_seq
+                      , sum(case when row_num = 3 then seq end) as n3_seq
+                      , sum(case when row_num = 4 then seq end) as n4_seq
+                      , sum(case when row_num = 5 then seq end) as n5_seq
+                      , sum(case when row_num = 6 then seq end) as n6_seq
+                   from (
+                 select num
+                      , @rownum:=@rownum+1 as row_num
+                      , seq
+                   from (
+                        select seq, num   
+                          from (select 3 as seq, num
+                                  from innodb.in_list 
+                                 where seq = {seq}
+                                   and val = 3 
+                                 order by rand() 
+                                 limit {pt3}
+                               ) as t3
+                        union all
+                        select seq, num   
+                          from (select 5 as seq, num
+                                  from innodb.in_list 
+                                 where seq = {seq}
+                                   and val = 5 
+                                 order by rand() 
+                                 limit {pt5}
+                               ) as t5 
+                        union all
+                        select seq, num   
+                          from (select 10 as seq, num
+                                  from innodb.in_list 
+                                 where seq = {seq}
+                                   and val = 10
+                                 order by rand() 
+                                 limit {pt10}
+                               ) as t10
+                        union all
+                        select seq, num   
+                        from (select 30 as seq, num
+                                from innodb.in_list 
+                               where seq = {seq}
+                                 and val = 30 
+                               order by rand() 
+                               limit {pt30}
+                             ) as t30
+                         order by num 
+                     ) as a
+                     , (SELECT @rownum:=0) TMP
+                     ) as b 
+                 ;
                """
         print(sql)
 
@@ -94,23 +158,27 @@ def PtnLottoView(request):
         connection.commit()
         connection.close()
 
-        lottos = []
         for data in datas:
-            row = {'seq': data[0],
-                   'n1': data[1],
-                   'n2': data[2],
-                   'n3': data[3],
-                   'n4': data[4],
-                   'n5': data[5],
-                   'n6': data[6]}
-            lottos.append(row)
+            row = {'n1': data[0],
+                   'n2': data[1],
+                   'n3': data[2],
+                   'n4': data[3],
+                   'n5': data[4],
+                   'n6': data[5],
+                   'bin': data[6],
+                   'pt1': data[7],
+                   'pt2': data[8],
+                   'pt3': data[9],
+                   'pt4': data[10],
+                   'pt5': data[11],
+                   'pt6': data[12]}
+            ptnlottos.append(row)
         
-        #print(type(lottos))
     except:
         connection.rollback()
         print("Failed selecting in WinLottoView")
 
-    return render(request, 'dashboard_list/ptn_number.html', {"lottos": lottos})
+    return render(request, 'dashboard_list/ptn_number.html', {"ptnlottos": ptnlottos})
 
 
 

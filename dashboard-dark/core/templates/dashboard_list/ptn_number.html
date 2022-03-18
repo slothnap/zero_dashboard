@@ -48,7 +48,7 @@
                                 Please pattern input
                             </h2>
                 		</div>
-                		<form action ="/lotto" method = "GET">
+                		<form action ="/ptnlotto" method = "GET">
 	                		<div style ="float:right">
 	                			<input class="btn btn-info"
 	                			       type="submit" 
@@ -88,6 +88,14 @@
                                        class="form-control"
                                        placeholder="3">
                             </div>
+                            <div style ="float:right; margin-right:5px;
+                                         height:40px; width:60px;">
+                                <input id="seq" 
+                                       name="seq" 
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="seq">
+                            </div>
                 		</form>
                 	</div>
                 </div>
@@ -118,35 +126,6 @@
                         </ul>
                     </p>
                 </div>
-                <!-- {% for lotto in lottos %}
-                <div class="card-body">
-                    <p class="demo">
-                        <ul class="pagination pg-primary">
-		                    <li class="page-item active">
-		                    	<a class="page-link">{{lotto.seq}}</a>
-		                    </li>
-		                    <li class="page-item text-dark">
-		                    	<a class="page-link">{{lotto.n1}}</a>
-		                    </li>
-		                    <li class="page-item text-dark">
-		                    	<a class="page-link">{{lotto.n2}}</a>
-		                    </li>
-		                    <li class="page-item text-dark">
-		                    	<a class="page-link">{{lotto.n3}}</a>
-		                    </li>
-		                    <li class="page-item text-dark">
-		                    	<a class="page-link">{{lotto.n4}}</a>
-		                    </li>
-		                    <li class="page-item text-dark">
-		                    	<a class="page-link">{{lotto.n5}}</a>
-		                    </li>
-		                    <li class="page-item text-dark">
-		                    	<a class="page-link text-dark">{{lotto.n6}}</a>
-		                    </li>
-                		</ul>
-                    </p>
-                </div>
-                {% endfor %} -->
             </div>
         </div>
         <div class="col-md-12">
@@ -162,77 +141,41 @@
                                class="display table table-striped table-hover" >
                             <thead>
                                 <tr>
-                                    <th>seq</th>
                                     <th>n1</th>
                                     <th>n2</th>
                                     <th>n3</th>
                                     <th>n4</th>
                                     <th>n5</th>
                                     <th>n6</th>
+                                    <th>bin</th>
+                                    <th>pt1</th>
+                                    <th>pt2</th>
+                                    <th>pt3</th>
+                                    <th>pt4</th>
+                                    <th>pt5</th>
+                                    <th>pt6</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            	{% for lotto in lottos %} 
+                            	{% for ptnlotto in ptnlottos %} 
                             	<tr>
-		                            <td>{{lotto.seq}}</td>
-			                        <td>{{lotto.n1}}</td>
-			                        <td>{{lotto.n2}}</td>
-			                        <td>{{lotto.n3}}</td>
-			                        <td>{{lotto.n4}}</td>
-			                        <td>{{lotto.n5}}</td>
-			                        <td>{{lotto.n6}}</td>
+		                            <td>{{ptnlotto.n1}}</td>
+			                        <td>{{ptnlotto.n2}}</td>
+			                        <td>{{ptnlotto.n3}}</td>
+			                        <td>{{ptnlotto.n4}}</td>
+			                        <td>{{ptnlotto.n5}}</td>
+			                        <td>{{ptnlotto.n6}}</td>
+			                        <td>{{ptnlotto.bin}}</td>
+			                        <td>{{ptnlotto.pt1}}</td>
+			                        <td>{{ptnlotto.pt2}}</td>
+			                        <td>{{ptnlotto.pt3}}</td>
+			                        <td>{{ptnlotto.pt4}}</td>
+			                        <td>{{ptnlotto.pt5}}</td>
+			                        <td>{{ptnlotto.pt6}}</td>
 			                    </tr>
 			                    {% endfor %}
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">tap</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Rate of numbers </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Radar Chart</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="radarChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Bubble Chart</div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="bubbleChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -267,7 +210,7 @@
                 // 표시 건수기능 숨기기
                 lengthChange: true,
                 // 검색 기능 숨기기
-                searching: true,
+                searching: false,
                 // 정렬 기능 숨기기
                 ordering: true,
                 // 정보 표시 숨기기
@@ -279,154 +222,6 @@
 
 	////////////////////////////////////////////
 	////////////////////////////////////////////
-
-	// 데이터 받기
-	var temp = "{{lottos}}";
-
-	// 데이터 정제
-	var temp2 = temp.replace(/&#x27;/g, "\"");
-
-	// Object로 변환 
-	var data = JSON.parse(temp2);	
-
-	// 데이터 뽑기
-	var lotto_data = Object.values(data[0]).splice(0,11);
-
-	var barChart = document.getElementById('barChart').getContext('2d');
-	var pieChart = document.getElementById('pieChart').getContext('2d');
-	var radarChart = document.getElementById('radarChart').getContext('2d');
-	var bubbleChart = document.getElementById('bubbleChart').getContext('2d');
-
-	var myBarChart = new Chart(barChart, {
-				type: 'bar',
-				data: {
-					labels: ["Num1", "Num2", "Num3", "Num4", "Num5", "Num6"],
-					datasets : [{
-						label: "Number",
-						backgroundColor: 'rgb(23, 125, 255)',
-						borderColor: 'rgb(23, 125, 255)',
-						data: [lotto_data[1],lotto_data[2],lotto_data[3],lotto_data[4]
-						       ,lotto_data[5],lotto_data[6]],
-					}],
-				},
-				options: {
-					responsive: true,
-					maintainAspectRatio: false,
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero:true
-							}
-						}]
-					},
-				}
-			});
-
-	var myPieChart = new Chart(pieChart, {
-			type: 'pie',
-			data: {
-				datasets: [{
-					data: [50, 35, 15],
-					backgroundColor :["#1d7af3","#f3545d","#fdaf4b"],
-					borderWidth: 0
-				}],
-				labels: ['New Visitors', 'Subscribers', 'Active Users'] 
-			},
-			options : {
-				responsive: true, 
-				maintainAspectRatio: false,
-				legend: {
-					position : 'bottom',
-					labels : {
-						fontColor: 'rgb(154, 154, 154)',
-						fontSize: 11,
-						usePointStyle : true,
-						padding: 20
-					}
-				},
-				pieceLabel: {
-					render: 'percentage',
-					fontColor: 'white',
-					fontSize: 14,
-				},
-				tooltips: false,
-				layout: {
-					padding: {
-						left: 20,
-						right: 20,
-						top: 20,
-						bottom: 20
-					}
-				}
-			}
-		});
-
-	var myRadarChart = new Chart(radarChart, {
-			type: 'radar',
-			data: {
-				labels: ['Running', 'Swimming', 'Eating', 'Cycling', 'Jumping'],
-				datasets: [{
-					data: [20, 10, 30, 2, 30],
-					borderColor: '#1d7af3',
-					backgroundColor : 'rgba(29, 122, 243, 0.25)',
-					pointBackgroundColor: "#1d7af3",
-					pointHoverRadius: 4,
-					pointRadius: 3,
-					label: 'Team 1'
-				}, {
-					data: [10, 20, 15, 30, 22],
-					borderColor: '#716aca',
-					backgroundColor: 'rgba(113, 106, 202, 0.25)',
-					pointBackgroundColor: "#716aca",
-					pointHoverRadius: 4,
-					pointRadius: 3,
-					label: 'Team 2'
-				},
-				]
-			},
-			options : {
-				responsive: true, 
-				maintainAspectRatio: false,
-				legend : {
-					position: 'bottom'
-				}
-			}
-		});
-
-	var myBubbleChart = new Chart(bubbleChart,{
-		type: 'bubble',
-		data: {
-			datasets:[{
-				label: "Car", 
-				data:[{x:25,y:17,r:25},{x:30,y:25,r:28}, {x:35,y:30,r:8}], 
-				backgroundColor:"#716aca"
-			},
-			{
-				label: "Motorcycles", 
-				data:[{x:10,y:17,r:20},{x:30,y:10,r:7}, {x:35,y:20,r:10}], 
-				backgroundColor:"#1d7af3"
-			}],
-		},
-		options: {
-			responsive: true, 
-			maintainAspectRatio: false,
-			legend: {
-				position: 'bottom'
-			},
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero:true
-					}
-				}],
-				xAxes: [{
-					ticks: {
-						beginAtZero:true
-					}
-				}]
-			},
-		}
-	});
 
 
 </script>
