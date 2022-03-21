@@ -10,7 +10,7 @@ from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django import template
 from .models import Dazero
-from app import sql_list
+import app.sql_list.ptn_sql
 from django.views import generic
 from django.db import connection
 
@@ -88,41 +88,9 @@ def PtnLottoView(request):
         pt5  = 2
         pt10 = 1 
         pt30 = 0 
-    try:
-        cursor = connection.cursor()
 
-        # 함수로 sql 받아오기
-        sql = sql_list.GetNumber(seq,pt3,pt5,pt10,pt30)
-        
-        print(sql)
 
-        result = cursor.execute(sql)
-        datas = cursor.fetchall()
-    
-        connection.commit()
-        connection.close()
-
-        for data in datas:
-            row = {'n1': data[0],
-                   'n2': data[1],
-                   'n3': data[2],
-                   'n4': data[3],
-                   'n5': data[4],
-                   'n6': data[5],
-                   'bin': data[6],
-                   'pt1': data[7],
-                   'pt2': data[8],
-                   'pt3': data[9],
-                   'pt4': data[10],
-                   'pt5': data[11],
-                   'pt6': data[12]}
-            ptnlottos.append(row)
-        
-    except:
-        connection.rollback()
-        print("Failed selecting in WinLottoView")
-
-    #sql2 = sql_list.GetNumber(1000,1,2,1,1)
+    ptnlottos = app.sql_list.ptn_sql.GetNumber(seq,pt3,pt5,pt10,pt30)
     #print(sql2)
 
     return render(request, 'dashboard_list/ptn_number.html', {"ptnlottos": ptnlottos})
@@ -171,7 +139,6 @@ def pages(request):
         html_template = loader.get_template( 'example/error/error-404.html' )
         return HttpResponse(html_template.render(context, request))
         
-
     except:
         html_template = loader.get_template( 'example/error/error-500.html' )
         return HttpResponse(html_template.render(context, request))
@@ -179,3 +146,6 @@ def pages(request):
 ##############################################################################
 ##############################################################################
 ##############################################################################
+
+
+
