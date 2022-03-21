@@ -8,8 +8,8 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
   zeroDb.opendb()
 
   sql = f"""
-       select sum(case when row_num = 1 then num end) as n1
-        , sum(case when row_num = 2 then num end) as n2
+	     select sum(case when row_num = 1 then num end) as n1
+			  , sum(case when row_num = 2 then num end) as n2
               , sum(case when row_num = 3 then num end) as n3
               , sum(case when row_num = 4 then num end) as n4
               , sum(case when row_num = 5 then num end) as n5
@@ -71,4 +71,9 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
   zeroDb.closedb()
 
   return source
+
+
+
+
+
 

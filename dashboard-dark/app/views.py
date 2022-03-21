@@ -73,25 +73,29 @@ def PtnLottoView(request):
 
     seq = pt30 = pt10 = pt5 = pt3 = 1
     
+    df = []
     ptnlottos = []
 
-
     if g_seq != None: 
-        seq  = 1006
+        seq  = 1007
         pt30 = g_pt30
         pt10 = g_pt10
         pt5  = g_pt5
         pt3  = g_pt3 
     else:
-        seq  = 1006
-        pt3  = 3
-        pt5  = 2
-        pt10 = 1 
+        seq  = 1007
+        pt3  = 5
+        pt5  = 1
+        pt10 = 0 
         pt30 = 0 
 
-
+    # 최초 넣고 
     ptnlottos = app.sql_list.ptn_sql.GetNumber(seq,pt3,pt5,pt10,pt30)
-    #print(sql2)
+
+    # 필요한 만큼 더 넣고
+    for i in range(0, 4):
+        ptnlottos = ptnlottos + app.sql_list.ptn_sql.GetNumber(seq,pt3,pt5,pt10,pt30)
+
 
     return render(request, 'dashboard_list/ptn_number.html', {"ptnlottos": ptnlottos})
 
