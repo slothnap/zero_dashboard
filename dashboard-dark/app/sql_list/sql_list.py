@@ -1,7 +1,25 @@
-from django.db import connection
 import app.sql_list.dbconfig as dbConf
-import pandas as pd
 
+
+###############################################################
+# 패턴으로 데이터 얻기
+def GetWin():
+  zeroDb = dbConf.DbConfig("zero")
+  zeroDb.opendb()
+
+  sql = """
+        select seq, n1, n2, n3, n4, n5, n6
+          from innodb.lotto
+         where 1=1
+           and seq between 990 and (select max(seq) from innodb.lotto)
+         order by 1 desc
+        """
+  source = zeroDb.select(sql)
+  zeroDb.closedb()
+
+  return source
+
+###############################################################
 # 패턴으로 데이터 얻기
 def GetNumber(seq, pt3, pt5, pt10, pt30):
   zeroDb = dbConf.DbConfig("zero")

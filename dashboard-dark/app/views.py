@@ -10,7 +10,7 @@ from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django import template
 from .models import Dazero
-import app.sql_list.ptn_sql
+import app.sql_list.sql_list
 from django.views import generic
 from django.db import connection
 
@@ -21,38 +21,8 @@ from django.db import connection
 # 명령어: winlotto
 def WinLottoView(request):
 
-    try:
-        cursor = connection.cursor()
-
-        sql = """
-                select seq, n1, n2, n3, n4, n5, n6
-                from innodb.lotto
-               where 1=1
-                 and seq between 990 and (select max(seq) from innodb.lotto)
-               order by 1 desc
-               """
-        #print(sql)
-
-        result = cursor.execute(sql)
-        datas = cursor.fetchall()
-    
-        connection.commit()
-        connection.close()
-
-        winlottos = []
-        for data in datas:
-            row = {'seq': data[0],
-                   'n1': data[1],
-                   'n2': data[2],
-                   'n3': data[3],
-                   'n4': data[4],
-                   'n5': data[5],
-                   'n6': data[6]}
-            winlottos.append(row)
-
-    except:
-        connection.rollback()
-        print("Failed selecting in WinLottoView")
+    winlottos = []
+    winlottos = app.sql_list.sql_list.GetWin()
 
     return render(request, 'dashboard_list/win_number.html', {"winlottos": winlottos})
     
@@ -63,39 +33,27 @@ def WinLottoView(request):
 # 명령어: ptnlotto
 def PtnLottoView(request):
     
+    ### 값 받기 처리 ###
     g_seq  = request.GET.get('seq')
     g_pt30 = request.GET.get('pt30')
     g_pt10 = request.GET.get('pt10')
     g_pt5  = request.GET.get('pt5')
     g_pt3  = request.GET.get('pt3')  
 
-    print(f"{g_pt3},{g_pt5},{g_pt10},{g_pt30},")
-
-    seq = pt30 = pt10 = pt5 = pt3 = 1
-    
-    df = []
-    ptnlottos = []
-
+    ### 최초 값 처리 ###
     if g_seq != None: 
-        seq  = 1007
-        pt30 = g_pt30
-        pt10 = g_pt10
-        pt5  = g_pt5
-        pt3  = g_pt3 
+        seq,pt3,pt5,pt10,pt30 = 1007,g_pt3,g_pt5,g_pt10,g_pt30 
     else:
-        seq  = 1007
-        pt3  = 5
-        pt5  = 1
-        pt10 = 0 
-        pt30 = 0 
+        seq,pt3,pt5,pt10,pt30 = 1007,0,1,5,0
 
-    # 최초 넣고 
-    ptnlottos = app.sql_list.ptn_sql.GetNumber(seq,pt3,pt5,pt10,pt30)
 
-    # 필요한 만큼 더 넣고
+    ### 최초 넣고 ###
+    ptnlottos = []
+    ptnlottos = app.sql_list.sql_list.GetNumber(seq,pt3,pt5,pt10,pt30)
+
+    ### 필요한 만큼 더 넣고 ###
     for i in range(0, 4):
-        ptnlottos = ptnlottos + app.sql_list.ptn_sql.GetNumber(seq,pt3,pt5,pt10,pt30)
-
+        ptnlottos = ptnlottos + app.sql_list.sql_list.GetNumber(seq,pt3,pt5,pt10,pt30)
 
     return render(request, 'dashboard_list/ptn_number.html', {"ptnlottos": ptnlottos})
 
@@ -104,7 +62,6 @@ def PtnLottoView(request):
 ##############################################################################
 ################################## 샘플 ######################################
 ##############################################################################
-
 # 매출값 가져오기
 # def sales_simsale(request):
 #     # 테이블 값 가져오기
@@ -114,10 +71,10 @@ def PtnLottoView(request):
 #     context = {"sales_list": sales_list}
 #     return render(request, "sales/sales_simsale.html", context)
 
+
 ##############################################################################
 ############################### 기본 설정 #####################################
 ##############################################################################
-
 #@login_required(login_url="/login/") = 로그인 시스템 있으면 필요
 # 첫번째 페이지 지정
 def index(request):
