@@ -24,7 +24,12 @@ def WinLottoView(request):
     winlottos = []
     winlottos = app.sql_list.sql_list.GetWin()
 
-    return render(request, 'dashboard_list/win_number.html', {"winlottos": winlottos})
+    ### 최신 번호 ###
+    lastwins = []
+    lastwins = app.sql_list.sql_list.GetLastWin()
+
+    context = {"winlottos": winlottos, "lastwins": lastwins}
+    return render(request, 'dashboard_list/win_number.html', context)
     
 ################################################################################################################
 ################################################################################################################
@@ -39,6 +44,7 @@ def PtnLottoView(request):
     g_pt10 = request.GET.get('pt10')
     g_pt5  = request.GET.get('pt5')
     g_pt3  = request.GET.get('pt3')  
+
 
     ### 최초 값 처리 ###
     if g_seq != None: 
@@ -55,7 +61,9 @@ def PtnLottoView(request):
     for i in range(0, 4):
         ptnlottos = ptnlottos + app.sql_list.sql_list.GetNumber(seq,pt3,pt5,pt10,pt30)
 
-    return render(request, 'dashboard_list/ptn_number.html', {"ptnlottos": ptnlottos})
+    ### 보내기 ###
+    context = {"ptnlottos": ptnlottos}
+    return render(request, 'dashboard_list/ptn_number.html', context)
 
 
 

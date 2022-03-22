@@ -99,40 +99,42 @@
                 		</form>
                 	</div>
                 </div>
-                <!-- <div class="card-body"> 8,11,16,19,21,25
+                {% for lastwin in lastwins %} 
+                <div class="card-body"> 
                     <p class="demo">
                         <ul class="pagination pg-primary">
                             <li class="page-item active">
-                                <a class="page-link">1006</a>
+                                <a class="page-link">{{lastwin.seq}}</a>
                             </li>
                             <li class="page-item text-dark">
-                                <a class="page-link">8</a>
+                                <a class="page-link">{{lastwin.n1}}</a>
                             </li>
                             <li class="page-item text-dark">
-                                <a class="page-link">11</a>
+                                <a class="page-link">{{lastwin.n2}}</a>
                             </li>
                             <li class="page-item text-dark">
-                                <a class="page-link">16</a>
+                                <a class="page-link">{{lastwin.n3}}</a>
                             </li>
                             <li class="page-item text-dark">
-                                <a class="page-link">19</a>
+                                <a class="page-link">{{lastwin.n4}}</a>
                             </li>
                             <li class="page-item text-dark">
-                                <a class="page-link">21</a>
+                                <a class="page-link">{{lastwin.n5}}</a>
                             </li>
                             <li class="page-item text-dark">
-                                <a class="page-link">25</a>
+                                <a class="page-link">{{lastwin.n6}}</a>
                             </li>
                         </ul>
                     </p>
-                </div> -->
+                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                    	LIST
+                    	Pattern Number
                     </h4>
                 </div>
                 <div class="card-body">
@@ -192,6 +194,7 @@
     /////////////// 버튼 활성화 /////////////////
     ////////////////////////////////////////////
     
+    
     $(function(){
         $("#pt30").on('input', function(){
             if($("#pt30").val()=='')
@@ -220,10 +223,9 @@
             });
         });
 
-	////////////////////////////////////////////
-	////////////////////////////////////////////
+    
 
-
+    
 </script>
 
 {% endblock javascripts %}
