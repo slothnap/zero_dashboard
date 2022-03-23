@@ -1,25 +1,6 @@
 import app.sql_list.dbconfig as dbConf
 
-###############################################################
-###############################################################
-# 당첨 결과값 가져오기
-def GetWin():
-  zeroDb = dbConf.DbConfig("zero")
-  zeroDb.opendb()
 
-  sql = """
-        select seq, n1, n2, n3, n4, n5, n6
-          from innodb.lotto
-         where 1=1
-           and seq between 990 and (select max(seq) from innodb.lotto)
-         order by 1 desc
-        """
-  source = zeroDb.select(sql)
-  zeroDb.closedb()
-
-  return source
-###############################################################
-###############################################################
 
 ###############################################################
 ###############################################################
@@ -33,6 +14,48 @@ def GetLastWin():
           from innodb.lotto
          where 1=1
            and seq = (select max(seq) from innodb.lotto)
+         order by 1 desc
+        """
+  source = zeroDb.select(sql)
+  zeroDb.closedb()
+
+  return source
+###############################################################
+###############################################################
+
+###############################################################
+###############################################################
+# 번호 출현 횟수 가져오기
+def GetNumAllCnt():
+  zeroDb = dbConf.DbConfig("zero")
+  zeroDb.opendb()
+
+  sql = """
+        select num
+             , count(*) cnt 
+          from innodb.temp2
+         group by num 
+         order by 2 desc
+        """
+  source = zeroDb.select(sql)
+  zeroDb.closedb()
+
+  return source
+###############################################################
+###############################################################
+
+###############################################################
+###############################################################
+# 당첨 결과값 가져오기
+def GetWin():
+  zeroDb = dbConf.DbConfig("zero")
+  zeroDb.opendb()
+
+  sql = """
+        select seq, n1, n2, n3, n4, n5, n6
+          from innodb.lotto
+         where 1=1
+           and seq between 990 and (select max(seq) from innodb.lotto)
          order by 1 desc
         """
   source = zeroDb.select(sql)
@@ -66,10 +89,16 @@ def GetWinPatten():
 ###############################################################
 ###############################################################
 
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
+
 ###############################################################
 ###############################################################
 # 패턴으로 데이터 얻기
-def GetNumber(seq, pt3, pt5, pt10, pt30):
+def GetNumber(pt3, pt5, pt10, pt30):
   zeroDb = dbConf.DbConfig("zero")
   zeroDb.opendb()
 
@@ -95,7 +124,7 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
                 select seq, num   
                   from (select 3 as seq, num
                           from innodb.in_list 
-                         where seq = {seq}
+                         where seq = (select max(seq) from innodb.lotto)
                            and val = 3 
                          order by rand() 
                          limit {pt3}
@@ -104,7 +133,7 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
                 select seq, num   
                   from (select 5 as seq, num
                           from innodb.in_list 
-                         where seq = {seq}
+                         where seq = (select max(seq) from innodb.lotto)
                            and val = 5 
                          order by rand() 
                          limit {pt5}
@@ -113,7 +142,7 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
                 select seq, num   
                   from (select 10 as seq, num
                           from innodb.in_list 
-                         where seq = {seq}
+                         where seq = (select max(seq) from innodb.lotto)
                            and val = 10
                          order by rand() 
                          limit {pt10}
@@ -122,7 +151,7 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
                 select seq, num   
                 from (select 30 as seq, num
                         from innodb.in_list 
-                       where seq = {seq}
+                       where seq = (select max(seq) from innodb.lotto)
                          and val = 30 
                        order by rand() 
                        limit {pt30}
@@ -141,7 +170,37 @@ def GetNumber(seq, pt3, pt5, pt10, pt30):
 ###############################################################
 
 
+###############################################################
+###############################################################
+# 당첨 패턴 후 경우의 수 가져오기
+def Next_patten(p1, p2, p3, p4):
+  zeroDb = dbConf.DbConfig("zero")
+  zeroDb.opendb()
 
+  sql = f"""
+        select 3cnt 
+             , 5cnt 
+             , 10cnt 
+             , 30cnt
+             , count(*) cnt
+          from in_list_2 
+         where 1=1 
+           and stan in (
+                        select stan + 1
+                          from in_list_2
+                         where 1=1 
+                           and 3cnt  = {p1}
+                           and 5cnt  = {p2}
+                           and 10cnt = {p3}
+                           and 30cnt = {p4}
+                       ) 
+         group by 3cnt, 5cnt, 10cnt, 30cnt
+         order by cnt desc;
+        """
+  source = zeroDb.select(sql)
+  zeroDb.closedb()
+
+  return source
 
 
 

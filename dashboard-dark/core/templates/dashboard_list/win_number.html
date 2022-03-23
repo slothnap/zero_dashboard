@@ -93,7 +93,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Horizontal Bar</div>
+                    <div class="card-title">Frequency of appearances</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
@@ -227,22 +227,18 @@
     /////////////////////////////////////////////
     
     // 데이터 받기
-    var temp = "{{lastwins}}";
+    var temp11 = "{{lastwins}}";
 
     // 데이터 수정
-    var temp2 = temp.replace(/&#x27;/g, "\"");
+    var temp12 = temp11.replace(/&#x27;/g, "\"");
 
     //alert(temp2);
     // 수정된 데이터 배열에 담기
-    var data = JSON.parse(temp2);
+    var data11 = JSON.parse(temp12);
 
-    var win_number = Object.values(data[0]).splice(1,6);
+    var win_number = Object.values(data11[0]).splice(1,6);
 
-
-    /////////////////////////////////////////////
     /////////////// 비율 그래프 처리//////////////
-    /////////////////////////////////////////////
-
     var r1 = r10 = r20 = r30 = r40 = 0;
 
     for(i in win_number){
@@ -261,6 +257,25 @@
         else{
             r40 = r40 + 1;
         }
+    }
+    
+    /////////////////////////////////////////////
+    /////////////// 데이터 받기 //////////////////
+    /////////////////////////////////////////////
+    var temp21 = "{{numallcnts}}";
+
+    // 데이터 수정
+    var temp22 = temp21.replace(/&#x27;/g, "\"");
+
+    //alert(temp22);
+    // 수정된 데이터 배열에 담기
+    var data21 = JSON.parse(temp22);
+
+    var all_cnt_number = [];
+
+    for (var key in data21){ 
+        all_cnt_number.push([Object.values(data21[key]).splice(0,1),
+                             Object.values(data21[key]).splice(1,2)]);
     }
 
 	////////////////////////////////////////////
@@ -311,23 +326,34 @@
     var myHorizontalBar = new Chart(horizontalBar, {
             type: 'horizontalBar',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: [all_cnt_number[0][0],all_cnt_number[1][0],all_cnt_number[2][0],
+                         all_cnt_number[3][0],all_cnt_number[4][0],all_cnt_number[5][0],
+                         all_cnt_number[6][0],all_cnt_number[7][0],all_cnt_number[8][0],
+                         all_cnt_number[9][0]],
                 datasets : [{
-                    label: "Sales",
-                    backgroundColor: 'rgb(23, 125, 255)',
-                    borderColor: 'rgb(23, 125, 255)',
-                    data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+                    label: "출현 횟수",
+                    //backgroundColor: 'rgb(23, 125, 255)',
+                    backgroundColor: "#1d7af3",
+                    borderColor: "#1d7af3",
+                    data: [all_cnt_number[0][1],all_cnt_number[1][1],all_cnt_number[2][1],
+                           all_cnt_number[3][1],all_cnt_number[4][1],all_cnt_number[5][1],
+                           all_cnt_number[6][1],all_cnt_number[7][1],all_cnt_number[8][1],
+                           all_cnt_number[9][1]]
                 }],
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
+                    xAxes: [{
+                        min: 0,
+                        beginAtZero:true,
+                    }],
+                    // yAxes: [{
+                    //     ticks: {
+                    //         beginAtZero:true
+                    //     }
+                    // }]
                 },
             }
         });

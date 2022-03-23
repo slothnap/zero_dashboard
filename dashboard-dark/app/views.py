@@ -29,6 +29,10 @@ def WinLottoView(request):
     lastwins = []
     lastwins = app.sql_list.sql_list.GetLastWin()
 
+    ### 최신 번호 ###
+    numallcnts = []
+    numallcnts = app.sql_list.sql_list.GetNumAllCnt()
+
     ### 당첨 패턴 ###
     getwinpattens = []
     getwinpattens = app.sql_list.sql_list.GetWinPatten()
@@ -37,6 +41,7 @@ def WinLottoView(request):
                 "winlottos": winlottos
               , "lastwins": lastwins
               , "getwinpattens": getwinpattens
+              , "numallcnts": numallcnts
               }
     return render(request, 'dashboard_list/win_number.html', context)
     
@@ -49,32 +54,38 @@ def PtnLottoView(request):
     
     ### 값 받기 처리 ###
     g_seq  = request.GET.get('seq')
-    g_pt30 = request.GET.get('pt30')
-    g_pt10 = request.GET.get('pt10')
+    g_pt3  = request.GET.get('pt3')
     g_pt5  = request.GET.get('pt5')
-    g_pt3  = request.GET.get('pt3')  
+    g_pt10 = request.GET.get('pt10')
+    g_pt30 = request.GET.get('pt30')
 
-
-    ### 최초 값 처리 ###
     if g_seq != None: 
-        seq,pt3,pt5,pt10,pt30 = 1007,g_pt3,g_pt5,g_pt10,g_pt30 
+        pt3,pt5,pt10,pt30 = g_pt3,g_pt5,g_pt10,g_pt30 
     else:
-        seq,pt3,pt5,pt10,pt30 = 1007,0,1,5,0
+        pt3,pt5,pt10,pt30 = 0,5,0,1
 
 
     ### 최초 넣고 ###
     ptnlottos = []
-    ptnlottos = app.sql_list.sql_list.GetNumber(seq,pt3,pt5,pt10,pt30)
+    ptnlottos = app.sql_list.sql_list.GetNumber(pt3,pt5,pt10,pt30)
 
-    ### 필요한 만큼 더 넣고 ###
     for i in range(0, 4):
-        ptnlottos = ptnlottos + app.sql_list.sql_list.GetNumber(seq,pt3,pt5,pt10,pt30)
+        ptnlottos = ptnlottos + app.sql_list.sql_list.GetNumber(pt3,pt5,pt10,pt30)
+
+
+    ### 패턴 다음 경우의 수 ###
+    p1,p2,p3,p4 = 3,1,1,1 
+
+    nextpattens = []
+    nextpattens = app.sql_list.sql_list.Next_patten(p1,p2,p3,p4)
+
 
     ### 보내기 ###
-    context = {"ptnlottos": ptnlottos}
+    context = {
+                "ptnlottos": ptnlottos
+              , "nextpattens": nextpattens
+              }
     return render(request, 'dashboard_list/ptn_number.html', context)
-
-
 
 ##############################################################################
 ################################## 샘플 ######################################

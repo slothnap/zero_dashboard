@@ -85,14 +85,6 @@
                                        class="form-control"
                                        placeholder="3">
                             </div>
-                            <div style ="float:right; margin-right:5px;
-                                         height:40px; width:60px;">
-                                <input id="seq" 
-                                       name="seq" 
-                                       type="text"
-                                       class="form-control"
-                                       placeholder="seq">
-                            </div>
                 		</form>
                 	</div>
                 </div>
@@ -118,7 +110,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="basic-datatables" 
+                        <table id="num_of_patten-datatables" 
                                class="display table table-striped table-hover" >
                             <thead>
                                 <tr>
@@ -161,6 +153,44 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div style ="float:left">
+                        <h4 class="card-title" style ="float:left">
+                            Next Pattens
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="number_of_cases-datatables" 
+                               class="display table table-striped table-hover" >
+                            <thead>
+                                <tr>
+                                    <th>3cnt</th>
+                                    <th>5cnt</th>
+                                    <th>10cnt</th>
+                                    <th>30cnt</th>
+                                    <th>cnt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for nextpatten in nextpattens %} 
+                                <tr>
+                                    <td>{{nextpatten.3cnt}}</td>
+                                    <td>{{nextpatten.5cnt}}</td>
+                                    <td>{{nextpatten.10cnt}}</td>
+                                    <td>{{nextpatten.30cnt}}</td>
+                                    <td>{{nextpatten.cnt}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}
@@ -172,7 +202,6 @@
     ////////////////////////////////////////////
     /////////////// 버튼 활성화 /////////////////
     ////////////////////////////////////////////
-    
     
     $(function(){
         $("#pt30").on('input', function(){
@@ -187,8 +216,9 @@
     /////////////// 테이블 형식 //////////////////
     ////////////////////////////////////////////
     
+    // Pattern Number
     $(document).ready(function(){
-            $('#basic-datatables').DataTable({
+            $('#num_of_patten-datatables').DataTable({
                 // 표시 건수기능 숨기기
                 lengthChange: true,
                 // 검색 기능 숨기기
@@ -202,9 +232,28 @@
             });
         });
 
+    // Next Pattens
+    $(document).ready(function(){
+            $('#number_of_cases-datatables').DataTable({
+                // 표시 건수기능 숨기기
+                lengthChange: true,
+                // 검색 기능 숨기기
+                searching: false,
+                // 정렬 기능 숨기기
+                ordering: true,
+                order: [[4, 'desc']],
+                // 정보 표시 숨기기
+                info: true,
+                // 페이징 기능 숨기기
+                paging: true
+            });
+        });
+
+    /////////////////////////////////////////////
+    /////////////// 데이터 받기 //////////////////
+    /////////////////////////////////////////////
+    
     
 
-    
 </script>
-
 {% endblock javascripts %}
