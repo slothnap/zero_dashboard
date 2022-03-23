@@ -42,7 +42,7 @@
                 	<div class="card-title">
                 		<div style ="float:left">
                 			<h2>
-                                Please pattern input
+                                Pattern input
                             </h2>
                 		</div>
                 		<form action ="/ptnlotto" method = "GET">
@@ -96,48 +96,23 @@
                 		</form>
                 	</div>
                 </div>
-                {% for lastwin in lastwins %} 
-                <div class="card-body"> 
-                    <p class="demo">
-                        <ul class="pagination pg-primary">
-                            <li class="page-item active">
-                                <a class="page-link">{{lastwin.seq}}</a>
-                            </li>
-                            <li class="page-item text-dark">
-                                <a class="page-link">{{lastwin.n1}}</a>
-                            </li>
-                            <li class="page-item text-dark">
-                                <a class="page-link">{{lastwin.n2}}</a>
-                            </li>
-                            <li class="page-item text-dark">
-                                <a class="page-link">{{lastwin.n3}}</a>
-                            </li>
-                            <li class="page-item text-dark">
-                                <a class="page-link">{{lastwin.n4}}</a>
-                            </li>
-                            <li class="page-item text-dark">
-                                <a class="page-link">{{lastwin.n5}}</a>
-                            </li>
-                            <li class="page-item text-dark">
-                                <a class="page-link">{{lastwin.n6}}</a>
-                            </li>
-                        </ul>
-                    </p>
-                </div>
-                {% endfor %}
             </div>
         </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" style ="float:left">
-                    	Pattern Number
-                    </h4>
+                    <div style ="float:left">
+                        <h4 class="card-title" style ="float:left">
+                        	Pattern Number
+                        </h4>
+                    </div>
                     <div style ="float:right">
                         <form action ="/ptnlotto" method = "GET">
-                        <input class="btn btn-info"
-                               type="submit"
-                               value="Again">
+                            <div style ="float:right">
+                                <input class="btn btn-info"
+                                       type="submit"
+                                       value="Again">
+                            </div>
                         </form>
                     </div>
                 </div>

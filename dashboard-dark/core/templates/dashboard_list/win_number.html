@@ -111,7 +111,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="basic-datatables" 
+                        <table id="win-datatables" 
                                class="display table table-striped table-hover" >
                             <thead>
                                 <tr>
@@ -142,6 +142,42 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Win Patten List
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="win_patten-datatables" 
+                               class="display table table-striped table-hover" >
+                            <thead>
+                                <tr>
+                                    <th>seq</th>
+                                    <th>3cnt</th>
+                                    <th>5cnt</th>
+                                    <th>10cnt</th>
+                                    <th>30cnt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for getwinpatten in getwinpattens %} 
+                                <tr>
+                                    <td>{{getwinpatten.seq}}</td>
+                                    <td>{{getwinpatten.3cnt}}</td>
+                                    <td>{{getwinpatten.5cnt}}</td>
+                                    <td>{{getwinpatten.10cnt}}</td>
+                                    <td>{{getwinpatten.30cnt}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}
@@ -155,7 +191,23 @@
     ////////////////////////////////////////////
     
     $(document).ready(function(){
-            $('#basic-datatables').DataTable({
+            $('#win-datatables').DataTable({
+                // 표시 건수기능 숨기기
+                lengthChange: true,
+                // 검색 기능 숨기기
+                searching: true,
+                // 정렬 기능 숨기기
+                ordering: true,
+                order: [[0, 'desc']],
+                // 정보 표시 숨기기
+                info: true,
+                // 페이징 기능 숨기기
+                paging: true
+            });
+        });
+
+    $(document).ready(function(){
+            $('#win_patten-datatables').DataTable({
                 // 표시 건수기능 숨기기
                 lengthChange: true,
                 // 검색 기능 숨기기

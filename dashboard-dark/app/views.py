@@ -21,6 +21,7 @@ from django.db import connection
 # 명령어: winlotto
 def WinLottoView(request):
 
+    ### 당첨 번호 ###
     winlottos = []
     winlottos = app.sql_list.sql_list.GetWin()
 
@@ -28,7 +29,15 @@ def WinLottoView(request):
     lastwins = []
     lastwins = app.sql_list.sql_list.GetLastWin()
 
-    context = {"winlottos": winlottos, "lastwins": lastwins}
+    ### 당첨 패턴 ###
+    getwinpattens = []
+    getwinpattens = app.sql_list.sql_list.GetWinPatten()
+
+    context = {
+                "winlottos": winlottos
+              , "lastwins": lastwins
+              , "getwinpattens": getwinpattens
+              }
     return render(request, 'dashboard_list/win_number.html', context)
     
 ################################################################################################################
