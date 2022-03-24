@@ -333,8 +333,8 @@
                 datasets : [{
                     label: "출현 횟수",
                     //backgroundColor: 'rgb(23, 125, 255)',
-                    backgroundColor: "#1d7af3",
-                    borderColor: "#1d7af3",
+                    backgroundColor: "#25b3a2",
+                    borderColor: "#25b3a2",
                     data: [all_cnt_number[0][1],all_cnt_number[1][1],all_cnt_number[2][1],
                            all_cnt_number[3][1],all_cnt_number[4][1],all_cnt_number[5][1],
                            all_cnt_number[6][1],all_cnt_number[7][1],all_cnt_number[8][1],
@@ -346,14 +346,17 @@
                 maintainAspectRatio: false,
                 scales: {
                     xAxes: [{
-                        min: 0,
-                        beginAtZero:true,
+                        ticks:{
+                            beginAtZero:true,   // 0부터 시작할 것인가
+                            stepSize: 20,       // 숫자 간격 사이즈 
+                        }
                     }],
-                    // yAxes: [{
-                    //     ticks: {
-                    //         beginAtZero:true
-                    //     }
-                    // }]
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true,
+                            fontColor : "#FAFAD2" // 축 데이터 색깔
+                        }
+                    }]
                 },
             }
         });
