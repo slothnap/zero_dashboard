@@ -50,7 +50,7 @@
 	                			<input class="btn btn-info"
 	                			       type="submit" 
 	                			       id="TestBtn"
-	                			       disabled="true"
+                                       disabled="ture"
 	                			       value="제출">
 	               			</div>
 	               			<div style ="float:right; margin-right:5px;
@@ -98,6 +98,7 @@
                         	Pattern Number
                         </h4>
                     </div>
+                    {% for ptnsource in ptnsources %}
                     <div style ="float:right">
                         <form action ="/ptnlotto" method = "GET">
                             <div style ="float:right">
@@ -106,7 +107,36 @@
                                        value="Again">
                             </div>
                         </form>
+                    </div> 
+                    <div style ="float:right"> 
+                        <ul class="pagination pg-primary">
+                            <li class="page-item active"
+                                style ="margin-right:5px">
+                                <a class="page-link">
+                                    {{ptnsource.3cnt}}
+                                </a>
+                            </li>
+                            <li class="page-item" 
+                                style ="margin-right:5px">
+                                <a class="page-link text-dark">
+                                    {{ptnsource.5cnt}}
+                                </a>
+                            </li>
+                            <li class="page-item" 
+                                style ="margin-right:5px">
+                                <a class="page-link text-dark">
+                                    {{ptnsource.10cnt}}
+                                </a>
+                            </li>
+                            <li class="page-item" 
+                                style ="margin-right:5px">
+                                <a class="page-link text-dark">
+                                    {{ptnsource.30cnt}}
+                                </a>
+                            </li>
+                        </ul>
                     </div>
+                    {% endfor %}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -157,10 +187,40 @@
             <div class="card">
                 <div class="card-header">
                     <div style ="float:left">
-                        <h4 class="card-title" style ="float:left">
+                        <h4 class="card-title">
                             Next Pattens
                         </h4>
                     </div>
+                    {% for nextpattensource in nextpattensources %} 
+                    <div style ="float:right"> 
+                        <ul class="pagination pg-primary">
+                            <li class="page-item active"
+                                style ="margin-right:5px">
+                                <a class="page-link">
+                                    {{nextpattensource.3cnt}}
+                                </a>
+                            </li>
+                            <li class="page-item" 
+                                style ="margin-right:5px">
+                                <a class="page-link text-dark">
+                                    {{nextpattensource.5cnt}}
+                                </a>
+                            </li>
+                            <li class="page-item" 
+                                style ="margin-right:5px">
+                                <a class="page-link text-dark">
+                                    {{nextpattensource.10cnt}}
+                                </a>
+                            </li>
+                            <li class="page-item" 
+                                style ="margin-right:5px">
+                                <a class="page-link text-dark">
+                                    {{nextpattensource.30cnt}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endfor %}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -203,14 +263,40 @@
     /////////////// 버튼 활성화 /////////////////
     ////////////////////////////////////////////
     
-    $(function(){
-        $("#pt30").on('input', function(){
-            if($("#pt30").val()=='')
-                $("#TestBtn").attr("disabled",true);
-            else
-                $("#TestBtn").attr("disabled",false);
-            });
+    // jQuery 방식
+
+    $(document).ready(function(){
+        $('#pt3').on('input change', function () 
+        {
+            if($('#pt3').val() != '') 
+            {
+                alert("pt3 값 채워짐")
+                if($('#pt5').val() != '')
+                {
+                    alert("pt5 값 채워짐")
+                    if($('#pt10').val() != '')
+                    {
+                        if($('#pt30').val() != '')
+                        {
+                            $('#TestBtn').prop('disabled', false);
+                        }
+                    }
+                }   
+            }
+            else {
+                $('#TestBtn').prop('disabled', true);
+            }
+        });
     });
+    //$(function)(){
+        // $("#pt30").on('input', function()
+        // {
+        //     if($("#pt30").val()=='' || $("#pt10").val()=='' )
+        //         $("#TestBtn").attr("disabled",true);
+        //     else
+        //         $("#TestBtn").attr("disabled",false);
+        // });
+    //});
 
     /////////////////////////////////////////////
     /////////////// 테이블 형식 //////////////////
@@ -253,7 +339,48 @@
     /////////////// 데이터 받기 //////////////////
     /////////////////////////////////////////////
     
-    
+
 
 </script>
 {% endblock javascripts %}
+
+
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
+<!-- 샘플 -->
+<!-- <script src="/static/assets/js/core/charts/colors.js"></script>     // 색깔 -->
+<!-- <script src="/static/assets/js/core/charts/charts_setting.js"></script>  // charts js 설정 -->
+
+<!-- <script> -->
+
+    // // <!--데이터 받기 -->
+    // var temp = "{{dashboard_list}}";
+
+    // // <!--데이터 수정 -->
+    // var temp2 = temp.replace(/&#x27;/g, "\"");
+
+    // // <!-- 수정된 데이터 배열에 담기 -->
+    // var data = JSON.parse(temp2);
+
+    // // 회원방문자 데이터만 필터링
+    // var sim_vigit_mmbr_data = Object.values(data[0]).splice(1,11);
+    // var sim_vigit_unmmbr_data = Object.values(data[2]).splice(1,11);
+
+
+    // // 일일가입자 카카오, 네이버, 일반가입
+    // var day_join_kakao_data = Object.values(data[28]).splice(1,11);
+    // var day_join_naver_data = Object.values(data[29]).splice(1,11);
+    // var day_join_gnrl_data  = Object.values(data[30]).splice(1,11);
+
+
+    // console.log(sale_ord_amnt);
+    // console.log(market_ord_amnt);
+
+    // // 데이터 받기 //
+    // var salesList = "{{sales_list}}";
+
+<!-- </script> -->
+
+<!-- <script src="/static/assets/js/core/sales/sales_simsale.js"></script> -->
