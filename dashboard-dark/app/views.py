@@ -29,9 +29,17 @@ def WinLottoView(request):
     lastwins = []
     lastwins = app.sql_list.sql_list.GetLastWin()
 
-    ### 최신 번호 ###
+    ### 최신번호 모든 출현 횟수 ###
+    allcnt_first = 1
+    allcnt_last  = "(select max(seq) from innodb.lotto)"
     numallcnts = []
-    numallcnts = app.sql_list.sql_list.GetNumAllCnt()
+    numallcnts = app.sql_list.sql_list.GetNumAllCnt(allcnt_first, allcnt_last)
+
+    ### 최근 30회 출현 횟수 ###
+    recently30_first = "(select max(seq) from innodb.lotto) - 31"
+    recently30_last  = "(select max(seq) from innodb.lotto)"
+    recently30s = []
+    recently30s = app.sql_list.sql_list.GetNumAllCnt(recently30_first, recently30_last)
 
     ### 당첨 패턴 ###
     getwinpattens = []
@@ -42,6 +50,7 @@ def WinLottoView(request):
               , "lastwins": lastwins
               , "getwinpattens": getwinpattens
               , "numallcnts": numallcnts
+              , "recently30s": recently30s
               }
     return render(request, 'dashboard_list/win_number.html', context)
     

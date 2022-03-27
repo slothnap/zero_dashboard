@@ -26,14 +26,15 @@ def GetLastWin():
 ###############################################################
 ###############################################################
 # 번호 출현 횟수 가져오기
-def GetNumAllCnt():
+def GetNumAllCnt(seq_first, seq_last):
   zeroDb = dbConf.DbConfig("zero")
   zeroDb.opendb()
 
-  sql = """
+  sql = f"""
         select num
              , count(*) cnt 
           from innodb.temp2
+         where seq between {seq_first} and {seq_last}
          group by num 
          order by 2 desc
         """

@@ -93,11 +93,35 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
+                    <div class="card-title">Rate of numbers </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
                     <div class="card-title">Frequency of appearances</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
-                        <canvas id="horizontalBar"></canvas>
+                        <canvas id="FrequencyBar"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"> Recently Frequency of appearances</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="RecentlyBar"></canvas>
                     </div>
                 </div>
             </div>
@@ -226,17 +250,13 @@
     /////////////// 데이터 받기 //////////////////
     /////////////////////////////////////////////
     
-    // 데이터 받기
+    // 비율 데이터
     var temp11 = "{{lastwins}}";
-
-    // 데이터 수정
     var temp12 = temp11.replace(/&#x27;/g, "\"");
-
-    //alert(temp2);
-    // 수정된 데이터 배열에 담기
     var data11 = JSON.parse(temp12);
 
     var win_number = Object.values(data11[0]).splice(1,6);
+
 
     /////////////// 비율 그래프 처리//////////////
     var r1 = r10 = r20 = r30 = r40 = 0;
@@ -259,16 +279,11 @@
         }
     }
     
+
     /////////////////////////////////////////////
-    /////////////// 데이터 받기 //////////////////
-    /////////////////////////////////////////////
+    // 번호 모든출현 횟수
     var temp21 = "{{numallcnts}}";
-
-    // 데이터 수정
     var temp22 = temp21.replace(/&#x27;/g, "\"");
-
-    //alert(temp22);
-    // 수정된 데이터 배열에 담기
     var data21 = JSON.parse(temp22);
 
     var all_cnt_number = [];
@@ -278,11 +293,30 @@
                              Object.values(data21[key]).splice(1,2)]);
     }
 
-	////////////////////////////////////////////
-	////////////////////////////////////////////
+
+    /////////////////////////////////////////////
+    // 최근 30회 출현 횟수
+    var temp31 = "{{recently30s}}";
+    var temp32 = temp31.replace(/&#x27;/g, "\"");
+    var data31 = JSON.parse(temp32);
+
+    var recently_30_number = [];
+
+    for (var key in data31){ 
+        recently_30_number.push([Object.values(data31[key]).splice(0,1),
+                                 Object.values(data31[key]).splice(1,2)]);
+    }
+
+
+
+	/////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
 
 	var pieChart = document.getElementById('pieChart').getContext('2d');
-    var horizontalBar = document.getElementById('horizontalBar').getContext('2d');
+    var FrequencyBar = document.getElementById('FrequencyBar').getContext('2d');
+    var RecentlyBar = document.getElementById('RecentlyBar').getContext('2d');
+
+
     
 	var myPieChart = new Chart(pieChart, {
             type: 'pie',
@@ -323,7 +357,7 @@
             }
         });
 
-    var myHorizontalBar = new Chart(horizontalBar, {
+    var FrequencyBar = new Chart(FrequencyBar, {
             type: 'horizontalBar',
             data: {
                 labels: [all_cnt_number[0][0],all_cnt_number[1][0],all_cnt_number[2][0],
@@ -331,7 +365,7 @@
                          all_cnt_number[6][0],all_cnt_number[7][0],all_cnt_number[8][0],
                          all_cnt_number[9][0]],
                 datasets : [{
-                    label: "출현 횟수",
+                    label: "전체 출현 횟수",
                     //backgroundColor: 'rgb(23, 125, 255)',
                     backgroundColor: "#25b3a2",
                     borderColor: "#25b3a2",
@@ -349,6 +383,46 @@
                         ticks:{
                             beginAtZero:true,   // 0부터 시작할 것인가
                             stepSize: 20,       // 숫자 간격 사이즈 
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true,
+                            fontColor : "#FAFAD2" // 축 데이터 색깔
+                        }
+                    }]
+                },
+            }
+        });
+
+    var RecentlyBar = new Chart(RecentlyBar, {
+            type: 'horizontalBar',
+            data: {
+                labels: [recently_30_number[0][0],recently_30_number[1][0],
+                         recently_30_number[2][0],recently_30_number[3][0],
+                         recently_30_number[4][0],recently_30_number[5][0],
+                         recently_30_number[6][0],recently_30_number[7][0],
+                         recently_30_number[8][0],recently_30_number[9][0]],
+                datasets : [{
+                    label: "최근 출현 횟수",
+                    //backgroundColor: 'rgb(23, 125, 255)',
+                    backgroundColor: "#ebdb2f",
+                    borderColor: "#ebdb2f",
+                    data: [recently_30_number[0][1],recently_30_number[1][1],
+                           recently_30_number[2][1],recently_30_number[3][1],
+                           recently_30_number[4][1],recently_30_number[5][1],
+                           recently_30_number[6][1],recently_30_number[7][1],
+                           recently_30_number[8][1],recently_30_number[9][1]]
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        ticks:{
+                            beginAtZero:true,   // 0부터 시작할 것인가
+                            stepSize: 5,       // 숫자 간격 사이즈 
                         }
                     }],
                     yAxes: [{

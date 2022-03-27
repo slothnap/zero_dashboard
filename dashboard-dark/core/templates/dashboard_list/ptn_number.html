@@ -272,12 +272,19 @@
         $("input[name='subbtn']").on("click", function()
         {
             var rv = true;
+            var pt3 = Number($('#pt3').val())  + Number($('#pt5').val())
+                    + Number($('#pt10').val()) + Number($('#pt30').val()); 
             
             if($('#pt3').val()  == '' || $('#pt5').val() == '' ||
                $('#pt10').val() == '' || $('#pt30').val() == '')
             {
-                alert("모든");    
-                return rv = false;
+                alert("모든 수를 입력해 주세요.");    
+                rv = false;
+            }
+            else if(pt3 != 6)
+            {
+                alert("합이 6이 되게 해주세요.");
+                rv = false;
             }
             
             return rv;
