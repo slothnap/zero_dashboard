@@ -49,8 +49,8 @@
 	                		<div style ="float:right">
 	                			<input class="btn btn-info"
 	                			       type="submit" 
-	                			       id="TestBtn"
-                                       disabled="ture"
+	                			       name="subbtn"
+                                       id="subbtn"
 	                			       value="제출">
 	               			</div>
 	               			<div style ="float:right; margin-right:5px;
@@ -59,7 +59,8 @@
                                        name="pt30" 
 		                		       type="text"
 		                		       class="form-control"
-		                		       placeholder="30">
+		                		       placeholder="30"
+                                       onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 	                		</div>
                             <div style ="float:right; margin-right:5px;
                                          height:40px; width:50px;">
@@ -67,7 +68,8 @@
                                        name="pt10" 
                                        type="text"
                                        class="form-control"
-                                       placeholder="10">
+                                       placeholder="10"
+                                       onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
                             </div>
                             <div style ="float:right; margin-right:5px;
                                          height:40px; width:50px;">
@@ -75,7 +77,8 @@
                                        name="pt5" 
                                        type="text"
                                        class="form-control"
-                                       placeholder="5">
+                                       placeholder="5"
+                                       onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
                             </div>
                             <div style ="float:right; margin-right:5px;
                                          height:40px; width:50px;">
@@ -83,7 +86,8 @@
                                        name="pt3" 
                                        type="text"
                                        class="form-control"
-                                       placeholder="3">
+                                       placeholder="3"
+                                       onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
                             </div>
                 		</form>
                 	</div>
@@ -263,40 +267,31 @@
     /////////////// 버튼 활성화 /////////////////
     ////////////////////////////////////////////
     
-    // jQuery 방식
-
-    $(document).ready(function(){
-        $('#pt3').on('input change', function () 
+    $(document).ready(function()
+    {
+        $("input[name='subbtn']").on("click", function()
         {
-            if($('#pt3').val() != '') 
+            var rv = true;
+            
+            if($('#pt3').val()  == '' || $('#pt5').val() == '' ||
+               $('#pt10').val() == '' || $('#pt30').val() == '')
             {
-                alert("pt3 값 채워짐")
-                if($('#pt5').val() != '')
-                {
-                    alert("pt5 값 채워짐")
-                    if($('#pt10').val() != '')
-                    {
-                        if($('#pt30').val() != '')
-                        {
-                            $('#TestBtn').prop('disabled', false);
-                        }
-                    }
-                }   
+                alert("모든");    
+                return rv = false;
             }
-            else {
-                $('#TestBtn').prop('disabled', true);
-            }
+            
+            return rv;
         });
     });
-    //$(function)(){
-        // $("#pt30").on('input', function()
-        // {
-        //     if($("#pt30").val()=='' || $("#pt10").val()=='' )
-        //         $("#TestBtn").attr("disabled",true);
-        //     else
-        //         $("#TestBtn").attr("disabled",false);
-        // });
-    //});
+
+    $(document).ready(function()
+    {
+        $(".onlynum").keyup( function()
+        {
+            $(this).val( $(this).val().replace(/[^0-9]/gi,"") ); 
+        });
+    });
+
 
     /////////////////////////////////////////////
     /////////////// 테이블 형식 //////////////////
