@@ -93,11 +93,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Rate of numbers </div>
+                    <div class="card-title">???????? </div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
-                        <canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
+                        <canvas id="queChart" style="width: 50%; height: 50%"></canvas>
                     </div>
                 </div>
             </div>
@@ -313,6 +313,7 @@
 	/////////////////////////////////////////////////////////////////////////////
 
 	var pieChart = document.getElementById('pieChart').getContext('2d');
+    var queChart = document.getElementById('queChart').getContext('2d');
     var FrequencyBar = document.getElementById('FrequencyBar').getContext('2d');
     var RecentlyBar = document.getElementById('RecentlyBar').getContext('2d');
 
@@ -356,6 +357,47 @@
                 }
             }
         });
+
+
+    var queChart = new Chart(queChart, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [r1, r10, r20, r30, r40],
+                    backgroundColor :["#fdaf4b", "#1d7af3","#f3545d","#33261f","#1aa132"],
+                    borderWidth: 0
+                }],
+                labels: ['range 1', 'range 10', 'range 20', 'range 30', 'range 40'] 
+            },
+            options : {
+                responsive: true, 
+                maintainAspectRatio: false,
+                legend: {
+                    position : 'bottom',
+                    labels : {
+                        fontColor: 'rgb(154, 154, 154)',
+                        fontSize: 11,
+                        usePointStyle : true,
+                        padding: 20
+                    }
+                },
+                pieceLabel: {
+                    render: 'percentage',
+                    fontColor: 'white',
+                    fontSize: 14,
+                },
+                tooltips: false,
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 20
+                    }
+                }
+            }
+        });
+    
 
     var FrequencyBar = new Chart(FrequencyBar, {
             type: 'horizontalBar',
