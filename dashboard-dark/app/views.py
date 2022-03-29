@@ -21,25 +21,30 @@ from django.db import connection
 # 명령어: winlotto
 def WinLottoView(request):
 
-    ### 당첨 번호 ###
-    winlottos = []
-    winlottos = app.sql_list.sql_list.GetWin()
+    ### 1번 ~ 최종 값 ### 
+    first_seq    = 1
+    last_seq = "(select max(seq) from innodb.temp2)"
+    before30_seq = " - 30"
 
     ### 최신 번호 ###
     lastwins = []
-    lastwins = app.sql_list.sql_list.GetLastWin()
+    lastwins = app.sql_list.sql_list.GetWin(last_seq, last_seq)
+
+    ### 당첨 번호 ###
+    winlottos = []
+    winlottos = app.sql_list.sql_list.GetWin(last_seq + before30_seq, last_seq)
+
+    ### 당첨 비율 ### 
+    winrates = []
+    winrates = app.sql_list.sql_list.GetRateWin(last_seq, last_seq)
 
     ### 최신번호 모든 출현 횟수 ###
-    allcnt_first = 1
-    allcnt_last  = "(select max(seq) from innodb.lotto)"
     numallcnts = []
-    numallcnts = app.sql_list.sql_list.GetNumAllCnt(allcnt_first, allcnt_last)
+    numallcnts = app.sql_list.sql_list.GetNumAllCnt(first_seq, last_seq)
 
     ### 최근 30회 출현 횟수 ###
-    recently30_first = "(select max(seq) from innodb.lotto) - 31"
-    recently30_last  = "(select max(seq) from innodb.lotto)"
     recently30s = []
-    recently30s = app.sql_list.sql_list.GetNumAllCnt(recently30_first, recently30_last)
+    recently30s = app.sql_list.sql_list.GetNumAllCnt(last_seq + before30_seq, last_seq)
 
     ### 당첨 패턴 ###
     getwinpattens = []
@@ -51,6 +56,7 @@ def WinLottoView(request):
               , "getwinpattens": getwinpattens
               , "numallcnts": numallcnts
               , "recently30s": recently30s
+              , "winrates": winrates
               }
     return render(request, 'dashboard_list/win_number.html', context)
     

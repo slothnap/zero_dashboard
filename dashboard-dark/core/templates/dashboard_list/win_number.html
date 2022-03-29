@@ -105,7 +105,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Frequency of appearances</div>
+                    <div class="card-title"> All Frequency</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
@@ -117,7 +117,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title"> Recently Frequency of appearances</div>
+                    <div class="card-title"> Recently 30 Frequency </div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
@@ -209,7 +209,6 @@
 {% block javascripts %}
 
 <script>
-
     /////////////////////////////////////////////
     /////////////// 테이블 형식 //////////////////
     ////////////////////////////////////////////
@@ -251,33 +250,35 @@
     /////////////////////////////////////////////
     
     // 비율 데이터
-    var temp11 = "{{lastwins}}";
+    
+    var temp11 = "{{winrates}}";
     var temp12 = temp11.replace(/&#x27;/g, "\"");
     var data11 = JSON.parse(temp12);
 
-    var win_number = Object.values(data11[0]).splice(1,6);
+    var win_rate = Object.values(data11[0]).splice(0,6);
 
+    alert(win_rate[0]);
 
-    /////////////// 비율 그래프 처리//////////////
-    var r1 = r10 = r20 = r30 = r40 = 0;
+    // /////////////// 비율 그래프 처리//////////////
+    // var r1 = r10 = r20 = r30 = r40 = 0;
 
-    for(i in win_number){
-        if(win_number[i] < 10){
-            r1 = r1 + 1;
-        }    
-        else if(win_number[i] < 20){
-            r10 = r10 + 1;
-        }
-        else if(win_number[i] < 30){
-            r20 = r20 + 1;
-        }
-        else if(win_number[i] < 40){
-            r30 = r30 + 1;
-        }
-        else{
-            r40 = r40 + 1;
-        }
-    }
+    // for(i in win_number){
+    //     if(win_number[i] < 10){
+    //         r1 = r1 + 1;
+    //     }    
+    //     else if(win_number[i] < 20){
+    //         r10 = r10 + 1;
+    //     }
+    //     else if(win_number[i] < 30){
+    //         r20 = r20 + 1;
+    //     }
+    //     else if(win_number[i] < 40){
+    //         r30 = r30 + 1;
+    //     }
+    //     else{
+    //         r40 = r40 + 1;
+    //     }
+    // }
     
 
     /////////////////////////////////////////////
@@ -312,8 +313,8 @@
 	/////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////
 
-	var pieChart = document.getElementById('pieChart').getContext('2d');
-    var queChart = document.getElementById('queChart').getContext('2d');
+	//var pieChart = document.getElementById('pieChart').getContext('2d');
+    //var queChart = document.getElementById('queChart').getContext('2d');
     var FrequencyBar = document.getElementById('FrequencyBar').getContext('2d');
     var RecentlyBar = document.getElementById('RecentlyBar').getContext('2d');
 
@@ -323,7 +324,8 @@
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [r1, r10, r20, r30, r40],
+                    data: [win_rate[0], win_rate[1], win_rate[2]
+                          ,win_rate[3], win_rate[4]],
                     backgroundColor :["#fdaf4b", "#1d7af3","#f3545d","#33261f","#1aa132"],
                     borderWidth: 0
                 }],
@@ -359,11 +361,12 @@
         });
 
 
-    var queChart = new Chart(queChart, {
+    var frqn30Chart = new Chart(queChart, {
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [r1, r10, r20, r30, r40],
+                    data: [win_rate[0], win_rate[1], win_rate[2]
+                          ,win_rate[3], win_rate[4]],
                     backgroundColor :["#fdaf4b", "#1d7af3","#f3545d","#33261f","#1aa132"],
                     borderWidth: 0
                 }],

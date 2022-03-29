@@ -1,19 +1,18 @@
 import app.sql_list.dbconfig as dbConf
 
 
-
 ###############################################################
 ###############################################################
-# 최신 당첨 번호 가져오기 
-def GetLastWin():
+# 당첨 결과값 가져오기
+def GetWin(seq_first, seq_last):
   zeroDb = dbConf.DbConfig("zero")
   zeroDb.opendb()
 
-  sql = """
+  sql = f"""
         select seq, n1, n2, n3, n4, n5, n6
           from innodb.lotto
          where 1=1
-           and seq = (select max(seq) from innodb.lotto)
+           and seq between {seq_first} and {seq_last}
          order by 1 desc
         """
   source = zeroDb.select(sql)
@@ -22,6 +21,33 @@ def GetLastWin():
   return source
 ###############################################################
 ###############################################################
+
+
+###############################################################
+###############################################################
+# 당첨 비율 가져오기 
+def GetRateWin(seq_first, seq_last):
+  zeroDb = dbConf.DbConfig("zero")
+  zeroDb.opendb()
+
+  sql = f"""
+        select ifnull(sum(case when num between 1  and 9  then 1 end),0) r1
+             , ifnull(sum(case when num between 10 and 19 then 1 end),0) r10
+             , ifnull(sum(case when num between 20 and 29 then 1 end),0) r20
+             , ifnull(sum(case when num between 30 and 39 then 1 end),0) r30
+             , ifnull(sum(case when num between 40 and 45 then 1 end),0) r40
+          from innodb.temp2
+         where 1=1
+           and seq between {seq_first} and {seq_last}
+        """
+  source = zeroDb.select(sql)
+  zeroDb.closedb()
+
+  return source
+###############################################################
+###############################################################
+
+
 
 ###############################################################
 ###############################################################
@@ -37,27 +63,6 @@ def GetNumAllCnt(seq_first, seq_last):
          where seq between {seq_first} and {seq_last}
          group by num 
          order by 2 desc
-        """
-  source = zeroDb.select(sql)
-  zeroDb.closedb()
-
-  return source
-###############################################################
-###############################################################
-
-###############################################################
-###############################################################
-# 당첨 결과값 가져오기
-def GetWin():
-  zeroDb = dbConf.DbConfig("zero")
-  zeroDb.opendb()
-
-  sql = """
-        select seq, n1, n2, n3, n4, n5, n6
-          from innodb.lotto
-         where 1=1
-           and seq between 990 and (select max(seq) from innodb.lotto)
-         order by 1 desc
         """
   source = zeroDb.select(sql)
   zeroDb.closedb()
