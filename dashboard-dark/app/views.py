@@ -55,8 +55,8 @@ def WinLottoView(request):
               , "lastwins": lastwins
               , "getwinpattens": getwinpattens
               , "numallcnts": numallcnts
-              , "recently30s": recently30s
               , "winrates": winrates
+              , "recently30s": recently30s
               }
     return render(request, 'dashboard_list/win_number.html', context)
     
